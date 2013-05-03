@@ -1,0 +1,1930 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="http://www.w3.org/StyleSheets/TR/W3C-ED.css" rel="stylesheet" type="text/css">
+
+<title>Using WAI-ARIA in HTML</title>
+<script class='remove'>
+  function addEllipsis(id) {
+    document.getElementById(id).childNodes.item(2).textContent = "\n    â€¦\n";
+  }
+  function removeNodes(nodesToRemove) {
+    var i, j;
+    for (i = 0; i < nodesToRemove.length; ++i) {
+      for (j = 0; j < nodesToRemove[i].length; ++j) {
+        nodesToRemove[i][j].parentNode.removeChild(nodesToRemove[i][j]);
+      }
+    }
+  }
+</script>
+<script class='remove'>
+  function getLastModifiedDate() {
+    var d = new Date(document.lastModified);
+    return d.toISOString().substring(0,10);
+  }
+</script>
+<script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+<script type="text/javascript" class='remove'>
+  var respecConfig = {
+      specStatus: "ED",
+      shortName:  "aria-in-html",
+      edDraftURI: "https://dvcs.w3.org/hg/aria-unofficial/raw-file/default/index.html",
+      editors: [
+            {   name:       "Steve Faulkner",
+                company:    "The Paciello Group",
+                mailto:     "sfaulkner@paciellogroup.com"
+            },
+  		 {   name:       "Hans Hillen",
+                company:    "The Paciello Group",
+                mailto:     "hhillen@paciellogroup.com"
+            },
+			 {   name:       "Gez Lemon",
+                company:    "The Paciello Group",
+                mailto:     "glemon@paciellogroup.com"
+            },
+			{   name:       "David MacDonald",
+                company:    "CanAdapt Solutions Inc.",
+                mailto:     "david100@sympatico.ca"
+            },
+      ],
+      extraCSS: [ "http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css" ],
+      wg:           "HTML Working Group",
+      wgURI:        "http://www.w3.org/html/wg/",
+      wgPublicList: "public-html",
+      wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/40318/status",
+      publishDate:  getLastModifiedDate(),
+      // publishDate:  "2013-02-05",
+      after: function () {
+        var nodesToRemove = [
+          document.querySelectorAll("table.parameters"),
+          document.querySelectorAll("li.tocline > a[href^='#attributes']"),
+          document.querySelectorAll("li.tocline > a[href^='#methods']"),
+        ];
+        addEllipsis('idl-def-HTMLElement');
+        removeNodes(nodesToRemove);
+      }
+  }
+</script>
+<style>
+table
+
+{
+
+	border-collapse: collapse;
+
+	border: 1px solid #630;	
+	
+font: normal 95% arial, Verdana, helvetica, sans-serif;
+}
+
+caption {font-weight: bold}
+
+th, td
+
+{
+
+	text-align: left;
+
+	vertical-align: top;
+
+	padding: 0.3em;
+
+	border: 1px solid #630;
+
+}
+
+td h1 {font-size:85%;margin:0 0 0 0;}
+td p {margin:5px 2px 5px 2px;}
+thead th
+
+{
+
+	font-weight: bold;
+
+	text-align: center;
+
+}
+
+/*td span {border: 2px solid #9acd32;display:inline-block;padding:2px;}
+span:focus {background:#f5f5f5;border: 2px solid #a0522d;}
+td:focus {background:#f5f5f5;border: 2px solid #a0522d;}*/
+caption {text-align:left}
+
+
+.support {color:#090;font-size:1.2em }
+	.partial {color:#939393;font-size:1.2em }
+	.nosupport{color:#F00;font-size:1.2em }
+
+
+	div.example{border: 1px dashed #b8860b;padding: 5px;margin-top:5px;background:#FFFFFF}
+	
+	sup {font-size: 80%}
+	td ul {padding-left:4px;list-style-type:none}
+	img {border:none}
+	code.block {color:#BF3400;padding: 10px;display:block;background:#EBEBEB;min-width:20em;max-width:48em;}
+	mark {background-color:#FF9}
+	div, section, hr {max-width:50em; margin-top:10px}
+	code {color:#BF3400 !important;}
+
+.example {margin-left:30px;} 
+</style>
+</head>
+
+<body>
+  <section id='abstract' role="contentinfo">
+  <p>This document is a practical guide for developers on how to to add
+      accessibility information to HTML elements using the
+      Accessible Rich Internet Applications specification [[!WAI-ARIA]], which
+      defines a way to make Web content and Web applications more accessible to
+      people with disabilities. This document demonstrates how to use WAI-ARIA in [[!HTML5]], which especially helps with dynamic content and
+      advanced user interface controls developed with Ajax, HTML, JavaScript, and
+      related technologies.</p>
+  </section>
+  <section id='sotd'>
+    <p class="note">This document is informative only. Resources are for information purposes only, no endorsement implied.</p>
+    <p>It was developed through the <a href="http://www.w3.org/WAI/PF/html-task-force">HTML Accessibility Taskforce</a>, and is published by the <a href="http://www.w3.org/html/wg/">HTML Working Group</a> with approval by the <a href="http://www.w3.org/WAI/PF/">Protocols and Formats Working Group</a>.</p>
+
+   <p> It is a draft document and its contents are subject to change without notice.</p>
+
+  </section>
+<div><hr></div>
+  <section tabindex="-1" id="intro">
+    <h2>Introduction</h2>
+    <p>This document is a practical guide for developers on how to to add
+      accessibility information to HTML elements using the
+      Accessible Rich Internet Applications specification [[!WAI-ARIA]], which
+      defines a way to make Web content and Web applications more accessible to
+      people with disabilities. This document demonstrates how to use WAI-ARIA in HTML5, it especially helps with dynamic content and
+      advanced user interface controls developed with Ajax, HTML, JavaScript, and
+      related technologies.</p>
+    <p>This document suggests which ARIA attributes it is appropriate to
+      use on each of the elements in [[!HTML5]].    </p>
+    <p>For general best-practice information for using ARIA, see the
+      [[WAI-ARIA-PRACTICES]] document.</p>
+    <p>The following is a longer list of resources that provide relevant information:</p>
+    <ul>
+      <li><a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></li>
+      <li><a href="http://www.w3.org/TR/wai-aria/">Accessible Rich Internet Applications (<ABBR title="Accessible Rich Internet Applications">WAI-ARIA</ABBR>) 1.0</a></li>
+      <li><a href="http://dev.w3.org/html5/spec/spec.html">HTML5</a></li>
+      <li><a href="http://www.html5accessibility.com">HTML5 Accessibility</a></li>
+      </ul>
+  </section>
+  <section role="main">
+  <h2 tabindex="-1" id="notes2">Notes on ARIA use in HTML
+    <section>
+    </section>
+  </h2>
+  <section>
+    <h3 tabindex="-1" id="rule1">First rule of ARIA use</h3>
+    <p>If you <em>can</em> use a native HTML element [[!HTML5]] or attribute with the semantics and behaviour you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
+    <h4 id="not-possible">Under what circumstances may this not be possible?</h4>
+    <ul>
+      <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
+      <li>If the feature is <a href="http://www.paciellogroup.com/blog/2010/04/html5-and-the-myth-of-wai-aria-redundance/">not currently available in HTML</a>.</li>
+      <li>If the feature is available in HTML [[!HTML5]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
+      </ul></section>
+   <section> <h3 id="second" tabindex="-1">Second rule of ARIA use</h3>
+    <p>Do not change native  semantics, unless you really have to.</p>
+    <p>For example: Developer wants to build a heading that's a button.</p>
+  <p>Do <strong>not</strong> do this:</p>
+  <code class="block">&lt;<mark>h1</mark> <mark>role=button</mark>&gt;heading button&lt;/<mark>h1</mark>&gt;</code>
+    <p><strong>Do</strong> this:</p>
+  <code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>
+  <p>Or better, <strong>do</strong> this:</p>
+    <code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>
+    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.com/jqtest/#goto_tree">tree widget</a>.</p></section>
+ <section> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
+   <p>All interactive ARIA controls must be usable with the keyboard. </p>
+   <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
+   <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
+   <p>For example if using <code>role=button</code> the element must be able to recieve focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> and the <code>space</code> key.</p>
+   <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p></section>
+   <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
+    <p>Adding an ARIA role <strong>overrides</strong> the native role semantics.</p>
+    <p>For example:</p>
+    <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
+    <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
+  <code class="block">&lt;button&gt;text&lt;/button&gt;</code>
+    <h4 id="role-not">What  adding a role does not do?</h4>
+    <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties</p>
+    <p>For example:</p>
+  <p>This:</p>
+    <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
+    <p>Becomes this in the accessibility tree:</p>
+  <code class="block">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
+    <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button, still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
+    <p><strong>Note: </strong>likewise, changing the role of an element <strong>does not</strong> add behaviours, properties or states of the role used. You must <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/">add those yourself</a>.</p></section>
+ <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
+    <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing roles</a> inline. If the content and interaction is only supported in a  scripting enabled browsing context, for example <a href="docs.google.com/">Google docs</a> applications require JavaScript enabled to work, so  it is safe for them to include the ARIA  markup inline.</p>
+    <p><strong>Otherwise</strong> add ARIA via scripting.</p></section>
+  <section><h3 tabindex="-1" id="validation">ARIA validation</h3>
+    <p>The easiest method is to use the <a href="http://dev.w3.org/html5/spec/syntax.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
+    <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML5 specification, please <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=Validator%20%28Nu%29">raise a bug report</a>.</p></section>
+  <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
+  <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
+    <p>For example, this:</p>
+  <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;text&lt;/h1&gt;</code>
+  <p>becomes this:</p>
+  <code class="block">&lt;&gt;text&lt;/&gt;</code>
+  <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.</p>
+    <p>For example, this:</p>
+  <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
+  <p>becomes this:</p>
+    <code class="block">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
+    <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
+    <p>For example, this:</p>
+  <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
+  &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
+  &lt;/table&gt;</code>
+    <p>becomes this:</p>
+    <code class="block">&lt;&gt;<br>
+     &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
+  &lt;/&gt;<br></code>
+    <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children.</p>
+  <p>For example, this:</p>
+    <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
+    &lt;tr&gt;&lt;td&gt;<br>
+    &lt;table&gt;<br>
+    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
+    &lt;/table&gt;<br>
+    &lt;/td&gt;&lt;tr&gt;<br>
+  &lt;/table&gt;</code>
+  <p>Becomes this:</p>
+    <code class="block">&lt;&gt;<br>
+    &lt;&gt;&lt;&gt;<br>
+    <mark>&lt;table&gt;</mark><br>
+    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
+    <mark>&lt;/table&gt;</mark><br>
+    &lt;/&gt;&lt;&gt;<br>
+    &lt;/&gt;</code></section>
+ <section> <h3 tabindex="-1" id="label">aria-labelledby and aria-describedby</h3>
+    <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://dev.w3.org/html5/spec/content-models.html#interactive-content-0"> interactive content</a> elements, they <strong>do not</strong> work correctly on <a href="http://dev.w3.org/html5/spec/the-a-element.html#the-a-element">links</a>, support on <a href="http://dev.w3.org/html5/spec/content-models.html#embedded-content-0">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://dev.w3.org/html5/spec/the-input-element.html#the-input-element"><code>input</code></a> types.</p>
+  <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
+    <p>The following example of <code>aria-labelledby</code> with multiple references uses the <code>label</code> element as it makes sense and it's an accessible element (in IE terms). The example could have used a <code>span</code> (for example) but then <code>tabindex=-1</code> would have to be added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
+  <code class="block">&lt;label <mark>id=&quot;l1&quot;</mark> for="f3"&gt;label text&lt;/label&gt;<br>
+  <br>
+  &lt;input type="text" id="f3" <mark>aria-labelledby=&quot;l1 l2&quot;</mark>&gt;<br>
+  <br>
+  &lt;p&gt;other content&lt;/p&gt;<br>
+  <br>
+  &lt;label <mark>id=&quot;l2&quot;</mark>&gt;more label text&lt;/label&gt;</code>
+    <p><strong>Note:</strong> elements also become <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a> in Internet Explorer when the element has an ARIA role. For example:</p>
+    <code class="block">&lt;div aria-describedby=&quot;test&quot; tabindex=&quot;0&quot;&gt;text&lt;/div&gt;<br>
+    <br>
+  &lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;
+    </code></section>
+   <section> <h3 id="application" tabindex="-1">Using ARIA role=application</h3>
+    <h4 id="not">So when should I use it, and when not?</h4>
+    <p>You <strong>do not</strong> use it if a set of controls only contains   these widgets, that are all part of standard HTML. This also applies if   you mark them up and create an interaction model using WAI-ARIA roles   instead of standard HTML widgets:</p>
+    <ul>
+      <li><code>text box</code>. This also applies to password, search, tel and other newer input <em>type</em> derivatives</li>
+      <li><code>textarea</code></li>
+      <li><code>check box</code></li>
+      <li><code>button</code></li>
+      <li><code>radio button</code> (usually inside a fieldset/legend element wrapper)</li>
+      <li><code>select + option</code>(s)</li>
+      <li><code>links</code>, <code>paragraphs</code>, <code>headings</code>, and other elements that are classic/native to documents on the web.</li>
+      </ul>
+    <p>You also do <strong>not</strong> use the <code>application</code> role if your   widget is one of the following more dynamic and non-native widgets.   Screen readers and other assistive technologies that support WAI-ARIA   will support switching between browse and focus modes for these by   default, too:</p>
+    <ul>
+      <li><code>tree view</code></li>
+      <li><code>slider</code></li>
+      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids etc.</li>
+      <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right arrow keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
+      <li><code>dialog</code> and <code>alertdialog</code>. These cause screen readers to go into a sort   of application mode implicitly once focus moves to a control inside   them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text   that explains the dialog's purpose, and set focus to the first   interactive control when you open it:<br>
+        <p><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;<br>
+        <br>
+        &lt;div <mark>id=&quot;log1&quot;</mark> tabindex=&quot;-1&quot;&gt;Provide user name and password to login.&lt;/div&gt;<br>
+        <br>
+        ...<br>
+        ...<br>
+        <br>
+      &lt;/div&gt;</code></p></li>
+      <li><code>toolbar </code>and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
+      </ul>
+    <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> interactive controls, and of   those, mostly advanced widgets, that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it FaceBook posts and comments, blogs,   Twitter feeds, even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
+    <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> is probably going to be in <strong>very rare</strong> cases!</p>
+    <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
+    <p>Put it on the closest containing element of your widget, for example   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
+    <p><strong>Only</strong> put it on the body element if your page   consists solely of a widget or set of widgets that all need the focus   mode to be turned on. If you have a majority of these widgets, but also   have something you want the user to browse, use <code>role=document </code>on the outer-most element of this document-ish part of the   page. It is the counterpart to <code>role=application</code> and will allow you to tell   the screen reader to use browse mode for this part. Also make this   element tabbable by setting a <code>tabindex=0</code>  on it so the user   has a chance to reach it. </p>
+    <p>As a rule of thumb: If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.</p>
+    <p><strong>NEVER</strong> put it on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
+    <p>For further information on the use of <code>role=application</code> refer to <a href="http://www.marcozehe.de/2012/02/06/if-you-use-the-wai-aria-role-application-please-do-so-wisely/">If you use the WAI-ARIA role "application", please do so wisely!</a></p></section>
+
+    <!-- <section><h2 id="hidden" tabindex="-1">Using aria-hidden</h2>
+    <p tabindex="-1">The <code>aria-hidden</code> attribute is designed to provided a declarative indication of content display state. Authors use CSS <code>display</code> and <code>visibility</code> properties to hide content from users and in practical terms this is what it does, yet there is no indicator of state in the HTML code itself. <code>aria-hidden</code> provides the indicator.  </p>
+    <p tabindex="-1">When content is hidden using CSS <code>display:none</code> or <code>visibility:hidden</code> in user agents that support CSS it is hidden for all users including users of all known assistive technology. Therefore if CSS is used to hide content from all users, the addition of the <code>aria-hidden</code> attribute is <strong>not required</strong> or needed.</p>
+    <p><strong>Effects of <code>aria-hidden</code>:</strong></p>
+    <ul>
+      <li> In <a href="http://html5accessibility.com/">supporting browsers</a> in conjunction with supporting assistive technology the content <strong>is not</strong> conveyed to the user via the assistive technology.</li>
+      <li>Content <strong>is</strong>  displayed as normal in the browser (i.e. <code>aria-hidden</code> has <strong>no effect</strong> on content for non AT users). In order to hide content from all users CSS <code>display:none</code> or <code>visibility:hidden</code> must be used.</li>
+      <li><code>aria-hidden=false</code> is <a href="http://www.w3.org/WAI/PF/aria-implementation/#mapping_state-property_table">not mapped</a> in any browser that supports <code>aria-hidden</code>, thus its use has no meaning or in other words has the same meaning as its absence.</li>
+    </ul>
+    <p tabindex="-1">If a declarative indication of the hidden state of content is required, use the HTML5 <a href="http://www.w3.org/html/wg/drafts/html/master/editing.html#the-hidden-attribute"><code>hidden</code> attribute</a>.</p>
+    <p tabindex="-1">For further information on the use the <code>hidden</code> and <code>aria-hidden</code> attributes refer to <a href="http://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/">HTML5 Accessibility Chops: hidden and aria-hidden</a></p></section> -->
+  <hr>
+  <section>  
+  <h2 tabindex="-1" id="rec">Recommendations Table:</h2>
+  <h3 id="rec-legend">legend </h3>
+    <p> <strong>'Should authors explicitly define default ARIA semantics? ' column</strong></p>
+    <ul>
+      <li><strong class="nosupport">NO</strong> = the default semantics are already implemented by browsers, so the default implied role, state or property associated with an element or attribute does not need to be used. There are notes indicating under certain circumstances default semantics are useful.</li>
+      <li><strong class="partial">N/A</strong> = there are no default ARIA semantics, but there may well be <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility AP</a>I semantics implemented by the browser.</li>
+      <li><strong class="support">Yes</strong> = the default semantics are not implemented across browsers, so the default implied role, state, property, or suggested semantics (if no ARIA default) may be used.</li>
+      </ul>
+    <p><strong>'What Other ARIA roles, states and properties may be used?' column</strong></p>
+    <p><strong class="nosupport">NONE</strong> = the element <strong>does not support</strong> ARIA roles, states and properties, this is usually because the element is not displayed in the document.</p>
+  
+    <table>
+      <caption>
+      Recommended ARIA usage by HTML language feature
+</caption>
+      <thead>
+        <tr>
+          <th>HTML language feature </th>
+          <th>Default  ARIA semantics</th>
+          <th>Should authors explicitly define default  ARIA semantics? </th>
+          <th>What Other ARIA roles, states and properties may be used?</th>
+        </tr>
+        <TR>
+          <TD>All elements</TD>
+          <TD>varies</TD>
+          <TD>varies</TD>
+          <TD>Role: <code><a href="#indexpresentation">presentation</a>,</code> except focusable elements or those with the warning '<strong>Not</strong> <code>role=presentation</code>' or those indicated:  <strong class="nosupport">NONE</strong></TD>
+        </TR>
+        <TR>
+          <TD><A href="http://dev.w3.org/html5/spec/the-a-element.html#the-a-element"><code>a</code></A> element with a <a href="http://dev.w3.org/html5/spec/links.html#attr-hyperlink-href"><code>href</code></a></TD>
+          <TD><code>role=<a href="#indexlink">link</a></code></TD>
+          <TD class="nosupport"><strong>NO</strong></TD>
+          <TD><p>Roles: <code><a href="#indexbutton">button</a>, <a href="#indexcheckbox">checkbox</a>, <a href="#indexmenuitem">menuitem</a>, <a href="#indexmenuitemcheckbox">menuitemcheckbox</a>, <a href="#indexmenuitemradio">menuitemradio</a>, <a href="#indextab">tab</a>, </code>or<code> <a href="#indextreeitem">treeitem</a></code> </p>
+            
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></TD>
+        </TR>
+        <TR>
+          <td><a href="http://dev.w3.org/html5/spec/the-address-element.html#the-address-element"><code>address</code></a> 
+          <td>NONE</td>
+          <TD class="partial"><strong> N/A</strong></TD>
+          <TD><p>Role:<a href="#indexcontentinfo"><code>contentinfo</code></a><br>
+          Any <a href="#global">global <code>aria-*</code> attributes</a></p></TD>
+        </TR>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-area-element.html#the-area-element"><code>area</code></a>  with a <a href="http://dev.w3.org/html5/spec/links.html#attr-hyperlink-href"><code>href</code></a></td>
+          <td><code>role=<a href="#indexlink">link</a></code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <code>aria-*</code> attributes applicable to the <code><a href="#indexlink">link</a></code> role.  Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <TR>
+          <TD><code><A href="http://dev.w3.org/html5/spec/the-article-element.html#the-article-element">article</A></code></TD>
+          <TD><code>role=<a href="#indexarticle">article</a></code></TD>
+          <TD class="support"><span class="support"><strong>YES</strong></span><strong><sup> <a href="#note0">note 0</a></sup></strong></TD>
+          <TD><p>Roles: <code>presentation</code>, <code>article, document, application, or main</code>.<br>
+          Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+          <p><a id="note0" tabindex="-1"><strong>Note 0: <span class="nosupport">NO </span></strong></a>if  a child of an <code>article</code> element or being used to mark up comments.</p></TD>
+        </TR>
+        <TR>
+          <TD><code><A href="http://dev.w3.org/html5/spec/the-aside-element.html#the-aside-element">aside</A> </code></td>
+          <TD><code>role=<a href="#indexcomplementary">complementary</a></code></TD>
+           <TD class="support"><strong>YES</strong></TD>
+          <TD><p>Roles:<code> <a href="#indexnote">note</a>, <a href="#indexcomplementary">complementary</a></code>, or <a href="#indexsearch"><code>search</code></a>. </p>
+            <p>
+              Any <a href="#global">global <code>aria-*</code> attributes</a>
+          </p></TD>
+        </TR>
+        <TR>
+          <TD><code><A href="http://dev.w3.org/html5/spec/the-audio-element.html#the-audio-element">audio</A> </code></td>
+          <TD>NONE</TD>
+          <TD class="partial"><strong> N/A</strong></TD>
+          <TD><p>Role: <a href="#indexapplication"><code>application</code></a> <br>
+          Any <code>aria-*</code> attributes applicable to the <a href="#indexapplication"><code>application</code></a> role.  Any <a href="#global">global <code>aria-*</code> attributes</a></p></TD>
+        </TR>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-base-element.html#the-base-element">base</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/dom.html#the-body-element-0"><code>body</code></a></td>
+          <td><code>role=<a href="#indexdocument">document</a></code></td>
+          <TD class="nosupport"><strong>NO</strong></TD>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a> </td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-button-element.html#the-button-element">button</a> 
+            </code>
+          <td><code>role=<a href="#indexbutton">button</a></code></td>
+          <TD class="nosupport"><strong>NO <sup><a href="#note0a">note 0a</a></sup></strong></TD>
+          <td><p>Roles:  <code><a href="#indexlink">link</a>, <a href="#indexmenuitem">menuitem</a>, <a href="#indexmenuitemcheckbox">menuitemcheckbox</a>, <a href="#indexmenuitemradio">menuitemradio</a>, <a href="#indexradio">radio</a></code>. <br>
+            Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+            <p><a id="note0a" tabindex="-1"><strong>Note 0a: <span class="support">YES </span></strong></a>If the <code>aria-pressed</code> attribute is being used on the <code>button</code> element</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-button-element.html#the-button-element">button</a> <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-button-type">type="menu"</a></code>
+          <td><code>role=button</code> with <code>aria-haspopup=true</code></td>
+          <TD class="nosupport"><strong>NO <sup><a href="#note0a">note 0b</a></sup></strong></TD>
+          <td><p>Roles: <code><a href="#indexlink">link</a>, <a href="#indexmenuitem">menuitem</a>, <a href="#indexmenuitemcheckbox">menuitemcheckbox</a>, <a href="#indexmenuitemradio">menuitemradio</a>, <a href="#indexradio">radio</a></code>. <br>
+            Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+            <p><a id="note0b" tabindex="-1"><strong>Note 0b: <span class="support">YES</span></strong></a> If <code><a href="http://dev.w3.org/html5/spec/the-button-element.html#the-button-element">button</a> <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#attr-button-type">type="menu"</a></code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfil</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-caption-element.html#the-caption-element"><code>caption</code></a>            
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td>
+            <p><a href="http://dev.w3.org/html5/spec/the-col-element.html#the-col-element"><code>col</code></a><code>, <a href="http://dev.w3.org/html5/spec/the-colgroup-element.html#the-colgroup-element">colgroup</a></code><a href="http://dev.w3.org/html5/spec/the-colgroup-element.html#the-colgroup-element"></a></p>
+            <p></p>            
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-datalist-element.html#the-datalist-element">datalist</a> 
+            </code>
+          <td><code>role=listbox</code>, with  <code>aria-multiselectable=false</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note1">note 1</a></sup></strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> listbox</code> role.</p>
+          <p><a id="note1" tabindex="-1"><strong>Note 1: <span class="support">YES </span></strong></a>If <code>datalist</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dd-element"><code>dd</code></a><code>, <a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dt-element">dt</a></code><a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dt-element"></a>
+          <td>NONE</td>
+          <TD><strong class="partial">N/A</strong></TD>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-details-element.html#the-details-element">details</a> 
+            </code>
+          <td><code>role=group</code></td>
+          <td class="support"><strong>YES</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the <code>group</code> role.</td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/commands.html#the-dialog-element"><code>dialog</code></a> element with no <a href="http://dev.w3.org/html5/spec/commands.html#attr-dialog-open"><code>open</code></a> attribute </td>
+          <td><code>role=dialog</code>, with  <code>aria-hidden</code> <code>=</code><code>true</code></td>
+          <td class="support"><strong>YES</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the <code>dialog</code> role. (Recommend using <code>hidden</code>/CSS <code>display:none</code> instead of <code>aria-hidden</code>)</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-div-element.html#the-div-element"><code>div</code> </a>     
+          <td>NONE</td>
+          <TD><strong class="partial">N/A</strong></TD>
+          <td><p>Role: Any</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+          <p><strong>Note:</strong> It is recommended that any scripted widgets use the semantically neutral <code>div</code> or <code>span</code> elements unless HTML elements with native semantics are being used as fallback.</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-dl-element.html#the-dl-element"><code>dl</code></a>      
+          <td><code>role=list</code></td>
+          <TD><strong class="nosupport">NO</strong></TD>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-embed-element.html#the-embed-element">embed</a> 
+            </code>
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td> <p>Role: <code>application, document, </code>or<code> img </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-figure-element.html#the-figure-element"><code>figure </code></a>      
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td><p>Role:Any, recommend <code>role=group</code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-footer-element.html#the-footer-element">footer</a> 
+            </code>
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td><p>Use <code>contentinfo</code> role for the main <code>footer</code> on a page. </p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-form-element.html#the-form-element">form</a></code></td>
+          <td><code>role=form</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p></td>
+        </tr>
+        <tr>
+          <td><p>grouping content elements not listed elsewhere:</p>
+          <p><A href="http://dev.w3.org/html5/spec/the-p-element.html#the-p-element"><code>p</code></A><code>, <A href="http://dev.w3.org/html5/spec/the-pre-element.html#the-pre-element">pre</A>, <A href="http://dev.w3.org/html5/spec/the-blockquote-element.html#the-blockquote-element">blockquote</A></code><A href="http://dev.w3.org/html5/spec/the-blockquote-element.html#the-blockquote-element"></A></p></td>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note:</strong> Although the listed elements do not have any default ARIA semantics they do have <em>meaning</em> and this meaning may be represented in roles, states and properties not provided by ARIA, but present in <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility APIs</a>. It is therefore recommended that authors consider adding a <code>role</code> attribute to a semantically neutral element such as a <code>div</code> or <code>span</code>, rather than overriding the semantics of the listed elements. Refer to the <a href="#second">Second rule of ARIA use</a>.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-h1-h2-h3-h4-h5-and-h6-elements.html#the-h1-h2-h3-h4-h5-and-h6-elements"><code>h1</code></a> to <a href="http://dev.w3.org/html5/spec/the-h1-h2-h3-h4-h5-and-h6-elements.html#the-h1-h2-h3-h4-h5-and-h6-elements"><code>h6</code></a> element</td>
+          <td><code>role=heading</code>, with the <code>aria-level</code> = element's <a href="http://dev.w3.org/html5/spec/headings-and-sections.html#outline-depth">outline depth</a></td>
+          <TD class="nosupport"><strong>NO</strong></TD>
+          <td><span>Any <a href="#global">global <code>aria-*</code> attributes</a> </span></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-head-element.html#the-head-element">head</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-header-element.html#the-header-element"><code>header</code></a>
+          <td>NONE</td>
+          <TD><strong class="support">YES</strong></TD>
+          <td><p>Use <code>banner</code> role for the main <code>header</code> on a page. </p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-hgroup-element.html#the-hgroup-element">hgroup</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-hr-element.html#the-hr-element">hr</a> 
+            </code>
+          <td><code>role=separator</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td>Any global<code> aria-*</code> attributes and any <code>aria-*</code> attributes applicable to the <code>separator</code> role.</td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-html-element.html#the-html-element">html</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-iframe-element.html#the-iframe-element"><code>iframe</code></a>
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td><p>Role: <code>application, document, </code>or<code> img </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-img-element.html#the-img-element">img</a> with <a href="http://dev.w3.org/html5/spec/the-img-element.html#attr-img-alt">alt</a>=&quot;&quot;</code></td>
+          <td><code>role=presentation</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-img-element.html#the-img-element">img</a> with <a href="http://dev.w3.org/html5/spec/the-img-element.html#attr-img-alt">alt</a>=&quot;<em>some text</em>&quot;</code></td>
+          <td><code>role=img</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Role: Any</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code>input type= </code><a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#image-button-state-type-button" ><code>button</code></a></td>
+          <td><code>role=button</code></td>
+          <TD><strong class="nosupport">NO <sup><a href="#note1a">note 1b</a></sup></strong></TD>
+          <td><p>Role: <code> link, menuitem, menuitemcheckbox, menuitemradio, radio </code></p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+            <p><a id="note1b" tabindex="-1"><strong>Note 1a: <span class="support">YES </span></strong></a>If the <code>aria-pressed</code> attribute is being used on the <code>input type=button</code> element</p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type= <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#checkbox-state-type-checkbox" title="attr-input-type-checkbox">checkbox</a></code></td>
+          <td><code>aria-checked=mixed</code> if the element's <a href="http://dev.w3.org/html5/spec/the-input-element.html#dom-input-indeterminate">indeterminate</a> IDL attribute is true, or <code>aria-checked=true</code> if <code>checked</code> attribute is present.</td>
+          <td class="nosupport"><strong>NO <sup><a href="#note2">note 2</a></sup> <sup><a href="#note1"></a></sup></strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p> <span id="note2" tabindex="-1"><strong>Note 2</strong></span>: <strong class="support">YES</strong> If you are using <code>aria-checked=&quot;mixed&quot;</code> on an <code>input type=checkbox</code> to convey the 3rd state for a tri-state checkbox, as per current browser implementations it is required that an explicit <code>role=checkbox</code> is declared and if so you may use any <code>aria-*</code> attributes applicable to the <code>checkbox</code> role.</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#color-state-type-color" title="attr-input-type-color">color</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#date-state-type-date" title="attr-input-type-date">date</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#date-and-time-state-type-datetime" title="attr-input-type-datetime">datetime</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#local-date-and-time-state-type-datetime-local">datetime-local</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#e-mail-state-type-email" title="attr-input-type-email">email</a></code>  with no <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>role=textbox</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#file-upload-state-type-file" title="attr-input-type-file">file</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#hidden-state-type-hidden" title="attr-input-type-hidden">hidden</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code>input type= </code><a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#image-button-state-type-image" title="attr-input-type-image"><code>image</code></a></td>
+          <td><code>role=button</code></td>
+          <TD><strong class="nosupport">NO <sup><a href="#note2a">note 2a</a></sup></strong> </TD>
+          <td><p>Role: <code> link, menuitem, menuitemcheckbox, menuitemradio, radio </code></p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+            <p><a id="note2a" tabindex="-1"><strong>Note 2a: <span class="support">YES </span></strong></a>If the <code>aria-pressed</code> attribute is being used on the <code>input type=image</code> element</p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#month-state-type-month" title="attr-input-type-month">month</a></code></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#number-state-type-number" title="attr-input-type-number">number</a></code></td>
+          <td><code>role=spinbutton</code>, the <code>aria-valuemax =</code> <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-max" title="concept-input-max"><code>maximum</code></a>, the <code>aria-valuemin</code> <code>=</code> <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-min" title="concept-input-min"><code>minimum</code></a>, and, if the result of applying the <a href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#rules-for-parsing-floating-point-number-values">rules for parsing floating point number values</a> to the element's <a href="http://dev.w3.org/html5/spec/attributes-common-to-form-controls.html#concept-fe-value" title="concept-fe-value">value</a> is a number, with the <code>aria-valuenow</code> property set to that number </td>
+          <td class="nosupport"><strong>NO <sup><a href="#note3"> note 3</a></sup></strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the <code>spinbutton</code> role.</p>
+            <p><a id="note3" tabindex="-1">Note 3:<strong> <span class="support">YES </span></strong></a>If <code>input type=number</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#password-state-type-password" title="attr-input-type-password">password</a></code></td>
+          <td><code>role=textbox</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#radio-button-state-type-radio" title="attr-input-type-radio">radio</a></code></td>
+          <td><code>role=radio</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Role: <code>menuitemradio</code></p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a>  and any <code>aria-*</code> attributes applicable to the <code>menuitemradio</code> role.</p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#range-state-type-range" title="attr-input-type-range">range</a></code></td>
+          <td><code>role=slider </code>role, with the <code>aria-valuemax=</code> <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-max" title="concept-input-max"><code>maximum</code></a>, the <code>aria-valuemin</code> <code>=</code> <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-min" title="concept-input-min"><code>minimum</code></a>, and the <code>aria-valuenow</code> property set to the result of applying the <a href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#rules-for-parsing-floating-point-number-values">rules for parsing floating point number values</a> to the element's <a href="http://dev.w3.org/html5/spec/attributes-common-to-form-controls.html#concept-fe-value" title="concept-fe-value">value</a>, if that results in a number, or the <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#concept-input-value-default-range" title="concept-input-value-default-range">default value</a> otherwise </td>
+          <td class="nosupport"><strong>NO <sup><a href="#note4">note 4</a></sup></strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> slider </code>role.
+            </p>
+            
+            <p><a id="note4" tabindex="-1">Note 4:<strong> <span class="support">YES</span></strong></a> If <code>input type=range</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type= <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#reset-button-state-type-reset" title="attr-input-type-reset">reset</a></code></td>
+          <td><code>button</code> role </td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-input-element.html#the-input-element"><code>input</code></a><code> type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#text-type-text-state-and-search-state-type-search" title="attr-input-type-search">search</a></code>, with no <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>textbox </code>role</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#submit-button-state-type-submit" title="attr-input-type-submit">submit </a></code></td>
+          <td><code>button</code> role </td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#telephone-state-type-tel" title="attr-input-type-tel">tel</a> </code>with no <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>textbox </code>role</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#text-type-text-state-and-search-state-type-search" title="attr-input-type-text">text</a> </code>with no <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>textbox</code> role</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input type =</code> <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#text-type-text-state-and-search-state-type-search" title="attr-input-type-text"><code>text</code></a><code>, <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#text-type-text-state-and-search-state-type-search" title="attr-input-type-search">search</a>, <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#telephone-state-type-tel" title="attr-input-type-tel">tel</a>, <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#url-state-type-url" title="attr-input-type-url">url</a>, </code>or<code> <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#e-mail-state-type-email" title="attr-input-type-email">email</a></code> with a <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>combobox</code> role, with the <code>aria-owns</code> property set to the same value as the <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#attr-input-list"><code>list</code></a> attribute</td>
+          <td class="nosupport"><strong>NO <sup><a href="#note5">note 5</a></sup></strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> combobox </code>role.</p>
+            <p><a id="note5" tabindex="-1"><strong>Note 5: <span class="support">YES</span></strong></a> If <code>input </code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p><strong>Not</strong> <code>role=presentation</code></p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input  type= <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#time-state-type-time" title="attr-input-type-time">time</a></code></td>
+          <td>NONE</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#url-state-type-url" title="attr-input-type-url">url</a></code><a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#url-state-type-url" title="attr-input-type-url"></a>  with no <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#concept-input-list" title="concept-input-list"><code>list</code></a> attribute</td>
+          <td><code>textbox</code> role</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code>input type = <a href="http://dev.w3.org/html5/spec/states-of-the-type-attribute.html#week-state-type-week" title="attr-input-type-week">week</a></code></td>
+          <td>NONE</td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><p><A href="http://dev.w3.org/html5/spec/the-ins-element.html#the-ins-element">ins</A> and <A href="http://dev.w3.org/html5/spec/the-del-element.html#the-del-element">del</A></p>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note:</strong> Although the listed elements do not have any default ARIA semantics they do have <em>meaning</em> and this meaning may be represented in roles, states and properties not provided by ARIA, but present in <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility APIs</a>. It is therefore recommended that authors consider adding a <code>role</code> attribute to a semantically neutral element such as a <code>div</code> or <code>span</code>, rather than overriding the semantics of the listed elements. Refer to the <a href="#second">Second rule of ARIA use</a>.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-keygen-element.html#the-keygen-element"><code>keygen</code></a> 
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-label-element.html#the-label-element"><code>label</code></a> 
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a> </td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-li-element.html#the-li-element"><code>li</code></a> element whose parent is an <a href="http://dev.w3.org/html5/spec/the-ol-element.html#the-ol-element"><code>ol</code></a> or <a href="http://dev.w3.org/html5/spec/the-ul-element.html#the-ul-element"><code>ul</code></a>
+          <td><code>role=listitem</code></td>
+          <TD class="nosupport"><strong>NO</strong> <strong><sup><a href="#note5a">note 5a</a></sup></strong></TD>
+          <td><p>Role: <code>listitem, menuitemcheckbox, menuitemradio, option, tab, </code>or<code> treeitem </code></p>
+          <p><a id="note5a" tabindex="-1">Note 5a<strong>: <span class="support">YES</span></strong></a> if<code> li </code>element is a child of an <code>ol</code> or <code>ul</code> element with <code>role=presentation.</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-link-element.html#the-link-element"><code>link</code></a> element with a <a href="http://dev.w3.org/html5/spec/links.html#attr-hyperlink-href"><code>href</code></a></td>
+          <td><code>role=link</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+       <tr>
+          <td><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-main-element"><code>main</code></a></td>
+          <td><code>role=main</code></td>
+          <td class="support"><strong>YES</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr> 
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-map-element.html#the-map-element"><code>map</code></a></td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/mathml.html#mathml"><code>math</code></a></td>
+          <td><code>role=math</code></td>
+          <td class="support"><strong>YES</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-menu-element.html#the-menu-element">menu</a> <a href="http://dev.w3.org/html5/spec/the-menu-element.html#attr-menu-type">type</a> = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#context-menu-state" title="context menu state"> popup menu</a></code></td>
+          <td><code>role=menu</code> with <code>aria-haspopup=&quot;true&quot;</code></td>
+          <TD class="nosupport"><strong>NO</strong> <strong><sup><a href="#note6">note 6</a></sup></strong></TD>
+          <td><p><a id="note6" tabindex="-1">Note 6:<strong> <span class="support">YES</span></strong></a> if <code>menu </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> toolbar </code>role. </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+       <!-- <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-menu-element.html#the-menu-element">menu</a> <a href="http://dev.w3.org/html5/spec/the-menu-element.html#attr-menu-type">type</a> = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#list-state" title="list state">list</a></code></td>
+          <td><code>role=menu</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note6">note 6</a></sup></strong></td>
+          <td><p><a id="note6" tabindex="-1">Note 6<strong>: <span class="support">YES</span></strong></a> if<code> menu </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menu </code>role. </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>-->
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-menu-element.html#the-menu-element">menu</a> <a href="http://dev.w3.org/html5/spec/the-menu-element.html#attr-menu-type">type</a> = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#toolbar-state" title="toolbar state">toolbar</a></code></td>
+          <td><code>role=toolbar</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note7">note 7</a></sup></strong></td>
+          <td><p><a id="note7" tabindex="-1">Note 7:<strong> <span class="support">YES</span> </strong>if</a> <code>menu </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> toolbar </code>role. </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-menuitem-element"><code>menuitem</code></a>          
+            <code><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type">type</a> = <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type-state-command">command</a></code>
+          <td><code>role=menuitem</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note7a">note 7a</a></sup></strong></td>
+          <td><p><a id="note7a" tabindex="-1">Note 7a:<strong> <span class="support">YES </span></strong>if</a> <code>menuitem </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>. </p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitem </code>role. </p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        
+        <tr>
+          <td><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-menuitem-element"><code>menuitem</code></a> <code><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type">type</a> = <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type-state-checkbox">checkbox</a></code>
+          <td><code>role=menuitemcheckbox</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note7b">note 7b</a></sup></strong></td>
+          <td><p><a id="note7b" tabindex="-1">Note 7b:<strong> <span class="support">YES </span></strong>if</a> <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-menuitem-element"><code>menuitem</code></a> <code><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type">type</a> = <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type-state-checkbox">checkbox</a></code> element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>. </p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitemcheckbox </code>role. </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-menuitem-element"><code>menuitem</code></a> <code><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type">type</a> = <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type-state-radio">radio</a></code>
+          <td><code>role=menuitemradio</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note7b">note 7c</a></sup></strong></td>
+          <td><p><a id="note7c" tabindex="-1">Note 7c:<strong> <span class="support">YES</span></strong> if </a><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#the-menuitem-element"><code>menuitem</code></a> <code><a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type">type</a> = <a href="http://www.w3.org/html/wg/drafts/html/master/interactive-elements.html#attr-menuitem-type-state-radio">radio</a></code> element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>. </p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitemradio </code>role. </p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-meta-element.html#the-meta-element">meta</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-meter-element.html#the-meter-element">meter</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-nav-element.html#the-nav-element">nav</a> 
+            </code>
+          <td><code>role=navigation</code></td>
+          <td class="support"><strong>YES</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-noscript-element.html#the-noscript-element">noscript</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-object-element.html#the-object-element"><code>object</code></a><code>
+            </code>
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td><p>Role: <code>application, document, </code>or<code> img </code></p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-optgroup-element.html#the-optgroup-element"><code>optgroup</code></a> 
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-option-element.html#the-option-element">option</a> element that is in a <a href="http://dev.w3.org/html5/spec/the-select-element.html#concept-select-option-list" title="concept-select-option-list">list of options</a> or that represents a suggestion in a <a href="http://dev.w3.org/html5/spec/the-datalist-element.html#the-datalist-element">datalist</a> 
+          <td><code>role=option</code>, with <code>aria-selected=true</code> if the <code>selected</code> attribute is present, <code>aria-selected=false</code> otherwise. </td>
+          <td class="partial"><strong class="nosupport">NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-ol-element.html#the-ol-element">ol</a>
+            </code>
+          <td><code>role=list </code></td>
+          <TD class="nosupport"><strong>NO</strong></TD>
+          <td>Role: <code>directory, listbox, menu, menubar, tablist, toolbar, tree </code></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-output-element.html#the-output-element">output</a>
+            </code>
+          <td><code>role=status </code></td>
+          <TD><strong class="support">YES</strong></TD>
+          <td><p>Role: Any, use in conjunction with <code>aria-live=polite</code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-param-element.html#the-param-element">param</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-progress-element.html#the-progress-element">progress</a> 
+            </code>
+          <td><code>progressbar</code> role, with, if the progress bar is determinate, the <code>aria-valuemax</code> property set to the maximum value of the progress bar, the aria-valuemin property set to zero, and the aria-valuenow property set to the current value of the progress bar </td>
+          <td class="nosupport"><strong>NO <sup><a href="#note8">note 8</a></sup></strong></td>
+          <td><p><a id="note8" tabindex="-1">Note 8:<strong> <span class="support">YES</span> </strong>if</a> <code>progress </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> progressbar </code>role. </p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-script-element.html#the-script-element">script</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-section-element.html#the-section-element"><code>section</code></a>
+          <td><code>role=region</code></td>
+          <TD><strong class="nosupport">NO</strong></TD>
+          <td><p>Role: <code>alert,        alertdialog,        application,        contentinfo,        dialog,        document,        log,        marquee,                search, </code>or<code> status </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-select-element.html#the-select-element"><code>select</code></a> element with a <a href="http://dev.w3.org/html5/spec/the-select-element.html#attr-select-multiple"><code>multiple</code></a> attribute </td>
+          <td><code>role=listbox</code>, with <code>aria-multiselectable=true</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-select-element.html#the-select-element"><code>select</code></a> element with no <a href="http://dev.w3.org/html5/spec/the-select-element.html#attr-select-multiple"><code>multiple</code></a> attribute </td>
+          <td><code>role=listbox</code>, with <code>aria-multiselectable=false</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-source-element.html#the-source-element">source</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-div-element.html#the-div-element"><code>span</code></a>
+          <td>NONE</td>
+          <TD><strong class="partial">N/A</strong></TD>
+          <td><p>Role: Any</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+            <p><strong>Note:</strong> It is recommended that any scripted widgets use the semantically neutral <code>div</code> or <code>span</code> elements, unless HTML elements with native semantics are being used as fallback.</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-style-element.html#the-style-element">style</a> 
+            </code>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/svg-0.html#svg-0">SVG</a></code>        
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: <code>application, document, </code>or<code> img </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-summary-element.html#the-summary-element">summary</a> 
+            </code>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>if <code>summary</code> element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a> - Use <code>role=button</code> with <code>aria-expanded="true"</code> if the element's <a href="http://dev.w3.org/html5/spec/the-details-element.html#attr-details-open"><code>open</code></a> attribute is present, <code>aria-expanded="false"</code> otherwise. </p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> button </code>role. </p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-table-element.html#the-table-element"><code>table</code></a>            
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note 1: </strong>It is  recommended to not override the <code>table</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>grid</code> role may be used.</p>
+            <p><strong>Note 2: </strong>It is recommended that the <code>table</code> element  not be used for layout purposes, but if it is, it is strongly recommended that <code>role=presentation</code> is used to hide the semantics of the <code>table</code> and its child elements, <code>tr</code> and <code>td</code> from assistive technology.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-textarea-element.html#the-textarea-element">textarea</a> 
+            </code>
+          <td><code>role=textbox</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
+          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td><p><a href="http://dev.w3.org/html5/spec/the-tbody-element.html#the-tbody-element"><code>tbody</code></a>, <a href="http://dev.w3.org/html5/spec/the-thead-element.html#the-thead-element"><code>thead</code></a>, 
+  <a href="http://dev.w3.org/html5/spec/the-tfoot-element.html#the-tfoot-element"><code>tfoot</code></a></p></td>          
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any </p>
+            <p><strong>Note: </strong>addition of roles does not appear to have any effect upon these elements</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a></p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-title-element.html#the-title-element">title</a> 
+            </code>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-td-element.html#the-td-element">td</a></code>            
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note: </strong>It is  recommended to not override the <code>td</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>grdicell</code> role may be used.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td>   <p>Text level semantic elements not listed elsewhere:</p>
+            <p><A href="http://dev.w3.org/html5/spec/the-em-element.html#the-em-element"><code>em</code></A><code>, 
+              <A href="http://dev.w3.org/html5/spec/the-strong-element.html#the-strong-element">strong </A>, 
+              <A href="http://dev.w3.org/html5/spec/the-small-element.html#the-small-element">small</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-s-element.html#the-s-element"> s</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-cite-element.html#the-cite-element">cite</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-q-element.html#the-q-element"> q </A>, 
+              <A href="http://dev.w3.org/html5/spec/the-dfn-element.html#the-dfn-element">dfn</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-abbr-element.html#the-abbr-element">abbr</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-time-element.html#the-time-element">time</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-code-element.html#the-code-element">code</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-var-element.html#the-var-element">var</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-samp-element.html#the-samp-element">samp</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-kbd-element.html#the-kbd-element">kbd</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-sub-and-sup-elements.html#the-sub-and-sup-elements">sub and sup</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-i-element.html#the-i-element">i</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-b-element.html#the-b-element">b</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-u-element.html#the-u-element"> u</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-mark-element.html#the-mark-element">mark </A>, 
+              <A href="http://dev.w3.org/html5/spec/the-ruby-element.html#the-ruby-element">ruby</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-rt-element.html#the-rt-element">rt</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-rp-element.html#the-rp-element"> rp</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-bdi-element.html#the-bdi-element">bdi</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-bdo-element.html#the-bdo-element">bdo</A>, 
+              <A href="http://dev.w3.org/html5/spec/the-br-element.html#the-br-element"> br</A>, 
+            <A href="http://dev.w3.org/html5/spec/the-wbr-element.html#the-wbr-element">wbr</A> </code></p></td>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>     
+          <td><p>Role: any</p>
+            <p><strong>Note:</strong> Although the listed elements do not have any default ARIA semantics they do have <em>meaning</em> and this meaning may be represented in roles, states and properties not provided by ARIA, but present in <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility APIs</a>. It is therefore recommended that authors consider adding a <code>role</code> attribute to a semantically neutral element such as a <code>div</code> or <code>span</code>, rather than overriding the semantics of the listed elements. Refer to the <a href="#second">Second rule of ARIA use</a>.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://dev.w3.org/html5/spec/the-th-element.html#the-th-element">th</a></code><a href="http://dev.w3.org/html5/spec/the-th-element.html#the-th-element"></a>      
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note: </strong>It is<strong> </strong>recommended to not override the <code>th</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <a href="http://www.w3.org/TR/wai-aria/roles#columnheader"><code>columnheader</code></a> or <a href="http://www.w3.org/TR/wai-aria/roles#rowheader"><code>rowheader</code></a>role may be used.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><p><a href="http://dev.w3.org/html5/spec/the-tr-element.html#the-tr-element"><code>tr</code></a><code><a href="http://dev.w3.org/html5/spec/the-td-element.html#the-td-element"></a></code></p>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><p>Role: any</p>
+            <p><strong>Note: </strong>It is recommended to not override the <code>tr</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>row</code> role may be used.</p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><A href="http://dev.w3.org/html5/spec/the-track-element.html#the-track-element"><code>track</code></A>            
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td class="nosupport"><strong>NONE</strong></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-ul-element.html#the-ul-element">ul</a>
+          <td><code>role=list</code></td>
+          <TD><strong class="nosupport">NO</strong></TD>
+          <td><p>Role: <code>directory,  listbox, menu, menubar, tablist, toolbar, tree </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
+        <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-video-element.html#the-video-element"><code>video</code></a>
+          <td>NONE</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td> <p>Role: <code>application </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> application </code>role. </p></td>
+        </tr>
+        <tr>
+          <td>An element that <a href="http://dev.w3.org/html5/spec/commands.html#concept-command" title="concept-command">defines a command</a>, with <code>type=&quot;checkbox&quot;</code>, and  is a descendant of a <code>menu type = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#list-state" title="list state">list</a></code></td>
+          <td><code>role=menuitemcheckbox</code>, with  <code>aria-checked="true"</code> if <code>checked </code>attribute is present</td>
+          <td class="nosupport"><strong>NO <sup><a href="#note9">note 9</a></sup></strong></td>
+          <td><p><a id="note9" tabindex="-1">Note 9:<strong> <span class="support">YES</span></strong> if</a> the element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitemcheckbox </code>role. </p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td>An element that <a href="http://dev.w3.org/html5/spec/commands.html#concept-command" title="concept-command">defines a command</a>, <code>type=&quot;command&quot;</code>, and  is a descendant of a <code>menu type = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#list-state" title="list state">list</a></code></td>
+          <td><code>role=menuitem</code></td>
+          <td class="nosupport"><strong>NO <sup><a href="#note10">note 10</a></sup></strong></td>
+          <td><p><a id="note10" tabindex="-1">Note 10:<strong> <span class="support">YES</span></strong> if</a> the element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitem </code>role. </p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td>An element that <a href="http://dev.w3.org/html5/spec/commands.html#concept-command" title="concept-command">defines a command</a>, <code>type=&quot;radio&quot;</code>, and  is a descendant of a <code>menu type = <a href="http://dev.w3.org/html5/spec/the-menu-element.html#list-state" title="list state">list</a></code></td>
+          <td><code>menuitemradio</code> role, with the <code>aria-checked="true"</code> if <code>checked </code>attribute is present</td>
+          <td class="nosupport"><strong>NO <sup><a href="#note11">note 11</a></sup></strong></td>
+          <td><p><a id="note11" tabindex="-1">Note 11:<strong> <span class="support">YES</span></strong> if</a> the element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+            <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> menuitemradio </code>role. </p>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
+        </tr>
+        <tr>
+          <td>Element with a <a href="http://dev.w3.org/html5/spec/attributes-common-to-form-controls.html#concept-fe-disabled" title="concept-fe-disabled"><code>disabled</code></a> attribute</td>
+          <td><code>aria-disabled=&quot;true&quot;</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Use the <code>disabled</code> attribute on any element that is <a href="http://dev.w3.org/html5/spec/section-index.html#attributes-1">allowed the <code>disabled</code> attribute</a> in HTML5. </p>
+          <p>Only use the <code>aria-disabled</code> attribute for elements that are not allowed to have a <code>disabled </code>attribute in HTML5</p></td>
+        </tr>
+        <tr>
+          <td>Element with an  <a href="http://dev.w3.org/html5/spec/editing.html#inert"><code>inert</code></a> attribute</td>
+          <td><code>aria-disabled=&quot;true&quot;</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
+          <p><strong>Note:</strong> The setting of <code>aria-disabled</code> does not make the content disabled, it ONLY sets a <em>disabled</em> flag on the element. </p></td>
+        </tr>
+        <tr>
+          <td>Element with a <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#attr-input-required"><code>required</code></a> attribute</td>
+          <td>The <code>aria-required=&quot;true&quot;</code></td>
+          <td class="support"><strong>Yes</strong></td>
+          <td><p>Use the <code>aria-required</code> attribute on any element that is <a href="http://dev.w3.org/html5/spec/section-index.html#attributes-1">allowed the <code>required</code> attribute</a> in HTML5. </p>
+          <p>Also use the <code>aria-required </code>attribute for elements that have an attached ARIA role which allows the <code>aria-required</code> attribute.</p></td>
+        </tr>
+        <tr>
+          <td>Element with a <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#the-readonly-attribute"><code>readonly</code></a> attribute </td>
+          <td><code>aria-readonly=true</code></td>
+          <td><strong class="nosupport">NO</strong></td>
+          <td><p>Use the <code>readonly</code> attribute on any element that is <a href="http://dev.w3.org/html5/spec/section-index.html#attributes-1">allowed the <code>readonly</code> attribute</a> in HTML5. </p>
+          <p>Only use the <code>aria-disabled</code> attribute for elements that are not allowed to have a <code>readonly</code> attribute in HTML5</p></td>
+        </tr>
+        <tr>
+          <td>Element with a <a href="http://dev.w3.org/html5/spec/editing.html#the-hidden-attribute"><code>hidden</code></a> attribute </td>
+          <td><code>aria-hidden=true</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td>Use the <code>hidden</code> attribute in conjunction with the CSS <code>display:none </code>property</td>
+        </tr>
+        <tr>
+          <td>Element is focusable </td>
+          <td>NONE</td>
+          <td class="partial"><strong>N/A</strong></td>
+          <td><strong>Not</strong> <code>role=presentation </code></td>
+        </tr>
+        <tr>
+          <td>Element that is a <a href="http://dev.w3.org/html5/spec/constraints.html#candidate-for-constraint-validation">candidate for constraint validation</a> but that does not <a href="http://dev.w3.org/html5/spec/constraints.html#concept-fv-valid" title="concept-fv-valid">satisfy its constraints</a></td>
+          <td><code>aria-invalid=true</code></td>
+          <td class="nosupport"><strong>NO</strong></td>
+          <td>Only use the <code>aria-invalid=true</code> attribute after form has been validated, setting it prior means users think the field is invalid before they even input data or interact with it.</td>
+        </tr>
+      </tbody>
+      </table></section>
+    
+  <hr>
+   <section> <h2 id="quick" tabindex="-1">ARIA Role, State, and Property Quick Reference </h2>
+    <p>(Reformatted and reorganized information from: <a href="http://www.w3.org/TR/wai-aria/">Accessible Rich Internet Applications (<ABBR title="Accessible Rich Internet Applications">WAI-ARIA</ABBR>) 1.0</a>)</p>
+  <div id="quickref_global_states">
+    <p>In addition to the states and properties shown in the table, the   following global states and properties are supported on all roles.  </p>
+    <h3 id="global" tabindex="-1">Global states and properties</h3>
+    <ul>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic">aria-atomic</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy">aria-busy (state)</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls">aria-controls</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby">aria-describedby</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled">aria-disabled (state)</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect">aria-dropeffect</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto">aria-flowto</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed">aria-grabbed (state)</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup">aria-haspopup</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden">aria-hidden (state)</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid">aria-invalid (state)</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-label">aria-label</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby">aria-labelledby</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-live">aria-live</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns">aria-owns</A></code></li>
+      <li><code><A href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant">aria-relevant</A></code></li>
+    </ul>
+    
+  </div>
+  <table>
+    <caption>ARIA Roles, States and Properties</caption>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Description</th>
+        <th>Required Properties</th>
+        <th>Supported Properties - <br>
+        <a href="#global">Global</a> +</th>
+      </tr>
+      </thead>
+    <tbody>
+      <tr>
+        <td id="indexalert" tabindex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#alert">alert</A></code></td>
+        <td>A message with important, and usually time-sensitive, information. See related alertdialog and status.</td>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexalertdialog" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#alertdialog">alertdialog</A></code></TD>
+        <TD>A type of dialog that contains an alert message, where initial focus goes to   an element within the dialog. See related alert and dialog.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexapplication" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#application">application</A></code></TD>
+        <TD>A region declared as a web application, as opposed to a web document.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexarticle" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#article">article</A></code></TD>
+        <TD>A section of a page that consists of a composition that forms an independent   part of a document, page, or site.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexbanner" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#banner">banner</A></code></TD>
+        <TD>A region that contains mostly site-oriented content, rather than   page-specific content.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexbutton" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#button">button</A></code></TD>
+        <TD>An input that allows for user-triggered actions when clicked or pressed. See   related link.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed">aria-pressed (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexcheckbox" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#checkbox">checkbox</A></code></TD>
+        <TD>A checkable input that has three possible values: true, false, or   mixed.</TD>
+        <td><ul>
+          <li><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked"><code>aria-checked (state)</code></a></li>
+        </ul></td>
+        <td><code></code></td>
+      </tr>
+      <tr>
+        <TD id="indexcolumnheader" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#columnheader">columnheader</A></code></TD>
+        <TD>A cell containing header information for a column.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort">aria-sort</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexcombobox" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#combobox">combobox</A></code></TD>
+        <TD>A presentation of a select; usually similar to a textbox where users can   type ahead to select an option, or type to enter arbitrary text as a new item in   the list. See related listbox.</TD>
+        <td><ul>
+          <li><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded"><code>aria-expanded (state)</code></a></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete">aria-autocomplete</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexcomplementary" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#complementary">complementary</A></code></TD>
+        <TD>A supporting section of the document, designed to be complementary to the   main content at a similar level in the DOM hierarchy, but remains meaningful   when separated from the main content.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexcontentinfo" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#contentinfo">contentinfo</A></code></TD>
+        <TD>A large perceivable region that contains information about the parent   document.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexdefinition" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#definition">definition</A></code></TD>
+        <TD>A definition of a term or concept.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexdialog" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#dialog">dialog</A></code></TD>
+        <TD>A dialog is an application window that is designed to interrupt the current   processing of an application in order to prompt the user to enter information or   require a response. See related alertdialog.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexdirectory" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#directory">directory</A></code></TD>
+        <TD>A list of references to members of a group, such as a static table of   contents.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexdocument" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#document">document</A></code></TD>
+        <TD>A region containing related information that is declared as document   content, as opposed to a web application.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexform" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#form">form</A></code></TD>
+        <TD>A landmark region that contains a collection of items and objects that, as a   whole, combine to create a form. See related search.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexgrid" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#grid">grid</A></code></TD>
+        <TD>A grid is an interactive control which contains cells of tabular data   arranged in rows and columns, like a table.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable">aria-multiselectable</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexgridcell" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#gridcell">gridcell</A></code></TD>
+        <TD>A cell in a grid or treegrid.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexgroup" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#group">group</A></code></TD>
+        <TD>A set of user interface objects which are not intended to be included in a   page summary or table of contents by assistive technologies.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexheading" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#heading">heading</A></code></TD>
+        <TD>A heading for a section of the page.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indeximg" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#img">img</A></code></TD>
+        <TD>A container for a collection of elements that form an image.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexlink" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#link">link</A></code></TD>
+        <TD>An interactive reference to an internal or external resource that, when   activated, causes the user agent to navigate to that resource. See related   button.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexlist" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#list">list</A></code></TD>
+        <TD>A group of non-interactive list items. See related listbox.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexlistbox" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#listbox">listbox</A></code></TD>
+        <TD>A widget that allows the user to select one or more items from a list of   choices. See related combobox and list.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable">aria-multiselectable</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexlistitem" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#listitem">listitem</A></code></TD>
+        <TD>A single item in a list or directory.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexlog" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#log">log</A></code></TD>
+        <TD>A type of live region where new information is added in meaningful order and   old information may disappear. See related marquee.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmain" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#main">main</A></code></TD>
+        <TD>The main content of a document.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmarquee" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#marquee">marquee</A></code></TD>
+        <TD>A type of live region where non-essential information changes frequently.   See related log.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmath" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#math">math</A></code></TD>
+        <TD>Content that represents a mathematical expression. </TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmenu" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menu">menu</A></code></TD>
+        <TD>A type of widget that offers a list of choices to the user.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmenubar" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menubar">menubar</A></code></TD>
+        <TD>A presentation of menu that usually remains visible and is usually presented   horizontally.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexmenuitem" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menuitem">menuitem</A></code></TD>
+        <TD>An option in a group of choices contained by a menu or menubar.</TD>
+        <td>NONE</td>
+        <td><code></code></td>
+      </tr>
+      <tr>
+        <TD id="indexmenuitemcheckbox" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menuitemcheckbox">menuitemcheckbox</A></code></TD>
+        <TD>A checkable menuitem that has three possible values: true, false, or   mixed.</TD>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked">aria-checked (state)</a></code></li>
+        </ul></td>
+        <td><code></code></td>
+      </tr>
+      <tr>
+        <TD id="indexmenuitemradio" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menuitemradio">menuitemradio</A></code></TD>
+        <TD>A checkable menuitem in a group of menuitemradio roles, only one of which   can be checked at a time.</TD>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked">aria-checked (state)</a></code></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexnavigation" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#navigation">navigation</A></code></TD>
+        <TD>A collection of navigational elements (usually links) for navigating the   document or related documents.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexnote" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#note">note</A></code></TD>
+        <TD>A section whose content is parenthetic or ancillary to the main content of   the resource.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexoption" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#option">option</A></code></TD>
+        <TD>A selectable item in a select list.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked">aria-checked (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexpresentation" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#presentation">presentation</A></code></TD>
+        <TD>An element whose implicit native role semantics will not be mapped to the   accessibility API.</TD>
+        <td>NONE</td>
+        <td><code></code></td>
+      </tr>
+      <tr>
+        <TD id="indexprogressbar" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#progressbar">progressbar</A></code></TD>
+        <TD>An element that displays the progress status for tasks that take a long   time.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax">aria-valuemax</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin">aria-valuemin</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow">aria-valuenow</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext">aria-valuetext</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexradio" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#radio">radio</A></code></TD>
+        <TD>A checkable input in a group of radio roles, only one of which can be   checked at a time.</TD>
+        <td><ul>
+          <li><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked"><code>aria-checked (state)</code></a></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexradiogroup" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#radiogroup">radiogroup</A></code></TD>
+        <TD>A group of radio buttons.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexregion" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#region">region</A></code></TD>
+        <TD>A large perceivable section of a web page or document, that the author feels   is important enough to be included in a page summary or table of contents, for   example, an area of the page containing live sporting event statistics.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexrow" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#row">row</A></code></TD>
+        <TD>A row of cells in a grid.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexrowgroup" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#rowgroup">rowgroup</A></code></TD>
+        <TD>A group containing one or more row elements in a grid.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexrowheader" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#rowheader">rowheader</A></code></TD>
+        <TD>A cell containing header information for a row in a grid.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort">aria-sort</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexscrollbar" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#scrollbar">scrollbar</A></code></TD>
+        <TD>A graphical object that controls the scrolling of content within a viewing   area, regardless of whether the content is fully displayed within the viewing   area.</TD>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls">aria-controls</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation">aria-orientation</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax">aria-valuemax</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin">aria-valuemin</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow">aria-valuenow</a></code></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexsearch" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#search">search</A></code></TD>
+        <TD>A landmark region that contains a collection of items and objects that, as a   whole, combine to create a search facility. See related form.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation">aria-orientation</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexseperator" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#separator">separator</A></code></TD>
+        <TD>A divider that separates and distinguishes sections of content or groups of   menuitems.</TD>
+        <td><ul>
+          <li>NONE</li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext">aria-valuetext</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexslider" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#slider">slider</A></code></TD>
+        <TD>A user input where the user selects a value from within a given range.</TD>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax">aria-valuemax</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin">aria-valuemin</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow">aria-valuenow</a></code></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation">aria-orientation</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext">aria-valuetext</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexspinbutton" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#spinbutton">spinbutton</A></code></TD>
+        <TD>A form of range that expects the user to select from among discrete   choices.</TD>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax">aria-valuemax</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin">aria-valuemin</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow">aria-valuenow</a></code></li>
+        </ul></td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext">aria-valuetext</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indexstatus" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#status">status</A></code></TD>
+        <TD>A container whose content is advisory information for the user but is not important enough to justify an alert, often but not necessarily presented as a   status bar. See related alert.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextab" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#tab">tab</A></code></TD>
+        <TD>A grouping label providing a mechanism for selecting the tab content that is   to be rendered to the user.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextablist" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#tablist">tablist</A></code></TD>
+        <TD>A list of tab elements, which are references to tabpanel elements.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextabpanel" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#tabpanel">tabpanel</A></code></TD>
+        <TD>A container for the resources associated with a tab, where each tab is   contained in a tablist.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextextbox" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#textbox">textbox</A></code></TD>
+        <TD>Input that allows free-form text as its value.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete">aria-autocomplete</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline">aria-multiline</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextimer" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#timer">timer</A></code></TD>
+        <TD>A type of live region containing a numerical counter which indicates an   amount of elapsed time from a start point, or the time remaining until an end   point.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextoolbar" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#toolbar">toolbar</A></code></TD>
+        <TD>A collection of commonly used function buttons represented in compact visual   form.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextooltip" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#tooltip">tooltip</A></code></TD>
+        <TD>A contextual popup that displays a description for an element.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextree" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#tree">tree</A></code></TD>
+        <TD>A type of list that may contain sub-level nested groups that can be   collapsed and expanded.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable">aria-multiselectable</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextreegrid" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#treegrid">treegrid</A></code></TD>
+        <TD>A grid whose rows can be expanded and collapsed in the same manner as for a   tree.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable">aria-multiselectable</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
+          <li></li>
+          <li></li>
+        </ul></td>
+      </tr>
+      <tr>
+        <TD id="indextreeitem" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#treeitem">treeitem</A></code></TD>
+        <TD>An option item of a tree. This is an element within a tree that may be   expanded or collapsed if it contains a sub-level group of treeitems.</TD>
+        <td>NONE</td>
+        <td><ul>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked">aria-checked (state)</a></code></li>
+          <li></li>
+          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></li>
+          <li></li>
+        </ul></td>
+      </tr>
+      </tbody>
+  </table></section>
+
+  <section><h3 id="aria-defs">Definitions of States and Properties (all aria-* attributes)</h3>
+  <p>Below is an alphabetical list of <abbr title="Accessible Rich Internet Applications">ARIA</abbr> <a href="http://www.w3.org/TR/wai-aria/terms#def_state">states</a> and <a href="http://www.w3.org/TR/wai-aria/terms#def_property">properties</a> to be used by rich internet application authors. A detailed definition of each <abbr title="Accessible Rich Internet Applications">ARIA</abbr> state and <a href="http://www.w3.org/TR/wai-aria/terms#def_property">property</a> can be found by following the attribute links (to their definitions in <a href="http://www.w3.org/TR/wai-aria/">Accessible Rich Internet Applications (<ABBR title="Accessible Rich Internet Applications">WAI-ARIA</ABBR>) 1.0</a>.</p>
+    <dl id="index_state_prop">
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></dt>
+      <dd>Identifies the currently active descendant of a composite widget.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic">aria-atomic</a></code></dt>
+      <dd>Indicates   whether assistive technologies will present all, or only parts of, the   changed region based on the change notifications defined by the   aria-relevant attribute. See related aria-relevant.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete">aria-autocomplete</a></code></dt>
+      <dd>Indicates whether user input completion suggestions are provided.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy">aria-busy (state)</a></code></dt>
+      <dd>Indicates whether an element, and its subtree, are currently being updated.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked">aria-checked (state)</a></code></dt>
+      <dd>Indicates   the current "checked" state of checkboxes, radio buttons, and other   widgets. See related aria-pressed and aria-selected.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls">aria-controls</a></code></dt>
+      <dd>Identifies the element (or elements) whose contents or presence are controlled by the current element. See related aria-owns.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby">aria-describedby</a></code></dt>
+      <dd>Identifies the element (or elements) that describes the object. See related aria-labelledby.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled">aria-disabled (state)</a></code></dt>
+      <dd>Indicates   that the element is perceivable but disabled, so it is not editable or   otherwise operable. See related aria-hidden and aria-readonly.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect">aria-dropeffect</a></code></dt>
+      <dd>Indicates   what functions can be performed when the dragged object is released on   the drop target. This allows assistive technologies to convey the   possible drag options available to users, including whether a pop-up   menu of choices is provided by the application. Typically, drop effect   functions can only be provided once an object has been grabbed for a   drag operation as the drop effect functions available are dependent on   the object being dragged.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></dt>
+      <dd>Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto">aria-flowto</a></code></dt>
+      <dd>Identifies   the next element (or elements) in an alternate reading order of content   which, at the user's discretion, allows assistive technology to   override the general default of reading in document source order.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed">aria-grabbed (state)</a></code></dt>
+      <dd>Indicates an element's "grabbed" state in a drag-and-drop operation.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup">aria-haspopup</a></code></dt>
+      <dd>Indicates that the element has a popup context menu or sub-level menu.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden">aria-hidden (state)</a></code></dt>
+      <dd>Indicates   that the element and all of its descendants are not visible or   perceivable to any user as implemented by the author. See related   aria-disabled.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid">aria-invalid (state)</a></code></dt>
+      <dd>Indicates the entered value does not conform to the format expected by the application.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-label">aria-label</a></code></dt>
+      <dd>Defines a string value that labels the current element. See related aria-labelledby.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby">aria-labelledby</a></code></dt>
+      <dd>Identifies the element (or elements) that labels the current element. See related aria-label and aria-describedby.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-level">aria-level</a></code></dt>
+      <dd>Defines the hierarchical level of an element within a structure.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-live">aria-live</a></code></dt>
+      <dd>Indicates   that an element will be updated, and describes the types of updates the   user agents, assistive technologies, and user can expect from the live   region.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline">aria-multiline</a></code></dt>
+      <dd>Indicates whether a text box accepts multiple lines of input or only a single line.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable">aria-multiselectable</a></code></dt>
+      <dd>Indicates that the user may select more than one item from the current selectable descendants.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation">aria-orientation</a></code></dt>
+      <dd>Indicates whether the element and orientation is horizontal or vertical.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns">aria-owns</a></code></dt>
+      <dd>Identifies   an element (or elements) in order to define a visual, functional, or   contextual parent/child relationship between DOM elements where the DOM   hierarchy cannot be used to represent the relationship. See related   aria-controls.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset">aria-posinset</a></code></dt>
+      <dd>Defines   an element's number or position in the current set of listitems or   treeitems. Not required if all elements in the set are present in the   DOM. See related aria-setsize.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed">aria-pressed (state)</a></code></dt>
+      <dd>Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly">aria-readonly</a></code></dt>
+      <dd> Indicates that the element is not editable, but is otherwise operable. See related aria-disabled.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant">aria-relevant</a></code></dt>
+      <dd>Indicates   what user agent change notifications (additions, removals, etc.)   assistive technologies will receive within a live region. See related   aria-atomic.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></dt>
+      <dd>Indicates that user input is required on the element before a form may be submitted.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected">aria-selected (state)</a></code></dt>
+      <dd>Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize">aria-setsize</a></code></dt>
+      <dd>Defines   the number of items in the current set of listitems or treeitems. Not   required if all elements in the set are present in the DOM. See related   aria-posinset.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort">aria-sort</a></code></dt>
+      <dd>Indicates if items in a table or grid are sorted in ascending or descending order.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax">aria-valuemax</a></code></dt>
+      <dd>Defines the maximum allowed value for a range widget.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin">aria-valuemin</a></code></dt>
+      <dd>Defines the minimum allowed value for a range widget.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow">aria-valuenow</a></code></dt>
+      <dd>Defines the current value for a range widget. See related aria-valuetext.</dd>
+      <dt><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext">aria-valuetext</a></code></dt>
+      <dd>Defines the human readable text alternative of aria-valuenow for a range widget.</dd>
+  </dl></section>
+  <section><h3 id="abstract-roles">Abstract roles</h3>
+  <p>Do not use the following <a href="http://www.w3.org/TR/wai-aria/roles#abstract_roles">abstract roles </a>as they <strong>do not do anything</strong>!</p>
+    <blockquote cite="http://www.w3.org/TR/wai-aria/roles#abstract_roles">
+      <p>Abstract roles are used for the ontology. Authors <strong>MUST NOT</strong> not use abstract roles in content.</p>
+      <ul>
+        <li><a href="http://www.w3.org/TR/wai-aria/roles#command"><code>command (abstract role)</code></a><code> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#composite">composite (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#input">input (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#landmark">landmark (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#range">range (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#roletype">roletype (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#section">section (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#sectionhead">sectionhead (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#select">select (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#structure">structure (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#widget">widget (abstract role)</a> </code></li>
+        <li><code><a href="http://www.w3.org/TR/wai-aria/roles#window">window (abstract role)</a></code></li>
+      </ul>
+      </blockquote></section>
+    <hr>
+</section>
+<div class="section" id="ack">
+  <h3 id="funders">Enabling funder</h3>
+  <p>The  development of this publication is being funded by <a href="http://www.paciellogroup.com">The Paciello Group</a>. The content  of this publication does not necessarily reflect the views or policies of  The Paciello Group, nor does mention of trade names, commercial products, or organizations imply endorsement by The Paciello Group. </p>
+</div>
+<div><hr></div>
+</body>
+</html>
