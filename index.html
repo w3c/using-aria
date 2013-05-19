@@ -192,6 +192,7 @@ caption {text-align:left}
     <p><strong>Do</strong> this:</p>
     <code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>
   <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
+  <code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>
   <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
     <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.com/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
