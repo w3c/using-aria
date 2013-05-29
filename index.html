@@ -570,6 +570,13 @@ caption {text-align:left}
           <td><p>Role: <code>application, document, </code>or<code> img </code></p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
+ <tr>
+          <td><a href="http://dev.w3.org/html5/spec/the-iframe-element.html#the-iframe-element"><code>iframe (seemless)</code></a>
+          <td>EDITOR: okay to override with any general grouping role.</td>
+          <TD class="partial"><strong>N/A</strong></TD>
+          <td><p>Role: <code>application, document, </code>or<code> img </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+        </tr>
         <tr>
           <td><code><a href="http://dev.w3.org/html5/spec/the-img-element.html#the-img-element">img</a> with <a href="http://dev.w3.org/html5/spec/the-img-element.html#attr-img-alt">alt</a>=&quot;&quot;</code></td>
           <td><code>role=presentation</code></td>
@@ -1165,8 +1172,7 @@ caption {text-align:left}
           <td><code>aria-hidden=&quot;true&quot;</code></td>
           <td><strong class="nosupport">YES (DEPENDS)</strong></td>
           <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
-          <p><strong>Note:</strong> REMOVE THIS? The setting of <code>aria-disabled</code> does not make the content disabled, it ONLY sets a <em>disabled</em> flag on the element. </p>
-<p>ADD THIS?:  inert content is used for things like the background contents while showing a modal dialog. In this case, it would be appropriate and recommended to use aria-hidden="true"… If there are cases where inert is being used to deactivate foreground content that is still intended for consumption, @inert should be combined with an explicit aria-hidden="false" to override the default rendering engine behavior.</p>
+          <p><strong>Note:</strong>Inert content is used for things like the background contents while showing a modal dialog. In this case, it would be appropriate and recommended to use aria-hidden="true"… If there are cases where inert is being used to deactivate foreground content that is still intended for consumption, @inert should be combined with an explicit aria-hidden="false" to override the default rendering engine behavior.</p>
 </td>
         </tr>
         <tr>
@@ -1190,16 +1196,26 @@ caption {text-align:left}
           <td>Use the <code>hidden</code> attribute in conjunction with the CSS <code>display:none </code>property</td>
         </tr>
         <tr>
-          <td>Element is focusable </td>
+          <td>Element is natively focusable (links, buttons, etc.)</td>
           <td>NONE</td>
-          <td class="partial"><strong>N/A</strong></td>
+          <td class="partial"><strong>NO</strong></td>
           <td><strong>Not</strong> <code>role=presentation </code></td>
+        </tr>
+ <tr>
+          <td>Element is not natively focusable (li, span, div, etc.) </td>
+          <td>DEPENDS</td>
+          <td class="partial"><strong>YES</strong></td>
+          <td><strong>Not</strong> <code>role=presentation </code>
+<p>For example, <span tabindex="0"> is focusable but has no role in most rendering engines. Needs a role in a lot of cases. (NEED TO GIVE EXAMPLES).</p>
+</td>
         </tr>
         <tr>
           <td>Element that is a <a href="http://dev.w3.org/html5/spec/constraints.html#candidate-for-constraint-validation">candidate for constraint validation</a> but that does not <a href="http://dev.w3.org/html5/spec/constraints.html#concept-fv-valid" title="concept-fv-valid">satisfy its constraints</a></td>
           <td><code>aria-invalid=true</code></td>
           <td class="nosupport"><strong>NO</strong></td>
-          <td>Only use the <code>aria-invalid=true</code> attribute after form has been validated, setting it prior means users think the field is invalid before they even input data or interact with it.</td>
+          <td><p>Only use the <code>aria-invalid=true</code> attribute after form has been validated, setting it prior means users think the field is invalid before they even input data or interact with it.</p>
+<p>(Editor's NOTE) Provide link to what HTML defines what constitutes the user has interacted with the control "significantly." ARIA defines aria-invalid="grammar" and aria-invalid="spelling"</p>
+</td>
         </tr>
       </tbody>
       </table></section>
