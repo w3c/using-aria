@@ -673,6 +673,7 @@ caption {text-align:left}
           <td class="nosupport"><strong>NO <sup><a href="#note3"> note 3</a></sup></strong></td>
           <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the <code>spinbutton</code> role.</p>
             <p><a id="note3" tabindex="-1">Note 3:<strong> <span class="support">YES </span></strong></a>If <code>input type=number</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+<p>It is okay to use aria-valuetext, with or without an explicit role.</p>
           <p><strong>Not</strong> <code>role=presentation</code></p></td>
         </tr>
         <tr>
@@ -698,6 +699,7 @@ caption {text-align:left}
             </p>
             
             <p><a id="note4" tabindex="-1">Note 4:<strong> <span class="support">YES</span></strong></a> If <code>input type=range</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+<p>It is okay to use aria-valuetext, with or without an explicit role.</p>
             <p><strong>Not</strong> <code>role=presentation</code></p></td>
         </tr>
         <tr>
@@ -816,7 +818,7 @@ caption {text-align:left}
         </tr>
         <tr>
           <td><a href="http://dev.w3.org/html5/spec/mathml.html#mathml"><code>math</code></a></td>
-          <td><code>role=math</code></td>
+          <td></td>
           <td class="support"><strong>YES</strong></td>
           <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
         </tr>
@@ -880,7 +882,7 @@ caption {text-align:left}
         <tr>
           <td><code><a href="http://dev.w3.org/html5/spec/the-meter-element.html#the-meter-element">meter</a> 
             </code>
-          <td>NONE</td>
+          <td>role=progressbar</td>
           <td class="partial"><strong>N/A</strong></td>
           <td>Any <a href="#global">global <code>aria-*</code> attributes</a></td>
         </tr>
@@ -930,9 +932,10 @@ caption {text-align:left}
           <td><code><a href="http://dev.w3.org/html5/spec/the-output-element.html#the-output-element">output</a>
             </code>
           <td><code>role=status </code></td>
-          <TD><strong class="support">YES</strong></TD>
+          <TD><strong class="support">DEPENDS</strong></TD>
           <td><p>Role: Any, use in conjunction with <code>aria-live=polite</code></p>
-          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
+<p>Note: If role="status" is added, it will force this to be a broadcasting live region. In some cases, this is fine, but if this is an element whose value changes constantly due to scripted updates rather than explicit user action (like a progressbar), it'd be more appropriate to set aria-live="off". Otherwise some AT users are going to find this very distracting, even impossible to use. Even "polite" live regions can be annoying if they are overused.</p></td>
         </tr>
         <tr>
           <td><code><a href="http://dev.w3.org/html5/spec/the-param-element.html#the-param-element">param</a> 
@@ -947,6 +950,7 @@ caption {text-align:left}
           <td><code>progressbar</code> role, with, if the progress bar is determinate, the <code>aria-valuemax</code> property set to the maximum value of the progress bar, the aria-valuemin property set to zero, and the aria-valuenow property set to the current value of the progress bar </td>
           <td class="nosupport"><strong>NO <sup><a href="#note8">note 8</a></sup></strong></td>
           <td><p><a id="note8" tabindex="-1">Note 8:<strong> <span class="support">YES</span> </strong>if</a> <code>progress </code>element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+<p>it's okay to use aria-valuetext on this (e.g. "Step 2 of 10"), with or without an explicit role.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> progressbar </code>role. </p></td>
         </tr>
         <tr>
@@ -1034,10 +1038,11 @@ caption {text-align:left}
         <tr>
           <td><p><a href="http://dev.w3.org/html5/spec/the-tbody-element.html#the-tbody-element"><code>tbody</code></a>, <a href="http://dev.w3.org/html5/spec/the-thead-element.html#the-thead-element"><code>thead</code></a>, 
   <a href="http://dev.w3.org/html5/spec/the-tfoot-element.html#the-tfoot-element"><code>tfoot</code></a></p></td>          
-          <td>NONE</td>
-          <td><strong class="partial">N/A</strong></td>
+          <td>role=rowgroup</td>
+          <td><strong class="partial">No</strong></td>
           <td><p>Role: any </p>
-            <p><strong>Note: </strong>addition of roles does not appear to have any effect upon these elements</p>
+            <p><strong>Note: </strong>addition of roles does not appear to have any effect upon these unrendered elements</p>
+
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a></p></td>
         </tr>
         <tr>
@@ -1157,10 +1162,12 @@ caption {text-align:left}
         </tr>
         <tr>
           <td>Element with an  <a href="http://dev.w3.org/html5/spec/editing.html#inert"><code>inert</code></a> attribute</td>
-          <td><code>aria-disabled=&quot;true&quot;</code></td>
-          <td><strong class="nosupport">NO</strong></td>
+          <td><code>aria-hidden=&quot;true&quot;</code></td>
+          <td><strong class="nosupport">YES (DEPENDS)</strong></td>
           <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
-          <p><strong>Note:</strong> The setting of <code>aria-disabled</code> does not make the content disabled, it ONLY sets a <em>disabled</em> flag on the element. </p></td>
+          <p><strong>Note:</strong> REMOVE THIS? The setting of <code>aria-disabled</code> does not make the content disabled, it ONLY sets a <em>disabled</em> flag on the element. </p>
+<p>ADD THIS?:  inert content is used for things like the background contents while showing a modal dialog. In this case, it would be appropriate and recommended to use aria-hidden="true"… If there are cases where inert is being used to deactivate foreground content that is still intended for consumption, @inert should be combined with an explicit aria-hidden="false" to override the default rendering engine behavior.</p>
+</td>
         </tr>
         <tr>
           <td>Element with a <a href="http://dev.w3.org/html5/spec/common-input-element-attributes.html#attr-input-required"><code>required</code></a> attribute</td>
