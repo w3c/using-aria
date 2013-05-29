@@ -455,7 +455,9 @@ caption {text-align:left}
           <td><code>role=listbox</code>, with  <code>aria-multiselectable=false</code></td>
           <td class="nosupport"><strong>NO <sup><a href="#note1">note 1</a></sup></strong></td>
           <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> listbox</code> role.</p>
-          <p><a id="note1" tabindex="-1"><strong>Note 1: <span class="support">YES </span></strong></a>If <code>datalist</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p></td>
+          <p><a id="note1" tabindex="-1"><strong>Note 1: <span class="support">YES </span></strong></a>If <code>datalist</code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a>.</p>
+<p>There is no direct ARIA role match for description lists, so it's in appropriate to override the native role in this case unless the author is retrofitting an improper use of the DL element.</p>
+</td>
         </tr>
         <tr>
           <td><a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dd-element"><code>dd</code></a><code>, <a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dt-element">dt</a></code><a href="http://dev.w3.org/html5/spec/the-dd-element.html#the-dt-element"></a>
