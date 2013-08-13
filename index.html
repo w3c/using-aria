@@ -132,8 +132,8 @@ caption {text-align:left}
 </head>
 
 <body>
-  <section id='abstract' role="contentinfo">
-  <p>This document is a practical guide for developers on how to to add
+  <section id='abstract'>
+  <p role="contentinfo">This document is a practical guide for developers on how to to add
       accessibility information to HTML elements using the
       Accessible Rich Internet Applications specification [[!WAI-ARIA]], which
       defines a way to make Web content and Web applications more accessible to
@@ -171,10 +171,8 @@ caption {text-align:left}
       </ul>
   </section>
   <section role="main">
-  <h2 tabindex="-1" id="notes2">Notes on ARIA use in HTML
-    <section>
-    </section>
-  </h2>
+  <h2 tabindex="-1" id="notes2">Notes on ARIA use in HTML</h2>
+
   <section>
     <h3 tabindex="-1" id="rule1">First rule of ARIA use</h3>
     <p>If you <em>can</em> use a native HTML element [[!HTML5]] or attribute with the semantics and behaviour you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
@@ -313,18 +311,6 @@ caption {text-align:left}
     <p>As a rule of thumb: If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.</p>
     <p><strong>NEVER</strong> put <code>role=application</code> on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
     <p>For further information on the use of <code>role=application</code> refer to <a href="http://www.marcozehe.de/2012/02/06/if-you-use-the-wai-aria-role-application-please-do-so-wisely/">If you use the WAI-ARIA role "application", please do so wisely!</a></p></section>
-
-    <!-- <section><h2 id="hidden" tabindex="-1">Using aria-hidden</h2>
-    <p tabindex="-1">The <code>aria-hidden</code> attribute is designed to provided a declarative indication of content display state. Authors use CSS <code>display</code> and <code>visibility</code> properties to hide content from users and in practical terms this is what it does, yet there is no indicator of state in the HTML code itself. <code>aria-hidden</code> provides the indicator.  </p>
-    <p tabindex="-1">When content is hidden using CSS <code>display:none</code> or <code>visibility:hidden</code> in user agents that support CSS it is hidden for all users including users of all known assistive technology. Therefore if CSS is used to hide content from all users, the addition of the <code>aria-hidden</code> attribute is <strong>not required</strong> or needed.</p>
-    <p><strong>Effects of <code>aria-hidden</code>:</strong></p>
-    <ul>
-      <li> In <a href="http://html5accessibility.com/">supporting browsers</a> in conjunction with supporting assistive technology the content <strong>is not</strong> conveyed to the user via the assistive technology.</li>
-      <li>Content <strong>is</strong>  displayed as normal in the browser (i.e. <code>aria-hidden</code> has <strong>no effect</strong> on content for non AT users). In order to hide content from all users CSS <code>display:none</code> or <code>visibility:hidden</code> must be used.</li>
-      <li><code>aria-hidden=false</code> is <a href="http://www.w3.org/WAI/PF/aria-implementation/#mapping_state-property_table">not mapped</a> in any browser that supports <code>aria-hidden</code>, thus its use has no meaning or in other words has the same meaning as its absence.</li>
-    </ul>
-    <p tabindex="-1">If a declarative indication of the hidden state of content is required, use the HTML5 <a href="http://www.w3.org/html/wg/drafts/html/master/editing.html#the-hidden-attribute"><code>hidden</code> attribute</a>.</p>
-    <p tabindex="-1">For further information on the use the <code>hidden</code> and <code>aria-hidden</code> attributes refer to <a href="http://www.paciellogroup.com/blog/2012/05/html5-accessibility-chops-hidden-and-aria-hidden/">HTML5 Accessibility Chops: hidden and aria-hidden</a></p></section> -->
   <hr>
   <section>  
   <h2 tabindex="-1" id="rec">Recommendations Table:</h2>
@@ -342,14 +328,14 @@ caption {text-align:left}
       <caption>
       Recommended ARIA usage by HTML language feature
 </caption>
-      <thead>
+
         <tr>
           <th>HTML language feature </th>
           <th>Default  ARIA semantics</th>
           <th>Should authors explicitly define default  ARIA semantics? </th>
           <th>What Other ARIA roles, states and properties may be used?</th>
-        </tr></thead>
-    <tbody>   <TR>
+        </tr>
+  <TR>
           <TD>All elements</TD>
           <TD>varies</TD>
           <TD>varies</TD>
@@ -402,7 +388,6 @@ caption {text-align:left}
           <TD><p>Role: <a href="#indexapplication"><code>application</code></a> <br>
           Any <code>aria-*</code> attributes applicable to the <a href="#indexapplication"><code>application</code></a> role.  Any <a href="#global">global <code>aria-*</code> attributes</a></p></TD>
         </TR>
-      </thead>
       <tbody>
         <tr>
           <td><code><a href="http://dev.w3.org/html5/spec/the-base-element.html#the-base-element">base</a> 
@@ -1202,14 +1187,14 @@ caption {text-align:left}
           <td>Element is natively focusable (links, buttons, etc.)</td>
           <td>NONE</td>
           <td class="partial"><strong>NO</strong></td>
-          <td><strong>Not</strong> <code>role=presentation </code></td>
+          <td><strong>Not</strong> <code>role=presentation</code></td>
         </tr>
  <tr>
           <td>Element is not natively focusable (li, span, div, etc.) </td>
           <td>DEPENDS</td>
           <td class="partial"><strong>YES</strong></td>
           <td><strong>Not</strong> <code>role=presentation </code>
-<p>For example, <span tabindex="0"> is focusable but has no role in most rendering engines. Needs a role in a lot of cases. (NEED TO GIVE EXAMPLES).</p>
+<p>For example, <code>&lt;span tabindex="0"></code> is focusable but has no role in most rendering engines. Needs a role in many cases. (NEED TO GIVE EXAMPLES).</p>
 </td>
         </tr>
         <tr>
@@ -1220,7 +1205,6 @@ caption {text-align:left}
 <p>(Editor's NOTE) Provide link to what HTML defines what constitutes the user has interacted with the control "significantly." ARIA defines aria-invalid="grammar" and aria-invalid="spelling"</p>
 </td>
         </tr>
-      </tbody>
       </table></section>
     
   <hr>
