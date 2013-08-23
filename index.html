@@ -200,8 +200,8 @@ caption {text-align:left}
     <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
   <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
     <h4 id="role-not">What  adding a role does not do?</h4>
-    <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties</p>
-    <p>:<For example, this code in the HTML tree:</p>
+    <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties:</p>
+    <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
@@ -217,19 +217,19 @@ caption {text-align:left}
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;text&lt;/h1&gt;</code>
-  <p>becomes this in the accessibility tree:</p>
+  <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;&gt;text&lt;/&gt;</code>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.</p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
-  <p>becomes this in the accessibility tree:</p>
+  <p>Becomes this in the accessibility tree:</p>
     <code class="blockat">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
   &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
-    <p>becomes this in the accessibility tree:</p>
+    <p>Becomes this in the accessibility tree:</p>
     <code class="blockat">&lt;&gt;<br>
      &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
   &lt;/&gt;<br></code>
