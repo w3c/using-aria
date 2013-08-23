@@ -186,23 +186,22 @@ caption {text-align:left}
   <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
   <code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>
   <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
-    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.com/jqtest/#goto_tree">tree widget</a>.</p></section>
+    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.com/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
    <p>All interactive ARIA controls must be usable with the keyboard. </p>
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
-   <p>For example if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
+   <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
    <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p></section>
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
     <p>Adding an ARIA role <strong>overrides</strong> the native role semantics.</p>
-    <p>For example this code in the HTML tree:</p>
+    <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
     <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
   <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
     <h4 id="role-not">What  adding a role does not do?</h4>
     <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties</p>
-    <p>For example:</p>
-  <p>This code in the HTML tree::</p>
+    <p>:<For example, this code in the HTML tree:</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
@@ -226,7 +225,7 @@ caption {text-align:left}
   <p>becomes this in the accessibility tree:</p>
     <code class="blockat">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
-    <p>For example this code in the HTML tree:</p>
+    <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
   &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
@@ -235,7 +234,7 @@ caption {text-align:left}
      &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
   &lt;/&gt;<br></code>
     <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
-  <p>For example this code in the HTML tree:</p>
+  <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
     &lt;tr&gt;&lt;td&gt;<br>
     &lt;table&gt;<br>
@@ -284,7 +283,7 @@ caption {text-align:left}
     <ul>
       <li><code>tree view</code></li>
       <li><code>slider</code></li>
-      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids etc.</li>
+      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids etc.</li>
       <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right arrow keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
       <li><code>dialog</code> and <code>alertdialog</code>. These causes some screen readers to go into a sort  of application mode implicitly once focus moves to a control inside  them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text  that explains the dialog's purpose, and set focus to the first  interactive control when you open it:<br>
         <p><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;<br>
@@ -300,7 +299,7 @@ caption {text-align:left}
     <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets, that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
     <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> is probably going to be in <strong>very rare</strong> cases!</p>
     <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
-    <p>Put it on the closest containing element of your widget, for example   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
+    <p>Put it on the closest containing element of your widget, for example,   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
     <p><strong>Only</strong> put it on the body element if your page   consists solely of a widget or set of widgets that all need the focus   mode to be turned on. If you have a majority of these widgets, but also   have something you want the user to browse, use <code>role=document </code>on the outer-most element of this document-ish part of the   page. It is the counterpart to <code>role=application</code> and will allow you to tell   the screen reader to use browse mode for this part. Also make this   element tabbable by setting a <code>tabindex=0</code>  on it so the user   has a chance to reach it. </p>
     <p>As a rule of thumb: If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.</p>
     <p><strong>NEVER</strong> put <code>role=application</code> on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
