@@ -116,7 +116,7 @@ caption {text-align:left}
 	td ul {padding-left:4px;list-style-type:none}
 	img {border:none}
 	code.block {color:#BF3400;padding: 10px;display:block;background:#EBEBEB;min-width:20em;max-width:48em;}
-code.block-at {color:#0000BB;padding: 10px;display:block;background:#EBEBEB;min-width:20em;max-width:48em;}
+code.blockat {color:#0000BB;padding: 10px;display:block;background:#EBEBEB;min-width:20em;max-width:48em;}
 	mark {background-color:#FF9}
 	div, section, hr {max-width:50em; margin-top:10px}
 	code {color:#BF3400 !important;}
@@ -198,14 +198,14 @@ code.block-at {color:#0000BB;padding: 10px;display:block;background:#EBEBEB;min-
     <p>For example:</p>
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
     <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
-  <code class="block-at">&lt;button&gt;text&lt;/button&gt;</code>
+  <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
     <h4 id="role-not">What  adding a role does not do?</h4>
     <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties</p>
     <p>For example:</p>
   <p>This:</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
-  <code class="block-at">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
+  <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
     <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button, still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
     <p><strong>Note: </strong>likewise, changing the role of an element <strong>does not</strong> add behaviours, properties or states of the role used. You must <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/">add those yourself</a>.</p></section>
  <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
@@ -219,19 +219,19 @@ code.block-at {color:#0000BB;padding: 10px;display:block;background:#EBEBEB;min-
     <p>For example, this:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;text&lt;/h1&gt;</code>
   <p>becomes this in the accessibility tree:</p>
-  <code class="block-at">&lt;&gt;text&lt;/&gt;</code>
+  <code class="blockat">&lt;&gt;text&lt;/&gt;</code>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.</p>
     <p>For example, this:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
   <p>becomes this in the accessibility tree:</p>
-    <code class="block-at">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
+    <code class="blockat">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this:</p>
   <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
   &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
     <p>becomes this in the accessibility tree:</p>
-    <code class="block-at">&lt;&gt;<br>
+    <code class="blockat">&lt;&gt;<br>
      &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
   &lt;/&gt;<br></code>
     <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
@@ -244,7 +244,7 @@ code.block-at {color:#0000BB;padding: 10px;display:block;background:#EBEBEB;min-
     &lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
-    <code class="block-at">&lt;&gt;<br>
+    <code class="blockat">&lt;&gt;<br>
     &lt;&gt;&lt;&gt;<br>
     <mark>&lt;table&gt;</mark><br>
     &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
