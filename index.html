@@ -195,14 +195,14 @@ caption {text-align:left}
    <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p></section>
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
     <p>Adding an ARIA role <strong>overrides</strong> the native role semantics.</p>
-    <p>For example:</p>
+    <p>For example this code in the HTML tree:</p>
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
     <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
   <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
     <h4 id="role-not">What  adding a role does not do?</h4>
     <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties</p>
     <p>For example:</p>
-  <p>This:</p>
+  <p>This code in the HTML tree::</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
@@ -216,17 +216,17 @@ caption {text-align:left}
     <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML5 specification, please <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=Validator%20%28Nu%29">raise a bug report</a>.</p></section>
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
-    <p>For example, this:</p>
+    <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;text&lt;/h1&gt;</code>
   <p>becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;&gt;text&lt;/&gt;</code>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.</p>
-    <p>For example, this:</p>
+    <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
   <p>becomes this in the accessibility tree:</p>
     <code class="blockat">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
-    <p>For example, this:</p>
+    <p>For example this code in the HTML tree:</p>
   <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
   &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
@@ -235,7 +235,7 @@ caption {text-align:left}
      &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
   &lt;/&gt;<br></code>
     <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
-  <p>For example, this:</p>
+  <p>For example this code in the HTML tree:</p>
     <code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>
     &lt;tr&gt;&lt;td&gt;<br>
     &lt;table&gt;<br>
