@@ -186,7 +186,7 @@ caption {text-align:left}
   <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
   <code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>
   <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
-    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.com/jqtest/#goto_tree">tree widget</a>.</p></section>
+    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://dev.w3.org/html5/spec-author-view/the-ul-element.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
    <p>All interactive ARIA controls must be usable with the keyboard. </p>
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
@@ -1011,7 +1011,7 @@ caption {text-align:left}
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
           <td><p>Role: any</p>
-            <p><strong>Note 1: </strong>It is  recommended to not override the <code>table</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>grid</code> role may be used.</p>
+            <p><strong>Note 1: </strong>It is  recommended to not override the <code>table</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.php">scripted data grid</a>, then the ARIA <code>grid</code> role may be used.</p>
             <p><strong>Note 2: </strong>It is recommended that the <code>table</code> element  not be used for layout purposes, but if it is, it is strongly recommended that <code>role=presentation</code> is used to hide the semantics of the <code>table</code> and its child elements, <code>tr</code> and <code>td</code> from assistive technology.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
@@ -1045,7 +1045,7 @@ caption {text-align:left}
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
           <td><p>Role: any</p>
-            <p><strong>Note: </strong>It is  recommended to not override the <code>td</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>grdicell</code> role may be used.</p>
+            <p><strong>Note: </strong>It is  recommended to not override the <code>td</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/">scripted data grid</a>, then the ARIA <code>grdicell</code> role may be used.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
@@ -1086,7 +1086,7 @@ caption {text-align:left}
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
           <td><p>Role: any</p>
-            <p><strong>Note: </strong>It is<strong> </strong>recommended to not override the <code>th</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <a href="http://www.w3.org/TR/wai-aria/roles#columnheader"><code>columnheader</code></a> or <a href="http://www.w3.org/TR/wai-aria/roles#rowheader"><code>rowheader</code></a>role may be used.</p>
+            <p><strong>Note: </strong>It is<strong> </strong>recommended to not override the <code>th</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.php">scripted data grid</a>, then the ARIA <a href="http://www.w3.org/TR/wai-aria/roles#columnheader"><code>columnheader</code></a> or <a href="http://www.w3.org/TR/wai-aria/roles#rowheader"><code>rowheader</code></a>role may be used.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
@@ -1094,7 +1094,7 @@ caption {text-align:left}
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
           <td><p>Role: any</p>
-            <p><strong>Note: </strong>It is recommended to not override the <code>tr</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.html">scripted data grid</a>, then the ARIA <code>row</code> role may be used.</p>
+            <p><strong>Note: </strong>It is recommended to not override the <code>tr</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/dojoxGrid.php">scripted data grid</a>, then the ARIA <code>row</code> role may be used.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
