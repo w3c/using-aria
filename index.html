@@ -172,9 +172,9 @@ caption {text-align:left}
     <p>If you <em>can</em> use a native HTML element [[!HTML5]] or attribute with the semantics and behaviour you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
     <h4 id="not-possible">Under what circumstances may this not be possible?</h4>
     <ul>
+      <li>If the feature is available in HTML [[!HTML5]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
       <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
       <li>If the feature is <a href="http://www.paciellogroup.com/blog/2010/04/html5-and-the-myth-of-wai-aria-redundance/">not currently available in HTML</a>.</li>
-      <li>If the feature is available in HTML [[!HTML5]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
       </ul></section>
    <section> <h3 id="second" tabindex="-1">Second rule of ARIA use</h3>
     <p>Do not change native  semantics, unless you really have to.</p>
@@ -194,24 +194,30 @@ caption {text-align:left}
    <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
    <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p></section>
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
-    <p>Adding an ARIA role <strong>overrides</strong> the native role semantics.</p>
+     <p>  Adding an ARIA role <strong>overrides</strong> the native role semantics in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a> which is reported via the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_api">accessibility API</a>, and therefore ARIA indirectly affects what is reported to a screen reader or other assistive technology.</p>
     <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
-    <p>Becomes this in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>:</p>
+    <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
     <h4 id="role-not">What  adding a role does not do?</h4>
-    <p>Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties:</p>
-    <p>For example, this code in the HTML tree:</p>
+    <p>   Adding ARIA will not make an element look or act differently for people <strong>not</strong> using assistive technology. Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties of the host element but only the native role semantics.</p>
+<p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
     <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button, still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
-    <p><strong>Note: </strong>likewise, changing the role of an element <strong>does not</strong> add behaviours, properties or states of the role used. You must <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/">add those yourself</a>.</p></section>
+    <p><strong>Note: </strong>likewise, changing the role of an element <strong>does not</strong> add behaviors, properties or states to the role used.  ARIA does not change the way it looks or acts in a browser. For instance, when links are used to behave like buttons, adding role="button" alone is not sufficient. It will also be necessary to make it look and act like a button, including <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/">add a key event handler</a> that listens for the Space key  which native buttons do.</p></section>
  <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
-    <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. If the content and interaction is only supported in a  scripting enabled browsing context, for example <a href="http://docs.google.com/">Google docs</a> applications require JavaScript enabled to work, so  it is safe for them to include the ARIA  markup inline.</p>
-    <p><strong>Otherwise</strong> add ARIA via scripting.</p></section>
+    <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. If the content and interaction is only supported in a  scripting enabled browsing context, for example <a href="http://docs.google.com/">Google docs</a> applications require JavaScript enabled to work,   it is also safe to include the ARIA markup inline.</p>
+    <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p><code class="block">&lt;li role="treeitem" aria-expanded="false" ...</code> 
+    <p>When the user opens the  section, it is changed to this using JavaScript :</p>
+    <p><code class="block">&lt;li role="treeitem" aria-expanded=&quot;true&quot; ...</code></p>
+ </section>
+ 
+  <section></section>
   <section><h3 tabindex="-1" id="validation">ARIA validation</h3>
     <p>The easiest method is to use the <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
+    <p>These validation errors in versions of HTML prior of HTML5 are in no way indicative of ARIA creating any real world accessibility problems nor do they mean there will be a negative user experience. They are merely the result of old automated validation tests that do not accommodate ARIA accessibility annotations.</p>
     <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML5 specification, please <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=Validator%20%28Nu%29">raise a bug report</a>.</p></section>
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
@@ -219,7 +225,8 @@ caption {text-align:left}
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;text&lt;/h1&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;&gt;text&lt;/&gt;</code>
-  <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.</p>
+  <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
+  <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=&quot;presentation&quot;</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
@@ -1904,7 +1911,7 @@ caption {text-align:left}
   <section><h3 id="abstract-roles">Abstract roles</h3>
   <p>Do not use the following <a href="http://www.w3.org/TR/wai-aria/roles#abstract_roles">abstract roles </a>as they <strong>do not do anything</strong>!</p>
     <blockquote cite="http://www.w3.org/TR/wai-aria/roles#abstract_roles">
-      <p>Abstract roles are used for the ontology. Authors <strong>MUST NOT</strong> not use abstract roles in content.</p>
+      <p>The following <A href="http://www.w3.org/TR/wai-aria/terms#def_role">roles</A> are used to support the WAI-ARIA role <A href="http://www.w3.org/TR/wai-aria/terms#def_taxonomy">taxonomy</A> for the purpose of defining general role concepts. Abstract roles are used for the ontology. Authors <strong>MUST NOT</strong> not use abstract roles in content.</p>
       <ul>
         <li><a href="http://www.w3.org/TR/wai-aria/roles#command"><code>command (abstract role)</code></a><code> </code></li>
         <li><code><a href="http://www.w3.org/TR/wai-aria/roles#composite">composite (abstract role)</a> </code></li>
