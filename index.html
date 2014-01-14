@@ -273,7 +273,9 @@ caption {text-align:left}
     <br>
   &lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;
     </code></section>
-   <section> <h3 id="application" tabindex="-1">Using ARIA role=application</h3>
+   <section> <h3 id="application" tabindex="-1">Using role=menubar</h3>
+     <p tabindex="-1">The WAI-ARIA <a href="http://www.w3.org/TR/wai-aria/roles#menubar">role =&quot;menubar&quot;</a> is intended to markup groups of features similar to those found in Windows, Mac, and Gnome desktop applications. It is not necessary on a site navigation menu. Here is an <a href="http://adobe-accessibility.github.io/Accessible-Mega-Menu/">example navigation menu</a> without a role="menubar", and no role=&quot;menuitem&quot;.</p>
+     <h3 tabindex="-1">Using ARIA role=application</h3>
     <h4 id="not">So when should I use it, and when not?</h4>
     <p>You <strong>do not</strong> use <code>role="application"</code> if a set of controls only contains   these widgets, that are all part of standard HTML. This also applies if   you mark them up and create an interaction model using WAI-ARIA roles   instead of standard HTML widgets:</p>
 <p>NOTE: It's not recommended that authors develop custom text input widgets. It's almost always best to use the native inputs for these.</p>
@@ -285,7 +287,7 @@ caption {text-align:left}
       <li><code>radio button</code> (usually inside a fieldset/legend element wrapper)</li>
       <li><code>select + option</code>(s)</li>
       <li><code>links</code>, <code>paragraphs</code>, <code>headings</code>, and other elements that are classic/native to documents on the Web.</li>
-      </ul>
+     </ul>
     <p>You also do <strong>not</strong> use the <code>application</code> role if your   widget is one of the following more dynamic and non-native widgets.   Screen readers and other assistive technologies that support WAI-ARIA   will support switching between browse and focus modes for these by   default, too:</p>
     <ul>
       <li><code>tree view</code></li>
@@ -302,7 +304,7 @@ caption {text-align:left}
         <br>
       &lt;/div&gt;</code></p></li>
       <li><code>toolbar </code>and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
-      </ul>
+     </ul>
     <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets, that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
     <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> is probably going to be in <strong>very rare</strong> cases!</p>
     <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
@@ -790,8 +792,8 @@ caption {text-align:left}
           <td><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-li-element"><code>li</code></a> element whose parent is an <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-ol-element"><code>ol</code></a> or <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-ul-element"><code>ul</code></a>
           <td><code>role=listitem</code></td>
           <TD class="nosupport"><strong>NO</strong> <strong><sup><a href="#note5a">note 5a</a></sup></strong></TD>
-          <td><p>Role: <code>listitem, menuitem, menuitemcheckbox, menuitemradio, option, tab, </code>or<code> treeitem </code></p>
-          <p><a id="note5a" tabindex="-1">Note 5a<strong>: <span class="support">YES</span></strong></a> if<code> li </code>element is a child of an <code>ol</code> or <code>ul</code> element with <code>role=presentation.</code></p></td>
+          <td><p>Role: <code>listitem, menuitem, menuitemcheckbox, menuitemradio, option, tab, </code>or<code> treeitem</code></p>
+          <p><a id="note5a" tabindex="-1">Note 5a<strong>: <span class="support">YES</span></strong></a> if<code> li </code>element is a child of an <code>ol</code> or <code>ul</code> element with <code>role=presentation</code></p></td>
         </tr>
         <tr>
           <td><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-link-element"><code>link</code></a> element with a <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-hyperlink-href"><code>href</code></a></td>
@@ -1518,7 +1520,8 @@ caption {text-align:left}
       </tr>
       <tr>
         <TD id="indexmenubar" tabIndex="-1"><code><A href="http://www.w3.org/TR/wai-aria/roles#menubar">menubar</A></code></TD>
-        <TD>A presentation of menu that usually remains visible and is usually presented   horizontally.</TD>
+        <TD><p>A presentation of menu that usually remains visible and is usually presented   horizontally.</p>
+          <p> Authors <strong>SHOULD</strong> ensure that menubar interaction is similar to the typical menu bar interaction in a desktop graphical user interface.<a href="http://www.w3.org/TR/wai-aria/roles#menubar">It is NOT really intended to mark up site navigation list items</a></p></TD>
         <td>NONE</td>
         <td><ul>
           <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
