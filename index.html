@@ -152,9 +152,9 @@ caption {text-align:left}
       people with disabilities. This document demonstrates how to use WAI-ARIA in HTML5, it especially helps with dynamic content and
       advanced user interface controls developed with Ajax, HTML, JavaScript, and
       related technologies.</p>
-    <p>This document suggests which ARIA attributes it is appropriate to
+    <p>This document suggests which ARIA attributes are appropriate to
       use on each of the elements in [[!HTML5]].    </p>
-    <p>For general best-practice information for using ARIA, see the
+    <p>For general best-practice information about using ARIA, see the
       [[WAI-ARIA-PRACTICES]] document.</p>
     <p>The following is a longer list of resources that provide relevant information:</p>
     <ul>
@@ -199,16 +199,16 @@ caption {text-align:left}
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
-    <h4 id="role-not">What  adding a role does not do?</h4>
+    <h4 id="role-not">What  adding a role does not do</h4>
     <p>   Adding ARIA will not make an element look or act differently for people <strong>not</strong> using assistive technology. Adding an ARIA role <strong>does not</strong> change the  behaviours, states and properties of the host element but only the native role semantics.</p>
 <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;button <mark>role=&quot;heading&quot;</mark> <mark>aria-level=&quot;1&quot;</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
   <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
-    <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button, still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
+    <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button and still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
     <p><strong>Note: </strong>likewise, changing the role of an element <strong>does not</strong> add behaviors, properties or states to the role used.  ARIA does not change the way it looks or acts in a browser. For instance, when links are used to behave like buttons, adding role="button" alone is not sufficient. It will also be necessary to make  act like a button, by including <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/"> a key event handler</a> that listens for the Space key  which native buttons do, because native buttons can be activated using the enter key or the spacebar.</p></section>
  <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
-    <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. If the content and interaction is only supported in a  scripting enabled browsing context, for example <a href="http://docs.google.com/">Google docs</a> applications require JavaScript enabled to work,   it is also safe to include the ARIA markup inline.</p>
+    <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. If the content and interaction is only supported in a scripting-enabled browsing context, i.e. <a href="http://docs.google.com/">Google docs</a>  (its applications require JavaScript enabled to work), it is safe to include the ARIA markup inline.</p>
     <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p><code class="block">&lt;li role="treeitem" aria-expanded="false" ...</code> 
     <p>When the user opens the  section, it is changed to this using JavaScript :</p>
     <p><code class="block">&lt;li role="treeitem" aria-expanded=&quot;true&quot; ...</code></p>
@@ -289,13 +289,13 @@ caption {text-align:left}
       <li><code>select + option</code>(s)</li>
       <li><code>links</code>, <code>paragraphs</code>, <code>headings</code>, and other elements that are classic/native to documents on the Web.</li>
      </ul>
-    <p>You also do <strong>not</strong> use the <code>application</code> role if your   widget is one of the following more dynamic and non-native widgets.   Screen readers and other assistive technologies that support WAI-ARIA   will support switching between browse and focus modes for these by   default, too:</p>
+    <p>You also do <strong>not</strong> use the <code>application</code> role if your   widget is one of the following more dynamic and non-native widgets.   Screen readers and other assistive technologies that support WAI-ARIA   will support switching between browse and focus modes for these by   default too:</p>
     <ul>
       <li><code>tree view</code></li>
       <li><code>slider</code></li>
-      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids etc.</li>
+      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids, etc.</li>
       <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right arrow keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
-      <li><code>dialog</code> and <code>alertdialog</code>. These causes some screen readers to go into a sort  of application mode implicitly once focus moves to a control inside  them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text  that explains the dialog's purpose, and set focus to the first  interactive control when you open it:<br>
+      <li><code>dialog</code> and <code>alertdialog</code>. These causes some screen readers to go into a sort  of application mode (implicitly) once focus moves to a control inside  them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text  that explains the dialog's purpose, and set focus to the first  interactive control when you open it:<br>
         <p><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;<br>
         <br>
         &lt;div <mark>id=&quot;log1&quot;</mark> tabindex=&quot;-1&quot;&gt;Provide user name and password to login.&lt;/div&gt;<br>
@@ -306,8 +306,8 @@ caption {text-align:left}
       &lt;/div&gt;</code></p></li>
       <li><code>toolbar </code>and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
      </ul>
-    <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets, that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
-    <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> is probably going to be in <strong>very rare</strong> cases!</p>
+    <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, or even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
+    <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> will probably  be  <strong>very rare</strong>!</p>
     <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
     <p>Put it on the closest containing element of your widget, for example,   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
     <p><strong>Only</strong> put it on the body element if your page   consists solely of a widget or set of widgets that all need the focus   mode to be turned on. If you have a majority of these widgets, but also   have something you want the user to browse, use <code>role=document </code>on the outer-most element of this document-ish part of the   page. It is the counterpart to <code>role=application</code> and will allow you to tell   the screen reader to use browse mode for this part. Also make this   element tabbable by setting a <code>tabindex=0</code>  on it so the user   has a chance to reach it. </p>
@@ -320,12 +320,12 @@ caption {text-align:left}
   <h3 id="rec-legend">legend </h3>
     <p> <strong>'Should authors explicitly define default ARIA semantics? ' column</strong></p>
     <ul>
-      <li><strong class="nosupport">NO</strong> = the default semantics are already implemented by browsers, so the default implied role, state or property associated with an element or attribute does not need to be used. There are notes indicating under certain circumstances default semantics are useful.</li>
-      <li><strong class="partial">N/A</strong> = there are no default ARIA semantics, but there may well be <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility AP</a>I semantics implemented by the browser.</li>
+      <li><strong class="nosupport">NO</strong> = the default semantics are already implemented by browsers, so the default implied role, state or property associated with an element or attribute does not need to be used. There are notes indicating under which  circumstances default semantics are useful.</li>
+      <li><strong class="partial">N/A</strong> = there are no default ARIA semantics, but there may well be <a href="http://dvcs.w3.org/hg/html-api-map/raw-file/tip/Overview.html">accessibility API</a> semantics implemented by the browser.</li>
       <li><strong class="support">Yes</strong> = the default semantics are not implemented across browsers, so the default implied role, state, property, or suggested semantics (if no ARIA default) may be used.</li>
       </ul>
     <p><strong>'What Other ARIA roles, states and properties may be used?' column</strong></p>
-    <p><strong class="nosupport">NONE</strong> = the element <strong>does not support</strong> ARIA roles, states and properties, this is usually because the element is not displayed in the document.</p>
+    <p><strong class="nosupport">NONE</strong> = the element <strong>does not support</strong> ARIA roles, states and properties. This is usually because the element is not displayed in the document.</p>
   
     <table>
       <caption>
