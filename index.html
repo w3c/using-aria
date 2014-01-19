@@ -273,9 +273,7 @@ caption {text-align:left}
     <br>
   &lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;
     </code></section>
-   <section> <h3 id="application" tabindex="-1">Don't use role=menubar on a Navigation Menu</h3>
-     <p tabindex="-1">The WAI-ARIA <a href="http://www.w3.org/TR/wai-aria/roles#menubar">role =&quot;menubar&quot;</a> is intended to markup horizontal groups of menu commands similar to those found in Windows, Mac, and Gnome desktop applications. It is not necessary on a dropdown site navigation menu.  It is better to use  <code>role=&quot;navigation&quot;</code> (or HTML <code>nav</code> element) on navigation  menus. </p>
-     <p tabindex="-1">Here is an <a href="http://adobe-accessibility.github.io/Accessible-Mega-Menu/"> accessible navigation menu</a> that does NOT use<code> role="menubar"</code> or <code>role=&quot;menuitem&quot;</code>.</p>
+   <section>
      <h3 tabindex="-1">Using ARIA role=application</h3>
     <h4 id="not">How does role=&quot;appliction&quot; affect a screen reader?</h4>
     <p>On popular screen readers today, most keystrokes are captured by the screen reader and not the web page when the user is in browse mode. This prevents screen reader users from having access to global keyboard shortcuts in a web app. Application mode means that screen reader shortcuts for browsing the page are no longer available, all keystrokes go to the page. The user won't be able to skip around the page by headings or read a paragraph of static text line-by-line.    </p>
@@ -799,9 +797,7 @@ caption {text-align:left}
           <td><code>role=listitem</code></td>
           <TD class="nosupport"><strong>NO</strong> <strong><sup><a href="#note5a">note 5a</a></sup></strong></TD>
           <td><p>Role: <code>listitem, menuitem, menuitemcheckbox, menuitemradio, option, tab, </code>or<code> treeitem</code></p>
-          <p><a id="note5a" tabindex="-1">Note 5a<strong>: <span class="support">YES</span></strong></a> if<code> li </code>element is a child of an <code>ol</code> or <code>ul</code> element with <code>role=presentation</code></p>
-          <p>&nbsp;</p>
-          <p><strong>Note:</strong> it is <strong>not</strong> recommended to use <code>role=menuitem</code> on site navigation bars</p></td>
+          <p><a id="note5a" tabindex="-1">Note 5a<strong>: <span class="support">YES</span></strong></a> if<code> li </code>element is a child of an <code>ol</code> or <code>ul</code> element with <code>role=presentation</code></p></td>
         </tr>
         <tr>
           <td><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-link-element"><code>link</code></a> element with a <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-hyperlink-href"><code>href</code></a></td>
@@ -933,9 +929,7 @@ caption {text-align:left}
             </code>
           <td><code>role=list </code></td>
           <TD class="nosupport"><strong>NO</strong></TD>
-          <td><p>Role: <code>directory, listbox, menu, menubar, tablist, toolbar, tree </code></p>
-          <p>&nbsp;</p>
-          <p><strong>Note:</strong> it is NOT recommeded to use <code>role=menubar</code> on site navigation bars</p></td>
+          <td><p>Role: <code>directory, listbox, menu, menubar, tablist, toolbar, tree </code></p></td>
         </tr>
         <tr>
           <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-output-element">output</a>
