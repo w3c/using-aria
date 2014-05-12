@@ -205,7 +205,7 @@ caption {text-align:left}
  </section>
  <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/wai-aria/terms#def_accessible_name">accessible name</a>. </p>
-<p><em>in progress</em></p>
+<p>in progress</p>
  
  
  </section>
@@ -214,20 +214,21 @@ caption {text-align:left}
     <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
-  <code class="blockat">&lt;button&gt;text&lt;/button&gt;</code>
+  <code class="block"><img src="heading-button.png" width="199" height="24" alt="button  with a label of 'heading text'"></code>
     <h4 id="role-not">What  adding a role does not do</h4>
     <p>   Adding an ARIA role will not make an element look or act differently for people <strong>not</strong> using assistive technology. It <strong>does not</strong> change the  behaviours, states and properties of the host element but only the native role semantics.</p>
 <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;button <mark>role=heading</mark> <mark>aria-level=1</mark>&gt;text&lt;/button&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
-  <code class="blockat">&lt;<mark>h1</mark>&gt;text&lt;/<mark>h1</mark>&gt;</code>
+  <code class="block"><img src="heading.png" width="167" height="38" alt="a heading"></code>
     <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button and still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
     <p><strong>Note: </strong>Changing the role of an element <strong>does not</strong> add behaviors, properties or states to the role used.  ARIA does not change the way it looks or acts in a browser. For instance, when links are used to behave like buttons, adding <code>role=button</code> alone is not sufficient. It will also be necessary to make  act like a button, by including <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/"> a key event handler</a> that listens for the <code>space</code> key  which native buttons do, because native buttons can be activated using the enter key or the spacebar.</p></section>
  <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
     <p>If the ARIA role or aria-* attribute does   not rely on scripting to  provide interaction behaviour, then it is safe   to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. If the content and interaction is only supported in a scripting-enabled browsing context, i.e. <a href="http://docs.google.com/">Google docs</a>  (its applications require JavaScript enabled to work), it is safe to include the ARIA markup inline.</p>
-    <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p><code class="block">&lt;li role=treeitem aria-expanded=false ...</code> 
+    <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p>
+    <code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code> 
     <p>When the user opens the  section, it is changed to this using JavaScript :</p>
-    <p><code class="block">&lt;li role=treeitem aria-expanded=true ...</code></p>
+    <p><code class="block">&lt;li role=treeitem <mark>aria-expanded=true</mark> ...</code></p>
  </section>
  
   <section></section>
@@ -240,22 +241,20 @@ caption {text-align:left}
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=presentation</mark>&gt;text&lt;/h1&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
-  <code class="blockat">&lt;&gt;text&lt;/&gt;</code>
+  <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
   <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;h1 <mark>role=presentation</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
-    <code class="blockat">&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;</code>
+    <code class="block"><img src="abbr.png" width="162" height="39" alt="abbr with text of API"></code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
   <code class="block">&lt;table <mark>role=presentation</mark>&gt;<br>
   &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
-    <code class="blockat">&lt;&gt;<br>
-     &lt;&gt;&lt;&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/&gt;&lt;/&gt;<br>
-  &lt;/&gt;<br></code>
+    <code class="block"><img src="abbr.png" width="162" height="39" alt="abbr with text of API"></code>
     <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
   <p>For example, this code in the HTML tree:</p>
     <code class="block">&lt;table <mark>role=presentation&quot;</mark>&gt;<br>
@@ -266,13 +265,7 @@ caption {text-align:left}
     &lt;/td&gt;&lt;tr&gt;<br>
   &lt;/table&gt;</code>
   <p>Becomes this in the accessibility tree:</p>
-    <code class="blockat">&lt;&gt;<br>
-    &lt;&gt;&lt;&gt;<br>
-    <mark>&lt;table&gt;</mark><br>
-    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
-    <mark>&lt;/table&gt;</mark><br>
-    &lt;/&gt;&lt;&gt;<br>
-    &lt;/&gt;</code></section>
+    <code class="block"><img src="table.png" width="222" height="95" alt="table with 1 row and 1 cell containing an abbr element"></code></section>
  <section> <h3 tabindex="-1" id="label">aria-labelledby and aria-describedby</h3>
     <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements. As of this writing they <strong>do not</strong> work correctly on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> [EDITOR: add blocking bug link?], support on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#embedded-content-0">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</p>
   <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.[EDITOR: add blocking bug link?]</p>
