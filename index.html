@@ -203,6 +203,12 @@ caption {text-align:left}
   <p>Do <strong>not</strong> do this:</p>
   <code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
  </section>
+ <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
+<p>All interactive elements must have an <a href="http://www.w3.org/TR/wai-aria/terms#def_accessible_name">accessible name</a>. </p>
+<p><em>in progress</em></p>
+ 
+ 
+ </section>
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
      <p>  Adding an ARIA role <strong>overrides</strong> the native role semantics in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a> which is reported via the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_api">accessibility API</a>, and therefore ARIA indirectly affects what is reported to a screen reader or other assistive technology.</p>
     <p>For example, this code in the HTML tree:</p>
@@ -1175,17 +1181,9 @@ caption {text-align:left}
           <p>Only use the <code>aria-disabled</code> attribute for elements that are not allowed to have a <code>disabled </code>attribute in HTML5</p></td>
         </tr>
         <tr>
-          <td>Element with an  <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#inert"><code>inert</code></a> attribute</td>
-          <td><code>aria-hidden=&quot;true&quot;</code></td>
-          <td><strong class="nosupport">YES (DEPENDS)</strong></td>
-          <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a> </p>
-          <p><strong>Note:</strong>Inert content is used for things like the background contents while showing a modal dialog. In this case, it would be appropriate and recommended to use aria-hidden="true"… If there are cases where inert is being used to deactivate foreground content that is still intended for consumption, @inert should be combined with an explicit aria-hidden="false" to override the default rendering engine behavior.</p>
-</td>
-        </tr>
-        <tr>
           <td>Element with a <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-input-required"><code>required</code></a> attribute</td>
           <td>The <code>aria-required=&quot;true&quot;</code></td>
-          <td class="support"><strong>Yes</strong></td>
+          <td class="nosupport"><strong>NO</strong></td>
           <td><p>Use the <code>aria-required</code> attribute on any element that is <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attributes-1">allowed the <code>required</code> attribute</a> in HTML5. </p>
           <p>Also use the <code>aria-required </code>attribute for elements that have an attached ARIA role which allows the <code>aria-required</code> attribute.</p></td>
         </tr>
