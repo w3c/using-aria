@@ -917,7 +917,8 @@ caption {text-align:left}
           <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-ol-element">ol</a> </code>
           <td><code>role=list </code></td>
           <TD class="nosupport"><strong>NO</strong></TD>
-          <td><p>Role: <code>directory, listbox, menu, menubar, tablist, toolbar, tree </code></p></td>
+          <td><p>Role: <code>directory, group, listbox, menu, menubar, tablist, toolbar </code>or<code> tree </code></p>
+          <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
           <td><a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-optgroup-element"><code>optgroup</code></a> 
@@ -939,7 +940,7 @@ caption {text-align:left}
           <TD><strong class="support">DEPENDS</strong></TD>
           <td><p>Role: Any, use in conjunction with <code>aria-live=polite</code></p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
-<p>Note: If role="status" is added, it will force this to be a broadcasting live region. In some cases, this is fine, but if this is an element whose value changes constantly due to scripted updates rather than explicit user action (like a progressbar), it'd be more appropriate to set aria-live="off". Otherwise some AT users are going to find this very distracting, even impossible to use. Even "polite" live regions can be annoying if they are overused.</p></td>
+<p>Note: If <code>role="status"</code> is added, it will force this to be a broadcasting live region. In some cases, this is fine, but if this is an element whose value changes constantly due to scripted updates rather than explicit user action (like a progressbar), it'd be more appropriate to set <code>aria-live="off"</code>. Otherwise some AT users are going to find this very distracting, even impossible to use. Even "polite" live regions can be annoying if they are overused.</p></td>
         </tr>
         <tr>
           <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-param-element">param</a> 
@@ -1025,7 +1026,7 @@ caption {text-align:left}
             </code>
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
-          <td><p>if <code>summary</code> element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a> - Use <code>role=button</code> with <code>aria-expanded="true"</code> if the element's <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-details-open"><code>open</code></a> attribute is present, <code>aria-expanded="false"</code> otherwise. </p>
+          <td><p>if <code>summary</code> element is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a> - Use <code>role=button</code> with <code>aria-expanded="true"</code> if the parent (<code>details</code>) element's <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-details-open"><code>open</code></a> attribute is present, <code>aria-expanded="false"</code> otherwise. </p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the<code> button </code>role. </p></td>
         </tr>
         <tr>
@@ -1038,12 +1039,17 @@ caption {text-align:left}
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
-          <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-textarea-element">textarea</a> 
-            </code>
+          <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/scripting-1.html#the-template-element">template</a> </code>
+          <td>NONE</td>
+          <td><strong class="partial">N/A</strong></td>
+          <td><strong class="nosupport">NONE</strong></td>
+        </tr>
+        <tr>
+          <td><code><a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-textarea-element">textarea</a> </code>
           <td><code>role=textbox</code></td>
           <td><strong class="nosupport">NO</strong></td>
           <td><p>Any <a href="#global">global <code>aria-*</code> attributes</a></p>
-          <p><strong>Not</strong> <code>role=presentation</code></p></td>
+            <p><strong>Not</strong> <code>role=presentation</code></p></td>
         </tr>
         <tr>
           <td><p><a href="http://www.w3.org/html/wg/drafts/html/master/tabular-data.html#the-tbody-element"><code>tbody</code></a>, <a href="http://www.w3.org/html/wg/drafts/html/master/tabular-data.html#the-thead-element"><code>thead</code></a>, 
@@ -1218,7 +1224,7 @@ caption {text-align:left}
           <td><code>aria-invalid=true</code></td>
           <td class="nosupport"><strong>NO</strong></td>
           <td><p>Only use the <code>aria-invalid=true</code> attribute after form has been validated, setting it prior means users think the field is invalid before they even input data or interact with it.</p>
-<p>(Editor's NOTE) Provide link to what HTML defines what constitutes the user has interacted with the control "significantly." ARIA defines aria-invalid="grammar" and aria-invalid="spelling"</p>
+<p>(Editor's NOTE) Provide link to what HTML defines what constitutes the user has interacted with the control "significantly." ARIA defines <code>aria-invalid="grammar"</code> and <code>aria-invalid="spelling"</code></p>
 </td>
         </tr>
       </table></section>
@@ -1472,7 +1478,7 @@ caption {text-align:left}
           <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-required">aria-required</a></code></li>
           <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
           <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant">aria-activedescendant</a></code></li>
-          <li><code><a href="http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded">aria-expanded (state)</a></code></li>
+          <li></li>
         </ul></td>
       </tr>
       <tr>
