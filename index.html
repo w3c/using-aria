@@ -127,9 +127,7 @@ caption {text-align:left}
       accessibility information to HTML elements using the
       Accessible Rich Internet Applications specification [[!WAI-ARIA]], which
       defines a way to make Web content and Web applications more accessible to
-      people with disabilities. This document demonstrates how to use WAI-ARIA in [[!HTML5]], which especially helps with dynamic content and
-      advanced user interface controls developed with Ajax, HTML, JavaScript, and
-      related technologies.</p>
+      people with disabilities. This document demonstrates how to use WAI-ARIA in [[!HTML5]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
   </section>
   <section id='sotd'>
     <p class="note">This document is informative only. Resources are for information purposes only, no endorsement implied.</p>
@@ -201,15 +199,24 @@ caption {text-align:left}
  </section>
  <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/wai-aria/terms#def_accessible_name">accessible name</a>. </p>
-<p>An interactive element only has an accessible name when it's Accessibility API <em>accessible name</em> property has a value.</p>
+<p>An interactive element only has an accessible name when it's Accessibility API <em>accessible name</em> (or equivalent) property has a value.</p>
 <p>For example, the <code>input type=text</code> in the code example below has a visible label 'user name' , but no accessible name:</p>
-    <p><code class="block">user name &lt;input type=&quot;text&quot;&gt;</code></p>
+    <pre><code class="block">
+    user name &lt;input type=&quot;text&quot;&gt;
+    
+    or
+
+&lt;!-- label element used, but not associated with the control 
+it is supposed to label --&gt;
+    
+    <mark>&lt;label&gt;</mark>user name<mark>&lt;/label&gt;</mark> &lt;input type=&quot;text&quot;&gt;
+    </code></pre>
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property is empty:</p>
     <p><img src="noname.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has no value, the accRole property is 'editable text'."></p>
-    <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#category-label">labelable element</a> and the <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-label-element"><code>label</code></a> element is used to explicitly associate the text with the input.</p>
+    <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#category-label">labelable element</a> and the <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-label-element"><code>label</code></a> element is used correctly to  associate the label text with the input.</p>
 <pre><code class="block">
-&lt;!-- <strong>Note:</strong> both use of for/id and wrapping label around text and control result in
-the an accessible name -->
+&lt;!-- <strong>Note:</strong> use of for/id or wrapping label around text 
+and control methods will result in an accessible name -->
 
 <mark>&lt;label&gt;</mark>user name &lt;input type=&quot;text&quot;&gt;<mark>&lt;/label&gt;</mark> 
 
