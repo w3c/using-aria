@@ -191,11 +191,17 @@ caption {text-align:left}
  </section>
  <section>
    <h3 tabindex="-1" id="fourth">Fourth rule of ARIA use</h3>
-   <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a focusable element. Using either of these on a focusable element will result in some users focusing on 'nothing'.</p>
+   <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a <em>visible</em> <strong>focusable</strong> element .</p>
+   <p>Using either of these on a <em>visible</em> <strong>focusable</strong> element will result in some users focusing on 'nothing'.</p>
    <p>Do <strong>not</strong> do this:</p>
   <code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
   <p>Do <strong>not</strong> do this:</p>
   <code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
+  <p><strong>Note: </strong>If an  interactive element cannot be seen or interacted with, then you can apply <code>aria-hidden</code>, for example:</p>
+  <code class="block"><mark>button {display:none}</mark><br>
+  <br>
+  &lt;<mark>button</mark> 
+  <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
  </section>
  <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/wai-aria/terms#def_accessible_name">accessible name</a>. </p>
