@@ -313,7 +313,7 @@ or
     </code></section>
    <section>
      <h3 tabindex="-1">Using ARIA role=application</h3>
-    <h4 id="not">How does role=&quot;appliction&quot; affect a screen reader?</h4>
+    <h4 id="not">How does role=&quot;application&quot; affect a screen reader?</h4>
     <p>On many popular screen readers today, most keystrokes are captured by the screen reader and not the web page when the user is in browse mode. This is necessary for efficient navigation of a page. As of this writing, when application mode is set, many screen reader  stop intercepting keystrokes, and pass all keystrokes directly to the browser. Then the user won't be able to navigate the page as easily. For instance they won't be able to skip around the page by headings or read a paragraph of static text line-by-line. However, several screen readers do not behave differently when there is an application role set.</p>
     <h4>So when should I use it, and when not?    </h4>
     <p>In determining when to use <code>role=application</code>, one should consider, among other things, the advantages of screen reader keyboard shortcuts weighed against the loss of those features. It generally should not be used, and if it is,  usability testing with screen reader users should be conducted.</p>
@@ -461,7 +461,7 @@ or
           <TD class="nosupport"><strong>NO <sup><a href="#note0a">note 0b</a></sup></strong></TD>
           <td><p>Roles: <code><a href="#indexlink">link</a>, <a href="#indexmenuitem">menuitem</a>, <a href="#indexmenuitemcheckbox">menuitemcheckbox</a>, <a href="#indexmenuitemradio">menuitemradio</a>, <a href="#indexradio">radio</a></code>. <br>
             Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p>
-            <p><a id="note0b" tabindex="-1"><strong>Note 0b: <span class="support">YES</span></strong></a> If <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-button-element">button</a> <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-button-type">type="menu"</a></code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfil</a></p>
+            <p><a id="note0b" tabindex="-1"><strong>Note 0b: <span class="support">YES</span></strong></a> If <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-button-element">button</a> <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#attr-button-type">type="menu"</a></code> is being used in a <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills">scripted polyfill</a></p>
             <p><strong>Not</strong> <code>role=presentation</code></p></td>
         </tr>
         <tr>
@@ -602,7 +602,7 @@ or
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
  <tr>
-          <td><a href="http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-iframe-element"><code>iframe (seemless)</code></a>
+          <td><a href="http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-iframe-element"><code>iframe (seamless)</code></a>
           <td>EDITOR: okay to override with any general grouping role.</td>
           <TD class="partial"><strong>N/A</strong></TD>
           <td><p>Role: <code>application, document, </code>or<code> img </code></p>
@@ -1100,7 +1100,7 @@ or
           <td>NONE</td>
           <td><strong class="partial">N/A</strong></td>
           <td><p>Role: any</p>
-            <p><strong>Note: </strong>It is  recommended to not override the <code>td</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/">scripted data grid</a>, then the ARIA <code>grdicell</code> role may be used.</p>
+            <p><strong>Note: </strong>It is  recommended to not override the <code>td</code> element  with an ARIA role unless it is being used as part of a <a href="https://dojotoolkit.org/documentation/tutorials/1.7/beyond_dojo/demo/">scripted data grid</a>, then the ARIA <code>gridcell</code> role may be used.</p>
           <p>Any <a href="#global">global <code>aria-*</code> attributes</a> and any <code>aria-*</code> attributes applicable to the allowed roles</p></td>
         </tr>
         <tr>
