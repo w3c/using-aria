@@ -197,7 +197,7 @@ caption {text-align:left}
   <code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
   <p>Do <strong>not</strong> do this:</p>
   <code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
-  <p><strong>Note: </strong>If an  interactive element cannot be seen or interacted with, then you can apply <code>aria-hidden</code>, for example:</p>
+  <p><strong>Note: </strong>If an  interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
   <code class="block"><mark>button {display:none}</mark><br>
   <br>
   &lt;<mark>button</mark> 
@@ -234,6 +234,28 @@ or
 
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
     <p><img src="name.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'editable text'."></p>
+    <p>The <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#category-label">labelable element</a>.</p>
+    <pre><code class="block">
+     &lt;!-- <strong>HTML input element with combox role</strong> -->
+
+      <mark>&lt;label&gt;</mark>
+      user name &lt;input type=&quot;text&quot;  <mark>role=&quot;combobox"</mark>;&gt;
+      <mark>&lt;/label&gt;</mark>
+    </code></pre>
+    <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
+    <p><img src="combo1.png" width="280" height="142" alt="example input element with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'combo box'."></p>
+    <p>A <code><a href="http://www.w3.org/html/wg/drafts/html/master/grouping-content.html#the-div-element">div</a></code> element regardless of what role is assigned is not a HTML <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#category-label">labelable element</a>.</p>
+    <pre><code class="block">
+     &lt;!-- <strong>HTML div element with combox role</strong> -->
+
+      <mark>&lt;label&gt;</mark>
+      user name &lt;div  <mark>role=&quot;combobox"</mark>&gt;&lt;/div&gt;
+      <mark>&lt;/label&gt;</mark>
+    </code></pre>
+    <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property is empty:</p>
+    <p><img src="combo2.png" width="241" height="147" alt="example div element with MSAA name and role information displayed. The accName property is empty, the accRole property is 'combo box'."></p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
  </section>
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
      <p>  Adding an ARIA role <strong>overrides</strong> the native role semantics in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a> which is reported via the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_api">accessibility API</a>, and therefore ARIA indirectly affects what is reported to a screen reader or other assistive technology.</p>
