@@ -1257,15 +1257,17 @@ or
           <td>Element is natively focusable (links, buttons, etc.)</td>
           <td>NONE</td>
           <td class="partial"><strong>NO</strong></td>
-          <td><strong>Not</strong> <code>role=presentation</code></td>
+          <td><p><strong>Not</strong> <code>role=presentation</code></p>
+          <p>Refer to the <a href="http://w3c.github.io/aria-in-html/#fourth-rule-of-aria-use">Fourth rule of ARIA use</a></p></td>
         </tr>
  <tr>
-          <td>Element is not natively focusable (li, span, div, etc.) </td>
+          <td>Element is not natively focusable (li, span, div, etc.) is in a visible display state and is focusable. </td>
           <td><em>DEPENDS</em></td>
           <td class="partial"><strong>YES</strong></td>
           <td><strong>Not</strong> <code>role=presentation </code>
 <p>For example, <code>&lt;span tabindex="0"></code> is focusable but has no role in most rendering engines. Needs a role in many cases. (NEED TO GIVE EXAMPLES).</p>
-</td>
+<p>Refer to the <a href="http://w3c.github.io/aria-in-html/#fourth-rule-of-aria-use">Fourth rule of ARIA use</a></p>
+          </td>
         </tr>
         <tr>
           <td>Element that is a <a href="http://www.w3.org/html/wg/drafts/html/master/forms.html#candidate-for-constraint-validation">candidate for constraint validation</a> but that does not <a data-anolis-xref="concept-fv-valid" href="http://www.w3.org/html/wg/drafts/html/master/forms.html#concept-fv-valid">satisfy its constraints</a></td>
