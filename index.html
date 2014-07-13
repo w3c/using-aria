@@ -293,16 +293,20 @@ or
   <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
-  <code class="block">&lt;h1 <mark>role=presentation</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code>
+  <pre><code class="block">&lt;h1 <mark>role=presentation</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
-    <code class="block"><img src="abbr.png" width="162" height="39" alt="abbr with text of API"></code>
+    <code class="block"><img src="h1.png" width="185" height="53" alt="abbr with text of API"></code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
-  <code class="block">&lt;table <mark>role=presentation</mark>&gt;<br>
-  &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
-  &lt;/table&gt;</code>
+  <pre><code class="block">&lt;table <mark>role=presentation</mark>&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;abbr&gt;API&lt;/abbr&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
     <p>Becomes this in the accessibility tree:</p>
-    <code class="block"><img src="abbr.png" width="162" height="39" alt="abbr with text of API"></code>
+    <code class="block"><img src="abbr.png" width="222" height="87" alt="abbr with text of API"></code>
     <p><strong>Note:</strong> Any elements that <em>are not</em> required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
   <p>For example this code, consisting of a table with another table nested inside it, in the HTML tree:</p>
     <code class="block">&lt;table&gt;<br>
@@ -323,7 +327,8 @@ or
     &lt;/table&gt;<br>
     &lt;/td&gt;&lt;/tr&gt;<br>
   &lt;/table&gt;</code>
-  <p>Becomes this in the accessibility tree, the semantics of the outer table are removed by the addition of <code>role=presentation</code>:</p>
+  <p>Becomes this in the accessibility tree, the semantics of the outer <code>table</code> including its required children (the <code>tr</code> and <code>td</code> elements) 
+    are removed by the addition of <code>role=presentation</code>:</p>
     <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
     
     </section>
