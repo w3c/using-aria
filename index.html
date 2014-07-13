@@ -303,17 +303,30 @@ or
   &lt;/table&gt;</code>
     <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="abbr.png" width="162" height="39" alt="abbr with text of API"></code>
-    <p><strong>Note:</strong> Any elements that are not required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
-  <p>For example, this code in the HTML tree:</p>
+    <p><strong>Note:</strong> Any elements that <em>are not</em> required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
+  <p>For example this code, consisting of a table with another table nested inside it, in the HTML tree:</p>
+    <code class="block">&lt;table&gt;<br>
+    &lt;tr&gt;&lt;td&gt;<br>
+    &lt;table&gt;<br>
+    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
+    &lt;/table&gt;<br>
+    &lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;/table&gt;</code>
+  <p>Becomes this in the accessibility tree:</p>
+    <code class="block"><img src="table2.png" width="286" height="149" alt="outer ttable with 1 row and 1 cell containg another table with 1 row and 1 cell containing an abbr element."></code>
+    
+    <p>By adding <code>role=presentation</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
     <code class="block">&lt;table <mark>role=presentation&quot;</mark>&gt;<br>
     &lt;tr&gt;&lt;td&gt;<br>
     &lt;table&gt;<br>
     &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;tr&gt;<br>
     &lt;/table&gt;<br>
-    &lt;/td&gt;&lt;tr&gt;<br>
+    &lt;/td&gt;&lt;/tr&gt;<br>
   &lt;/table&gt;</code>
-  <p>Becomes this in the accessibility tree:</p>
-    <code class="block"><img src="table.png" width="222" height="95" alt="table with 1 row and 1 cell containing an abbr element"></code></section>
+  <p>Becomes this in the accessibility tree, the semantics of the outer table are removed by the addition of <code>role=presenation</code>:</p>
+    <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
+    
+    </section>
  <section> <h3 tabindex="-1" id="label">aria-labelledby and aria-describedby</h3>
     <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements. As of this writing they <strong>do not</strong> work correctly on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> , support on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#embedded-content-0">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</p>
   <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
