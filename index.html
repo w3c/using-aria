@@ -260,13 +260,13 @@ or
    <section><h3 tabindex="-1" id="do">What does adding a role do to the native semantics?</h3>
      <p>  Adding an ARIA role <strong>overrides</strong> the native role semantics in the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a> which is reported via the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_api">accessibility API</a>, and therefore ARIA indirectly affects what is reported to a screen reader or other assistive technology.</p>
     <p>For example, this code in the HTML tree:</p>
-    <code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code>
+    <pre><code class="block">&lt;h1 role=button&gt;text&lt;/h1&gt;</code></pre>
     <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="heading-button.png" width="199" height="24" alt="button  with a label of 'heading text'"></code>
     <h4 id="role-not">What  adding a role does not do</h4>
     <p>   Adding an ARIA role will not make an element look or act differently for people <strong>not</strong> using assistive technology. It <strong>does not</strong> change the  behaviours, states and properties of the host element but only the native role semantics.</p>
 <p>For example, this code in the HTML tree:</p>
-    <code class="block">&lt;button <mark>role=heading</mark> <mark>aria-level=1</mark>&gt;text&lt;/button&gt;</code>
+    <pre><code class="block">&lt;button <mark>role=heading</mark> <mark>aria-level=1</mark>&gt;text&lt;/button&gt;</code></pre>
     <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="heading.png" width="167" height="38" alt="a heading"></code>
     <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button and still triggers any associated actions when  pressed. That's why it is a HTML5 conformance error to change a button into a heading.</p>
@@ -275,9 +275,9 @@ or
     <p>If the ARIA role or aria-* attribute <strong>does   not rely</strong> on scripting to  provide interaction behaviour, then <strong>it is safe</strong> to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2010/10/using-wai-aria-landmark-roles/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. </p>
     <p>If the content and interaction is <strong>only supported in a scripting-enabled browsing context</strong>, i.e. <a href="http://docs.google.com/">Google docs</a>  (its applications require JavaScript enabled to work), it <strong>is also safe</strong> to include the ARIA markup inline as the application simply will not work (for anyone) without JavaScript enabled.</p>
     <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p>
-    <code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code> 
+    <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code></pre> 
     <p>When the user opens the  section, it is changed to this using JavaScript :</p>
-    <p><code class="block">&lt;li role=treeitem <mark>aria-expanded=true</mark> ...</code></p>
+    <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=true</mark> ...</code></pre>
  </section>
 
   <section><h3 tabindex="-1" id="validation">ARIA validation</h3>
@@ -287,7 +287,7 @@ or
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
-  <code class="block">&lt;h1 <mark>role=presentation</mark>&gt;text&lt;/h1&gt;</code>
+  <pre><code class="block">&lt;h1 <mark>role=presentation</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
   <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
@@ -298,7 +298,7 @@ or
     <code class="block"><img src="h1.png" width="185" height="53" alt="abbr with text of API"></code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
-  <pre><code class="block">&lt;table <mark>role=presentation</mark>&gt;
+  <pre><code class="block">&lt;table <mark>role=&quot;presentation</mark>&quot;&gt;
   &lt;tr&gt;
     &lt;td&gt;
       &lt;abbr&gt;API&lt;/abbr&gt;
@@ -309,24 +309,36 @@ or
     <code class="block"><img src="abbr.png" width="222" height="87" alt="abbr with text of API"></code>
     <p><strong>Note:</strong> Any elements that <em>are not</em> required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
   <p>For example this code, consisting of a table with another table nested inside it, in the HTML tree:</p>
-    <code class="block">&lt;table&gt;<br>
-    &lt;tr&gt;&lt;td&gt;<br>
-    &lt;table&gt;<br>
-    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;/tr&gt;<br>
-    &lt;/table&gt;<br>
-    &lt;/td&gt;&lt;/tr&gt;<br>
-  &lt;/table&gt;</code>
+    <pre><code class="block">&lt;table&gt;
+ &lt;tr&gt;
+  &lt;td&gt;
+    &lt;table&gt;
+     &lt;tr&gt;
+      &lt;td&gt;
+       &lt;abbr&gt;API&lt;/abbr&gt;
+      &lt;/td&gt;
+     &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="table2.png" width="286" height="149" alt="outer ttable with 1 row and 1 cell containg another table with 1 row and 1 cell containing an abbr element."></code>
     
     <p>By adding <code>role=presentation</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
-    <code class="block">&lt;table <mark>role=presentation&quot;</mark>&gt;<br>
-    &lt;tr&gt;&lt;td&gt;<br>
-    &lt;table&gt;<br>
-    &lt;tr&gt;&lt;td&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/td&gt;&lt;/tr&gt;<br>
-    &lt;/table&gt;<br>
-    &lt;/td&gt;&lt;/tr&gt;<br>
-  &lt;/table&gt;</code>
+    <pre><code class="block">&lt;table <mark>role=&quot;presentation</mark>&quot;&gt;
+ &lt;tr&gt;
+  &lt;td&gt;
+    &lt;table&gt;
+     &lt;tr&gt;
+      &lt;td&gt;
+       &lt;abbr&gt;API&lt;/abbr&gt;
+      &lt;/td&gt;
+     &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
   <p>Becomes this in the accessibility tree, the semantics of the outer <code>table</code> including its required children (the <code>tr</code> and <code>td</code> elements) 
     are removed by the addition of <code>role=presentation</code>:</p>
     <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
