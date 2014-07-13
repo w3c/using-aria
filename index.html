@@ -287,18 +287,18 @@ or
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
-  <pre><code class="block">&lt;h1 <mark>role=presentation</mark>&gt;text&lt;/h1&gt;</code></pre>
+  <pre><code class="block">&lt;h1 <mark>role=&quot;presentation"</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
   <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
-  <pre><code class="block">&lt;h1 <mark>role=presentation</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
+  <pre><code class="block">&lt;h1 <mark>role="presentation"</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="h1.png" width="185" height="53" alt="abbr with text of API"></code>
     <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
-  <pre><code class="block">&lt;table <mark>role=&quot;presentation</mark>&quot;&gt;
+  <pre><code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
   &lt;tr&gt;
     &lt;td&gt;
       &lt;abbr&gt;API&lt;/abbr&gt;
@@ -326,7 +326,7 @@ or
     <code class="block"><img src="table2.png" width="286" height="149" alt="outer ttable with 1 row and 1 cell containg another table with 1 row and 1 cell containing an abbr element."></code>
     
     <p>By adding <code>role=presentation</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
-    <pre><code class="block">&lt;table <mark>role=&quot;presentation</mark>&quot;&gt;
+    <pre><code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
  &lt;tr&gt;
   &lt;td&gt;
     &lt;table&gt;
