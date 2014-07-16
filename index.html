@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 
 <title>Using WAI-ARIA in HTML</title>
+<style>
+body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; }</style>
 <script class='remove'>
   function addEllipsis(id) {
     document.getElementById(id).childNodes.item(2).textContent = "\n    â€¦\n";
@@ -118,8 +121,7 @@ caption {text-align:left}
         code {color:#BF3400 !important;}
 
 .example {margin-left:30px;} 
-body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; }
+
 </style>
 </head>
 
