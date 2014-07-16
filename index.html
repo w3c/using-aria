@@ -5,8 +5,8 @@
 
 <title>Using WAI-ARIA in HTML</title>
 <style>
-body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; }</style>
+div#unresolved {transition: opacity ease-in 0.2s; } 
+div[unresolved] {opacity: 0; display: block; overflow: hidden; }</style>
 <script class='remove'>
   function addEllipsis(id) {
     document.getElementById(id).childNodes.item(2).textContent = "\n    â€¦\n";
@@ -125,7 +125,7 @@ caption {text-align:left}
 </style>
 </head>
 
-<body unresolved>
+<body><div id="unresolved" unresolved> 
   <section id='abstract'>
   <p role="contentinfo">This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
@@ -2032,5 +2032,6 @@ or
       </blockquote></section>
     <hr>
 </section>
+</div>
 </body>
 </html>
