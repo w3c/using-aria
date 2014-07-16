@@ -118,10 +118,12 @@ caption {text-align:left}
         code {color:#BF3400 !important;}
 
 .example {margin-left:30px;} 
+body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; }
 </style>
 </head>
 
-<body>
+<body unresolved>
   <section id='abstract'>
   <p role="contentinfo">This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
