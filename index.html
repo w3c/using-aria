@@ -281,16 +281,16 @@ or
  </section>
 
   <section><h3 tabindex="-1" id="validation">ARIA validation</h3>
-    <p>The easiest method is to use the <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Validation Service</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
+    <p>The easiest method is to use the <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Checker</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
     <p>These validation errors in versions of HTML prior of HTML5 are in no way indicative of ARIA creating any real world accessibility problems nor do they mean there will be a negative user experience. They are merely the result of old automated validation tests that do not accommodate ARIA accessibility annotations.</p>
-    <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup Conformance Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!)to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML5 specification, please <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=Validator%20%28Nu%29">raise a bug report</a>.</p></section>
+    <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!)to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML5 specification, please <a href="https://www.w3.org/Bugs/Public/enter_bug.cgi?product=Validator%20%28Nu%29">raise a bug report</a>.</p></section>
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
   <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role=&quot;presentation"</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
-  <p>In other words, it is just reported in the accessibility tree as a text string with no semantic meaning. </p>
+  <p>In other words, it is just reported in the accessibility tree as a text string with <strong>no semantic meaning</strong>. </p>
   <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role="presentation"</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
@@ -343,8 +343,12 @@ or
     are removed by the addition of <code>role=presentation</code>:</p>
     <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
     
+    <h4 tabindex="-1" id="label">Examples of <code>role=presentation</code> use</h4>
+    <p >Use in fixing an incorrect table structure</p>
+    <pre><code class="block">&lt;div aria-readonly=&quot;true&quot; role=&quot;grid&quot;&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Dog Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cat Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cow names&lt;/th&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Fido&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Whiskers&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Clarabella&lt;/td&gt;<br>			&lt;/tr&gt;<br>			&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Woofie&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Claws&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Glenn&lt;/td&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>	&lt;/div&gt;</code></pre>
     </section>
- <section> <h3 tabindex="-1" id="label">aria-labelledby and aria-describedby</h3>
+ <section> 
+   <h3 tabindex="-1">aria-labelledby and aria-describedby</h3>
     <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements. As of this writing they <strong>do not</strong> work correctly on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> , support on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#embedded-content-0">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</p>
   <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
     <p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code>  with a <code>tabindex=-1</code>  added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
@@ -405,6 +409,64 @@ or
     <p>As a rule of thumb: If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.    </p>
     <p><strong>NEVER</strong> put <code>role=application</code> on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
     <p>For further information on the use of <code>role=application</code> refer to <a href="http://www.marcozehe.de/2012/02/06/if-you-use-the-wai-aria-role-application-please-do-so-wisely/">If you use the WAI-ARIA role "application", please do so wisely!</a></p></section>
+    <section>
+     <h2 tabindex="-1" id="checklist">Development Checklist:</h2>
+     <p tabindex="-1">Check your custom control against the following design considerations. If the answer to any of them is 'No' then consider fixing before release or at least documenting the issues to inform potential users of your work that it will not be usable by some people due to limited accessibility support.</p>
+     <table>
+<tbody>
+<tr>
+<th scope="col">design consideration</th>
+<th scope="col">description</th>
+<th scope="col">Yes/No</th>
+</tr>
+<tr>
+<th scope="row">focusable</th>
+<td>Can you get to the control via the keyboard?</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">operable</th>
+<td>Can you use the control with the keyboard?</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">expected operation</th>
+<td>Can you use the standard keys for the control type to operate it.</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">clear indication of focus</th>
+<td>Can you easily see it when the control has focus?</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">label</th>
+<td>The control has a text label that is exposed as an <a href="http://www.w3.org/TR/wai-aria/terms#def_accessible_name">accessible name</a> in <a href="http://rawgit.com/w3c/aria/master/html-aam/html-aam.html#introduction-accessibility-apis">accessibility APIs</a></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">role</th>
+<td>The control has an appropriate role exposed in <a href="http://rawgit.com/w3c/aria/master/html-aam/html-aam.html#introduction-accessibility-apis">accessibility APIs</a></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">states and properties</th>
+<td>The control has any UI states and properties that it has exposed in <a href="http://rawgit.com/w3c/aria/master/html-aam/html-aam.html#introduction-accessibility-apis">accessibility APIs</a></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">color contrast</th>
+<td> The control label/description/icon is perceivable/usable for low vision users (Use a <a href="http://www.paciellogroup.com/resources/contrastanalyser/">color contrast checker</a>.)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row">high contrast mode</th>
+<td>The control is perceivable/usable when High Contrast Mode is enabled (e.g. <a href="http://www.paciellogroup.com/blog/2010/01/high-contrast-proof-css-sprites/">Windows HC mode</a>)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+    </section>
   <hr>
   <section>  
   <h2 tabindex="-1" id="rec">Recommendations Table:</h2>
