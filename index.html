@@ -125,9 +125,9 @@ caption {text-align:left}
   <section id='abstract'>
   <p role="contentinfo">This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
-      Accessible Rich Internet Applications specification [[!WAI-ARIA1-1]], which
+      Accessible Rich Internet Applications specification [[WAI-ARIA-1.1]], which
       defines a way to make Web content and Web applications more accessible to
-      people with disabilities. This document demonstrates how to use WAI-ARIA in [[!HTML51]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
+      people with disabilities. This document demonstrates how to use WAI-ARIA in [[HTML51]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
   </section>
   <section id='sotd'>
     <p class="note">This document is informative only. Resources are for information purposes only, no endorsement implied.</p>
@@ -141,12 +141,12 @@ caption {text-align:left}
     <h2>Introduction</h2>
     <p>This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
-      Accessible Rich Internet Applications specification [[!WAI-ARIA-1-1]], which
+      Accessible Rich Internet Applications specification [[WAI-ARIA-1.1]], which
       defines a way to make Web content and Web applications more accessible to
       people with disabilities. This document demonstrates how to use WAI-ARIA in HTML5, it especially helps with dynamic content and
       advanced user interface controls developed with Ajax, HTML, JavaScript, and
       related technologies.</p>
-    <p>This document provides advice for use of ARIA attributes in [[!HTML51]].    </p>
+    <p>This document provides advice for use of ARIA attributes in [[HTML51]].    </p>
     <p>For general best-practice information about using ARIA, see the
       [[WAI-ARIA-PRACTICES]] document.</p>
     <p>The following is a longer list of resources that provide relevant information:</p>
@@ -163,13 +163,13 @@ caption {text-align:left}
 
   <section>
     <h3 tabindex="-1" id="rule1">First rule of ARIA use</h3>
-    <p>If you <em>can</em> use a native HTML element [[!HTML51]] or attribute with the semantics and behaviour you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
+    <p>If you <em>can</em> use a native HTML element [[HTML51]] or attribute with the semantics and behaviour you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
     <h4 id="not-possible">Under what circumstances may this not be possible?</h4>
     <ul>
-      <li>If the feature is available in HTML [[!HTML51]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
+      <li>If the feature is available in HTML [[HTML51]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
       <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
       <li>If the feature is <a href="http://www.paciellogroup.com/blog/2014/10/aria-in-html-there-goes-the-neighborhood/#html5na">not currently available in HTML</a>.</li>
-      </ul></section>
+    </ul></section>
    <section> <h3 id="second" tabindex="-1">Second rule of ARIA use</h3>
     <p>Do not change native  semantics, unless you really have to.</p>
     <p>For example: Developer wants to build a heading that's a button.</p>
@@ -410,7 +410,7 @@ or
     <p><strong>NEVER</strong> put <code>role=application</code> on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
     <p>For further information on the use of <code>role=application</code> refer to <a href="http://www.marcozehe.de/2012/02/06/if-you-use-the-wai-aria-role-application-please-do-so-wisely/">If you use the WAI-ARIA role "application", please do so wisely!</a></p></section>
     <section>
-     <h2 tabindex="-1" id="checklist">Custom Control Accessible Development Checklist:</h2>
+     <h3 tabindex="-1" id="checklist">Custom Control Accessible Development Checklist:</h3>
      <p tabindex="-1">Check your custom control against the following design considerations. If the answer to any of them is 'No' then consider fixing before release or at least documenting the issues to inform other developers that your custom control will not be usable by some people due to limited accessibility support.</p>
      <table>
      <caption>Custom Control Design Considerations</caption>
@@ -466,12 +466,33 @@ or
 <td></td>
 </tr>
 </tbody>
-</table>
-    </section>
+</table></section>
+   <section>
+    <h3>ARIA  adds nothing to default semantics of most HTML elements</h3>
+<p class="note">In some cases the semantics of a HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://rawgit.com/w3c/aria/master/aria/aria.html#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
+None of the elements defined in HTML4 need ARIA roles added to expose their default semantics. Adding an ARIA role is extra work for no gain and could lead to pain for you or somebody else. The new features defined in HTML5 , where implemented, now have their default semantics exposed by most browsers.
+
+The <a href="http://www.w3.org/TR/html5/dom.html#aria-usage-note">HTML Specification</a> includes this note:
+<blockquote>In the majority of cases setting an ARIA <code data-anolis-xref="attr-aria-role"><a href="http://www.w3.org/TR/html5/infrastructure.html#attr-aria-role">role</a></code> and/or <code data-anolis-xref="attr-aria-*">aria-*</code> attribute that matches the <a href="http://www.w3.org/TR/html5/infrastructure.html#default-implicit-aria-semantics">default implicit ARIA semantics</a> is unnecessary and not recommended as these properties are already set by the browser.</blockquote>
+<section>
+<h4>Some examples of  redundant ARIA</h4>
+<p>Adding default implicit roles to <a href="http://www.w3.org/TR/html5/dom.html#interactive-content">interactive elements</a> listed in the HTML5 Recommendation is a waste of time:
+  </p>
+<p><code>&lt;button <s>role="button"</s>&gt;press me&lt;/button&gt;</code>
+  </p>
+<p>Adding ARIA state or property attributes <strong>in addition</strong> to their native HTML counterparts is a waste of time:
+</p>
+<p><code>&lt;input type="text" required <s>aria-required="true"</s>&gt;</code></p>
+<p><code>&lt;div hidden <s>aria-hidden="true"</s>&gt;</code></p>
+Adding ARIA roles and states or properties to long-implemented structural elements is a waste of time:
+<p><code>&lt;h1 <s>role="heading" aria-level="1"</s>&gt;heading text&lt;/h1&gt;</code></p>
+</section>
+</section>
     <section>
-    <h2 tabindex="-1" id="html5na">Aria roles and properties not available as features in HTML</h2>
+    <h3 tabindex="-1" id="html5na">Aria roles and properties not available as features in HTML</h3>
 Below are listed the ARIA roles and properties. not considered to be available natively in HTML. It is clear that many roles and properties provided by ARIA, which can be used to convey information to users, are not available in HTML.
-<h3>ARIA Roles</h3>
+<section>
+<h4>ARIA Roles</h4>
 <ol>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#alert"><code>alert</code></a></li>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#alertdialog"><code>alertdialog</code></a></li>
@@ -502,9 +523,9 @@ Below are listed the ARIA roles and properties. not considered to be available n
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#region"><code>region</code></a></li>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#application"><code>application</code></a></li>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#search"><code>search</code></a></li>
-</ol>
+</ol></section>
 <section>
-<h3>ARIA States and Properties (aria-* attributes)</h3>
+<h4>ARIA States and Properties (aria-* attributes)</h4>
 <ol>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-activedescendant"><code>aria-activedescendant</code></a></li>
 	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-atomic"><code>aria-atomic</code></a></li>
@@ -531,17 +552,17 @@ Below are listed the ARIA roles and properties. not considered to be available n
 </ol>
 </section>
 </section>
-  <hr>
   <section>  
-  <h2 tabindex="-1" id="rec">Recommendations Table:</h2>
+  <h3 tabindex="-1" id="rec">Recommendations Table:</h3>
   <p>Refer to the <a href="http://www.w3.org/TR/html-aria/#document-conformance-requirements-for-use-of-aria-attributes-in-html">Document conformance requirements for use of <abbr title="Accessible Rich Internet Applications">ARIA</abbr> attributes in HTML</a> table in the <a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a> specification.</p>
 </section>
     
-  <hr>
-   <section> <h2 id="quick" tabindex="-1">ARIA Role, State, and Property Quick Reference </h2>
+
+  <section>
+    <h3 id="quick" tabindex="-1">ARIA Role, State, and Property Quick Reference </h3>
     <p>Refer to the <a href="http://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties-1">Allowed ARIA roles, states and properties</a> table in the <a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a> specification.</p>
    </section>
-
+</section>
  
 </section>
 </body>
