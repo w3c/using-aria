@@ -349,6 +349,8 @@ or
     </section>
  <section> 
    <h3 tabindex="-1">aria-labelledby and aria-describedby</h3>
+   <section>
+   <h4 tabindex="-1">Practical Support:</h4>
     <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://www.w3.org/TR/html51/dom.html#interactive-content-2"> interactive content</a> elements. As of this writing they <strong>do not</strong> work correctly on <a href="http://www.w3.org/TR/html51/semantics.html#the-a-element">links</a> , support on <a href="http://www.w3.org/TR/html51/dom.html#embedded-content-category">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://www.w3.org/TR/html51/semantics.html#the-input-element"><code>input</code></a> types.</p>
   <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
     <p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code>  with a <code>tabindex=-1</code>  added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
@@ -366,7 +368,38 @@ or
     <br>
   &lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;
     </code></section>
-   <section>
+
+    <section>
+     <h4>Hiding content has no effect on accessible name or description calculation</h4>
+     <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-labelledby">aria-labelledby</a> and <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
+     </p>
+     <blockquote>By default, <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-assistive-technologies">assistive technologies</a> do not relay hidden information, but an author can explicitly override that and include hidden text as part of the <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-name">accessible name</a> or <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-description">accessible description</a> by using <code>aria-labelledby</code> or <code>aria-describedby</code>.
+      <footer><cite>- <a href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#details-id-0">Accessible Name and Description: Computation and <abbr title="Application Programming Interfaces">API</abbr> Mappings 1.1</a></cite></footer></blockquote>
+<p>In the following example the description will be available to assistive technology users in both states: </p>
+<p><strong>Non error state: </strong>message viusally hidden
+</p>
+<pre><code class="block">
+&lt;label&gt;Name &lt;input type="text"  aria-describedby="error-message"&gt;&lt;/label&gt;
+&lt;span id="error-message" <mark>style="display:none"</mark>&gt;
+You have provided an incorrect name&lt;/span&gt;</code>
+</pre>
+<p><strong>Note:</strong> addition of <code>aria-hidden=true</code> to the referenced element makes no difference:
+</p>
+<pre><code class="block">&lt;span id="error-message" style="display:none" <mark>aria-hidden="true"</mark>&gt;
+ You have provided an incorrect name&lt;/span&gt;</code></pre>
+<p><strong>Error state:</strong> message visible
+</p>
+<pre><code class="block">&lt;span id="error-message" <mark>style="display:inline"</mark>&gt;
+You have provided an incorrect name&lt;/span&gt;</code></pre>
+<h5>Methods to provide context sensitive name/description text</h5>
+If you want to associate context sensitive text, such as an error message you can:
+<ul>
+	<li>Add the referenced element to the DOM when the error state occurs.</li>
+	<li>Add the error text as child of the referenced element in the DOM when the error state occurs.</li>
+	<li>Add the id reference in the DOM to the <code>aria-labelledby/aria-describedby</code> attribute, when the error state occurs.</li>
+</ul>
+     </section>
+    </section>
      <h3 tabindex="-1">Using ARIA role=application</h3>
     <h4 id="not">How does role=&quot;application&quot; affect a screen reader?</h4>
     <p>On many popular screen readers today, most keystrokes are captured by the screen reader and not the web page when the user is in browse mode. This is necessary for efficient navigation of a page. As of this writing, when application mode is set, many screen reader  stop intercepting keystrokes, and pass all keystrokes directly to the browser. Then the user won't be able to navigate the page as easily. For instance they won't be able to skip around the page by headings or read a paragraph of static text line-by-line. However, several screen readers do not behave differently when there is an application role set.</p>
