@@ -28,15 +28,18 @@
       editors: [
             {   name:       "Steve Faulkner",
                 company:    "The Paciello Group",
-                mailto:     "sfaulkner@paciellogroup.com"
+                mailto:     "sfaulkner@paciellogroup.com",
+                w3cid: "35007"
             },
   		 {   name:       "Hans Hillen",
                 company:    "The Paciello Group",
-                mailto:     "hhillen@paciellogroup.com"
+                mailto:     "hhillen@paciellogroup.com",
+                w3cid: "43024"
             },
 			{   name:       "David MacDonald",
                 company:    "CanAdapt Solutions Inc.",
-                mailto:     "david100@sympatico.ca"
+                mailto:     "david100@sympatico.ca",
+                w3cid: "35466"
             },
       ],
       extraCSS: [ "http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css" ],
@@ -53,7 +56,7 @@
         addEllipsis('idl-def-HTMLElement');
         removeNodes(nodesToRemove);
       }
-  }
+  };
 </script>
 <style>
 table
@@ -62,8 +65,8 @@ table
 
 	border-collapse: collapse;
 
-	border: 1px solid #630;	
-	
+	border: 1px solid #630;
+
 font: normal 95% arial, Verdana, helvetica, sans-serif;
 }
 
@@ -107,7 +110,7 @@ caption {text-align:left}
 
 
 	div.example{border: 1px dashed #b8860b;padding: 5px;margin-top:5px;background:#FFFFFF}
-	
+
 	sup {font-size: 80%}
 	td ul {padding-left:4px;list-style-type:none}
 	img {border:none}
@@ -117,7 +120,7 @@ caption {text-align:left}
 	div, section, hr {margin-top:10px}
         code {color:#BF3400 !important;}
 
-.example {margin-left:30px;} 
+.example {margin-left:30px;}
 </style>
 </head>
 
@@ -188,7 +191,7 @@ caption {text-align:left}
    <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
    <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
    <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p>
-   
+
  </section>
  <section>
    <h3 tabindex="-1" id="fourth">Fourth rule of ARIA use</h3>
@@ -201,7 +204,7 @@ caption {text-align:left}
   <p><strong>Note: </strong>If an  interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
   <code class="block"><mark>button {display:none}</mark><br>
   <br>
-  &lt;<mark>button</mark> 
+  &lt;<mark>button</mark>
   <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
  </section>
  <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
@@ -210,22 +213,22 @@ caption {text-align:left}
 <p>For example, the <code>input type=text</code> in the code example below has a visible label 'user name' , but no accessible name:</p>
     <pre><code class="block">
     user name &lt;input type=&quot;text&quot;&gt;
-    
+
     or
 
-&lt;!-- label element used, but not associated with the control 
+&lt;!-- label element used, but not associated with the control
 it is supposed to label --&gt;
-    
+
     <mark>&lt;label&gt;</mark>user name<mark>&lt;/label&gt;</mark> &lt;input type=&quot;text&quot;&gt;
     </code></pre>
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property is empty:</p>
     <p><img src="noname.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has no value, the accRole property is 'editable text'."></p>
     <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="http://www.w3.org/TR/html51/semantics.html#category-label">labelable element</a> and the <a href="http://www.w3.org/TR/html51/semantics.html#the-label-element"><code>label</code></a> element is used correctly to  associate the label text with the input.</p>
 <pre><code class="block">
-&lt;!-- <strong>Note:</strong> use of for/id or wrapping label around text 
+&lt;!-- <strong>Note:</strong> use of for/id or wrapping label around text
 and control methods will result in an accessible name -->
 
-<mark>&lt;label&gt;</mark>user name &lt;input type=&quot;text&quot;&gt;<mark>&lt;/label&gt;</mark> 
+<mark>&lt;label&gt;</mark>user name &lt;input type=&quot;text&quot;&gt;<mark>&lt;/label&gt;</mark>
 
 or
 
@@ -276,7 +279,7 @@ or
     <p>If the ARIA role or aria-* attribute <strong>does   not rely</strong> on scripting to  provide interaction behaviour, then <strong>it is safe</strong> to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2013/02/using-wai-aria-landmarks-2013/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. </p>
     <p>If the content and interaction is <strong>only supported in a scripting-enabled browsing context</strong>, i.e. <a href="http://docs.google.com/">Google docs</a>  (its applications require JavaScript enabled to work), it <strong>is also safe</strong> to include the ARIA markup inline as the application simply will not work (for anyone) without JavaScript enabled.</p>
     <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p>
-    <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code></pre> 
+    <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code></pre>
     <p>When the user opens the  section, it is changed to this using JavaScript :</p>
     <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=true</mark> ...</code></pre>
  </section>
@@ -325,7 +328,7 @@ or
 &lt;/table&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="table2.png" width="286" height="149" alt="outer ttable with 1 row and 1 cell containg another table with 1 row and 1 cell containing an abbr element."></code>
-    
+
     <p>By adding <code>role=presentation</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
     <pre><code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
  &lt;tr&gt;
@@ -340,15 +343,15 @@ or
   &lt;/td&gt;
  &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-  <p>Becomes this in the accessibility tree, the semantics of the outer <code>table</code> including its required children (the <code>tr</code> and <code>td</code> elements) 
+  <p>Becomes this in the accessibility tree, the semantics of the outer <code>table</code> including its required children (the <code>tr</code> and <code>td</code> elements)
     are removed by the addition of <code>role=presentation</code>:</p>
     <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
-    
+
     <h4 tabindex="-1" id="label">Examples of <code>role=presentation</code> use</h4>
     <p >Use in fixing an incorrect table structure</p>
     <pre><code class="block">&lt;div aria-readonly=&quot;true&quot; role=&quot;grid&quot;&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Dog Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cat Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cow names&lt;/th&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Fido&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Whiskers&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Clarabella&lt;/td&gt;<br>			&lt;/tr&gt;<br>			&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Woofie&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Claws&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Glenn&lt;/td&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>	&lt;/div&gt;</code></pre>
     </section>
- <section> 
+ <section>
    <h3 tabindex="-1">aria-labelledby and aria-describedby</h3>
    <section>
    <h4 tabindex="-1">Practical Support:</h4>
@@ -361,7 +364,7 @@ or
   <br>
   &lt;p&gt;other content&lt;/p&gt;<br>
   <br>
-  &lt;span <mark>tabindex=&quot;-1&quot;</mark> 
+  &lt;span <mark>tabindex=&quot;-1&quot;</mark>
   <mark>id=&quot;l2&quot;</mark>
   &gt;more label text&lt;/span&gt;</code>
     <p>Elements also become <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a> in Internet Explorer when the element has an ARIA role. For example:</p>
@@ -586,18 +589,18 @@ Below are listed the ARIA roles and properties. not considered to be available n
 </ol>
 </section>
 </section>
-  <section>  
+  <section>
   <h3 tabindex="-1" id="rec">Recommendations Table:</h3>
   <p>Refer to the <a href="http://www.w3.org/TR/html-aria/#document-conformance-requirements-for-use-of-aria-attributes-in-html">Document conformance requirements for use of <abbr title="Accessible Rich Internet Applications">ARIA</abbr> attributes in HTML</a> table in the <a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a> specification.</p>
 </section>
-    
+
 
   <section>
     <h3 id="quick" tabindex="-1">ARIA Role, State, and Property Quick Reference </h3>
     <p>Refer to the <a href="http://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties-1">Allowed ARIA roles, states and properties</a> table in the <a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a> specification.</p>
    </section>
 </section>
- 
+
 </section>
 </body>
 </html>
