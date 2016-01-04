@@ -201,11 +201,14 @@ caption {text-align:left}
   <code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
   <p>Do <strong>not</strong> do this:</p>
   <code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
-  <p><strong>Note: </strong>If an  interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
-  <code class="block"><mark>button {display:none}</mark><br>
+  <p><strong>Note: </strong>If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
+  <code class="block"><mark>button {visibility:hidden}</mark><br>
   <br>
   &lt;<mark>button</mark>
   <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
+  <p class="note">If an interactive element is hidden using <code>display:none</code>, it 
+  will also be removed from the <a href="http://www.w3.org/WAI/PF/aria-implementation/#def_accessibility_tree">accessibility tree</a>, which makes the
+  addition of <code>aria-hidden="true"</code> unnecessary.</p>
  </section>
  <section><h3 tabindex="-1" id="fifth">Fifth rule of ARIA use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/accname-aam-1.1/#dfn-accessible-name">accessible name</a>. </p>
