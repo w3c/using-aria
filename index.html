@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -190,7 +190,7 @@ caption {text-align:left}
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
    <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
-   <p>Refer to the <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/WAI/PF/aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p>
+   <p>Refer to the <a href="http://www.w3.org/TR/wai-aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/TR/wai-aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/TR/wai-aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p>
 
  </section>
  <section>
@@ -279,7 +279,7 @@ or
     <p><strong>But</strong> it can still be pressed, it is still in the default tab order,  still looks like a button and still triggers any associated actions when  pressed. That's why it is a <a href="http://validator.w3.org/nu/?doc=https%3A%2F%2Fspecs.webplatform.org%2Fhtml-aria%2Fwebspecs%2Fmaster%2Fexamples%2Fnonconforming1.html">HTML5 conformance error</a> to change a button into a heading.</p>
     <p><strong>Note: </strong>Changing the role of an element <strong>does not</strong> add behaviors, properties or states to the role used.  ARIA does not change the way it looks or acts in a browser. For instance, when links are used to behave like buttons, adding <code>role=button</code> alone is not sufficient. It will also be necessary to make  act like a button, by including <a href="http://www.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/"> a key event handler</a> that listens for the <code>space</code> key  which native buttons do, because native buttons can be activated using the enter key or the spacebar.</p></section>
  <section> <h3 tabindex="-1" id="inline">Add ARIA inline or via script?</h3>
-    <p>If the ARIA role or aria-* attribute <strong>does   not rely</strong> on scripting to  provide interaction behaviour, then <strong>it is safe</strong> to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2013/02/using-wai-aria-landmarks-2013/">ARIA landmark roles</a> or <a href="http://www.w3.org/WAI/PF/aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. </p>
+    <p>If the ARIA role or aria-* attribute <strong>does   not rely</strong> on scripting to  provide interaction behaviour, then <strong>it is safe</strong> to include the ARIA  markup inline. For example, it is fine to add <a href="http://www.paciellogroup.com/blog/2013/02/using-wai-aria-landmarks-2013/">ARIA landmark roles</a> or <a href="http://www.w3.org/TR/wai-aria-practices/#relations_labeling">ARIA labelling and describing attributes</a> inline. </p>
     <p>If the content and interaction is <strong>only supported in a scripting-enabled browsing context</strong>, i.e. <a href="http://docs.google.com/">Google docs</a>  (its applications require JavaScript enabled to work), it <strong>is also safe</strong> to include the ARIA markup inline as the application simply will not work (for anyone) without JavaScript enabled.</p>
     <p><strong>Otherwise </strong>insert, change and remove ARIA via scripting. For instance, a collapsed section of a tree widget might look like this:</p>
     <pre><code class="block">&lt;li role=treeitem <mark>aria-expanded=false</mark> ...</code></pre>
@@ -292,13 +292,13 @@ or
     <p>These validation errors in versions of HTML prior of HTML5 are in no way indicative of ARIA creating any real world accessibility problems nor do they mean there will be a negative user experience. They are merely the result of old automated validation tests that do not accommodate ARIA accessibility annotations.</p>
     <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!)to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML specification, please <a href="https://github.com/validator/validator/issues">raise an issue</a>.</p></section>
   <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
-  <p><a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
+  <p><a href="http://www.w3.org/TR/wai-aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role=&quot;presentation"</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
   <p>In other words, it is just reported in the accessibility tree as a text string with <strong>no semantic meaning</strong>. </p>
-  <p>For elements with <a href="http://www.w3.org/WAI/PF/aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
+  <p>For elements with <a href="http://www.w3.org/TR/wai-aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role="presentation"</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
@@ -462,12 +462,12 @@ If you want to associate context sensitive text, such as an error message you ca
 </tr>
 <tr>
 <th scope="row">focusable</th>
-<td>Can you get to the control via the keyboard? Refer to <a href="http://www.w3.org/WAI/PF/aria-practices/#kbd_focus">Providing Keyboard Focus</a></td>
+<td>Can you get to the control via the keyboard? Refer to <a href="http://www.w3.org/TR/wai-aria-practices/#kbd_focus">Providing Keyboard Focus</a></td>
 <td></td>
 </tr>
 <tr>
   <th scope="row">keyboard operable</th>
-  <td>Can you use the control with the keyboard? Refer to <a href="http://www.w3.org/WAI/PF/aria-practices/#keyboard">Keyboard Navigation</a></td>
+  <td>Can you use the control with the keyboard? Refer to <a href="http://www.w3.org/TR/wai-aria-practices/#keyboard">Keyboard Navigation</a></td>
   <td></td>
 </tr>
 <tr>
@@ -477,7 +477,7 @@ If you want to associate context sensitive text, such as an error message you ca
 </tr>
 <tr>
   <th scope="row">expected operation</th>
-  <td>Can you operate the control using the standard keys (Refer to <a href="http://www.w3.org/WAI/PF/aria-practices/#aria_ex">ARIA Widget Design Patterns</a>) and/or touch gestures for the control type? </td>
+  <td>Can you operate the control using the standard keys (Refer to <a href="http://www.w3.org/TR/wai-aria-practices/#aria_ex">ARIA Widget Design Patterns</a>) and/or touch gestures for the control type? </td>
   <td></td>
 </tr>
 <tr>
