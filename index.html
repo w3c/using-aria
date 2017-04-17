@@ -196,12 +196,12 @@ caption {text-align:left}
     <p>Do not change native  semantics, unless you really have to.</p>
     <p>For example: Developer wants to build a heading that's a button.</p>
   <p>Do <strong>not</strong> do this:</p>
-  <code class="block">&lt;<mark>h1</mark> <mark>role=button</mark>&gt;heading button&lt;/<mark>h1</mark>&gt;</code>
-    <p><strong>Do</strong> this:</p>
-    <code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>
-  <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
-  <code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>
-  <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
+  <pre><code class="block">&lt;<mark>h1</mark> <mark>role=button</mark>&gt;heading button&lt;/<mark>h1</mark>&gt;</code>     </pre>
+  <p><strong>Do</strong> this:</p>
+    <pre><code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>   </pre>
+    <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
+    <pre><code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>   </pre>
+    <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
     <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://www.w3.org/TR/html51/semantics.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
    <p>All interactive ARIA controls must be usable with the keyboard. </p>
@@ -216,14 +216,13 @@ caption {text-align:left}
    <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a <em>visible</em> <strong>focusable</strong> element .</p>
    <p>Using either of these on a <em>visible</em> <strong>focusable</strong> element will result in some users focusing on 'nothing'.</p>
    <p>Do <strong>not</strong> do this:</p>
-  <code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
-  <p>Do <strong>not</strong> do this:</p>
-  <code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
+   <pre><code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
+   <p>Do <strong>not</strong> do this:</p>
+  <pre><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
   <p><strong>Note: </strong>If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
-  <code class="block"><mark>button {visibility:hidden}</mark><br>
-  <br>
-  &lt;<mark>button</mark>
-  <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>
+<pre><code class="block"><mark>button {visibility:hidden}</mark>
+
+&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code></pre>
   <p class="note">If an interactive element is hidden using <code>display:none</code>, it 
   will also be removed from the <a href="http://w3c.github.io/aria/html-aam/html-aam.html#dfn-accessibility-tree">accessibility tree</a>, which makes the
   addition of <code>aria-hidden="true"</code> unnecessary.</p>
@@ -264,7 +263,7 @@ or
      &lt;!-- <strong>HTML input element with combox role</strong> -->
 
       <mark>&lt;label&gt;</mark>
-      user name &lt;input type=&quot;text&quot;  <mark>role=&quot;combobox"</mark>;&gt;
+      user name &lt;input type=&quot;text&quot; <mark>role=&quot;combobox"</mark>&gt;
       <mark>&lt;/label&gt;</mark>
     </code></pre>
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
@@ -309,19 +308,20 @@ or
     <p>The easiest method is to use the <a href="http://www.w3.org/TR/html51/syntax.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Checker</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
     <p>These validation errors in versions of HTML prior of HTML5 are in no way indicative of ARIA creating any real world accessibility problems nor do they mean there will be a negative user experience. They are merely the result of old automated validation tests that do not accommodate ARIA accessibility annotations.</p>
     <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!)to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML specification, please <a href="https://github.com/validator/validator/issues">raise an issue</a>.</p></section>
-  <section><h3 tabindex="-1" id="presentation">Use of role=presentation</h3>
-  <p><a href="http://www.w3.org/TR/wai-aria-practices/#presentation_role"><code>role=presentation</code></a> removes the semantics from the element it is on.</p>
+  <section>
+  <h3 tabindex="-1" id="presentation">Use of role=presentation or role=none</h3>
+  <p><a href="http://www.w3.org/TR/wai-aria-1.1/#presentation"><code>role=presentation</code></a>, or its synonym <code><a href="https://www.w3.org/TR/wai-aria-1.1/#none">role=none</a></code>, removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role=&quot;presentation"</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
   <code class="block"><img src="text.png" width="149" height="25" alt="text, no heading"></code>
   <p>In other words, it is just reported in the accessibility tree as a text string with <strong>no semantic meaning</strong>. </p>
-  <p>For elements with <a href="http://www.w3.org/TR/wai-aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation</code> preserve their semantics.  </p>
+  <p>For elements with <a href="http://www.w3.org/TR/wai-aria-practices/#presentation_inheritance">no required children</a>, any elements nested inside the element with <code>role=presentation/none</code> preserve their semantics.  </p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;h1 <mark>role="presentation"</mark>&gt;&lt;abbr&gt;API&lt;/abbr&gt;&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="h1.png" width="185" height="53" alt="abbr with text of API"></code>
-    <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation</code> also have their semantics removed.</p>
+    <p>For elements with  required children (such as <code>ul</code> or <code>table</code>) any required child elements nested inside the element with <code>role=presentation/none</code> also have their semantics removed.</p>
     <p>For example, this code in the HTML tree:</p>
   <pre><code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
   &lt;tr&gt;
@@ -332,7 +332,7 @@ or
 &lt;/table&gt;</code></pre>
     <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="abbr.png" width="222" height="87" alt="abbr with text of API"></code>
-    <p><strong>Note:</strong> Any elements that <em>are not</em> required children of   the element with a <code>role=presentation</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
+    <p><strong>Note:</strong> Any elements that <em>are not</em> required children of   the element with a <code>role=presentation/none</code> keep their semantics. This   includes other elements with required children such as nested lists or nested tables.</p>
   <p>For example this code, consisting of a table with another table nested inside it, in the HTML tree:</p>
     <pre><code class="block">&lt;table&gt;
  &lt;tr&gt;
@@ -350,7 +350,7 @@ or
   <p>Becomes this in the accessibility tree:</p>
     <code class="block"><img src="table2.png" width="286" height="149" alt="outer ttable with 1 row and 1 cell containg another table with 1 row and 1 cell containing an abbr element."></code>
 
-    <p>By adding <code>role=presentation</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
+    <p>By adding <code>role=presentation/none</code> to the outer <code>table</code> element, this code in the HTML tree:</p>
     <pre><code class="block">&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
  &lt;tr&gt;
   &lt;td&gt;
@@ -365,12 +365,32 @@ or
  &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
   <p>Becomes this in the accessibility tree, the semantics of the outer <code>table</code> including its required children (the <code>tr</code> and <code>td</code> elements)
-    are removed by the addition of <code>role=presentation</code>:</p>
+    are removed by the addition of <code>role=presentation/none</code>:</p>
     <code class="block"><img src="table.png" width="286" height="145" alt="table with 1 row and 1 cell containing an abbr element"></code>
 
-    <h4 tabindex="-1" id="label">Examples of <code>role=presentation</code> use</h4>
+    <h4 tabindex="-1" id="label">Examples of <code>role=presentation/none</code> use</h4>
     <p >Use in fixing an incorrect table structure</p>
-    <pre><code class="block">&lt;div aria-readonly=&quot;true&quot; role=&quot;grid&quot;&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Dog Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cat Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cow names&lt;/th&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Fido&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Whiskers&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Clarabella&lt;/td&gt;<br>			&lt;/tr&gt;<br>			&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Woofie&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Claws&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Glenn&lt;/td&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>	&lt;/div&gt;</code></pre>
+    <pre><code class="block">&lt;div aria-readonly=&quot;true&quot; role=&quot;grid&quot;&gt;
+    &lt;table <mark>role=&quot;presentation&quot;</mark>&gt;
+    &lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;
+    &lt;th role=&quot;columnheader&quot;&gt;Dog Names&lt;/th&gt;
+    &lt;th role=&quot;columnheader&quot;&gt;Cat Names&lt;/th&gt;
+    &lt;th role=&quot;columnheader&quot;&gt;Cow names&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;&lt;/table&gt;
+    &lt;table <mark>role=&quot;none&quot;</mark>&gt;
+    &lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Fido&lt;/td&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Whiskers&lt;/td&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Clarabella&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr role=&quot;row&quot;&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Woofie&lt;/td&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Claws&lt;/td&gt;
+    &lt;td role=&quot;gridcell&quot;&gt;Glenn&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;&lt;/table&gt;
+    &lt;/div&gt;</code></pre>
     </section>
  <section>
    <h3 tabindex="-1"> Practical Support: aria-label, aria-labelledby and aria-describedby</h3>
@@ -379,23 +399,18 @@ or
     <p>Currently <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code> are most robustly supported for associating text content to a subset of <a href="http://www.w3.org/TR/html51/dom.html#interactive-content-2">interactive content</a> elements, elements that have explicit ARIA <a href="https://www.w3.org/TR/wai-aria-1.1/#widget_roles">widget role</a> value assigned, and for elements that have an explicit <a href="https://www.w3.org/TR/wai-aria-1.1/#landmark_roles">landmark role</a> value assigned or those that have implicit ARIA landmark semantics (e.g. <code>&lt;div role=&quot;main&quot;&gt;</code> or <code>&lt;main&gt;</code>). They <strong>do not</strong> work consistently on <a href="http://www.w3.org/TR/html51/semantics.html#the-a-element">links</a> , support on <a href="http://www.w3.org/TR/html51/dom.html#embedded-content-category">embedded content</a> and <a href="http://w3c.github.io/html/grouping-content.html#grouping-content">grouping content</a> is inconsistent across browsers, assistive technology and operating systems, but they can be safely used on HTML5 form controls including the many <a href="http://www.w3.org/TR/html51/semantics.html#the-input-element"><code>input</code></a> types and the <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code> and <code>&lt;main&gt;</code> elements.</p>
   <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
     <p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code>  with a <code>tabindex=-1</code>  added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
-  <code class="block">&lt;label <mark>id=&quot;l1&quot;</mark> for="f3"&gt;label text&lt;/label&gt;<br>
-  <br>
-  &lt;input type="text" id="f3" <mark>aria-labelledby=&quot;l1 l2&quot;</mark>&gt;<br>
-  <br>
-  &lt;p&gt;other content&lt;/p&gt;<br>
-  <br>
-  &lt;span <mark>tabindex=&quot;-1&quot;</mark>
-  <mark>id=&quot;l2&quot;</mark>
-  &gt;more label text&lt;/span&gt;</code>
+<pre>
+<code class="block"> &lt;label <mark>id=&quot;l1&quot;</mark> for="f3"&gt;label text&lt;/label&gt;
+ &lt;input type="text" id="f3" <mark>aria-labelledby=&quot;l1 l2&quot;</mark>&gt;
+ &lt;p&gt;other content&lt;/p&gt;
+ &lt;span <mark>tabindex=&quot;-1&quot;</mark> <mark>id=&quot;l2&quot;</mark>&gt;more label text&lt;/span&gt;</code>     </pre>
     <p>Elements also become <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a> in Internet Explorer when the element has an ARIA role. For example:</p>
-    <code class="block">&lt;div aria-describedby=&quot;test&quot;&gt;text&lt;/div&gt;<br>
-    <br>
-  &lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;
-    </code>
+    <pre><code class="block">&lt;div aria-describedby=&quot;test&quot;&gt;text&lt;/div&gt;
+     
+&lt;div id=&quot;test&quot; <mark>role=&quot;tooltip&quot;</mark>&gt;tooltip text&lt;/div&gt;     </code></pre>
 
     <section>
-     <h4>Hiding content has no effect on accessible name or description calculation</h4>
+      <h4>Hiding content has no effect on accessible name or description calculation</h4>
      <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-labelledby">aria-labelledby</a> and <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
      </p>
      <blockquote>By default, <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-assistive-technologies">assistive technologies</a> do not relay hidden information, but an author can explicitly override that and include hidden text as part of the <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-name">accessible name</a> or <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-description">accessible description</a> by using <code>aria-labelledby</code> or <code>aria-describedby</code>.
@@ -423,7 +438,7 @@ If you want to associate context sensitive text, such as an error message you ca
 	<li>Add the error text as child of the referenced element in the DOM when the error state occurs.</li>
 	<li>Add the id reference in the DOM to the <code>aria-labelledby/aria-describedby</code> attribute, when the error state occurs.</li>
 </ul>
-     </section>
+   </section>
     </section>
     <section>
      <h3 tabindex="-1">Using ARIA role=application</h3>
@@ -449,15 +464,12 @@ If you want to associate context sensitive text, such as an error message you ca
       <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids, etc.</li>
       <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right arrow keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
       <li><code>dialog</code> and <code>alertdialog</code>. These causes some screen readers to go into a sort  of application mode (implicitly) once focus moves to a control inside  them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text  that explains the dialog's purpose, and set focus to the first  interactive control when you open it:<br>
-        <p><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;<br>
-        <br>
-        &lt;div <mark>id=&quot;log1&quot;</mark> tabindex=&quot;-1&quot;&gt;Provide user name and password to login.&lt;/div&gt;<br>
-        <br>
-        ...<br>
-        ...<br>
-        <br>
-      &lt;/div&gt;</code></p></li>
-      <li><code>toolbar </code>and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
+<pre><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;
+&lt;div <mark>id=&quot;log1&quot;</mark> tabindex=&quot;-1&quot;&gt;Provide user name and password to login.&lt;/div&gt;
+...
+...
+&lt;/div&gt;</code></pre></li>
+      <li><code>toolbar</code> and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
      </ul>
     <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, or even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
     <p>It is not necessary to use role=application to have control-specific keyboard shortcuts while the user is in forms (focus) mode on their screen reader. For instance, a custom control with ARIA <code>role=listbox</code> can easily capture all keys pressed including arrow keys, while the user is interacting with it.    </p>
@@ -542,14 +554,14 @@ The <a href="http://www.w3.org/TR/html5/dom.html#aria-usage-note">HTML Specifica
 <h4>Some examples of  redundant ARIA</h4>
 <p>Adding default implicit roles to <a href="http://www.w3.org/TR/html5/dom.html#interactive-content">interactive elements</a> listed in the HTML5 Recommendation is a waste of time:
   </p>
-<p><code>&lt;button <s>role="button"</s>&gt;press me&lt;/button&gt;</code>
-  </p>
+<pre><code class="block">&lt;button <s>role="button"</s>&gt;press me&lt;/button&gt;</code>   </pre>
 <p>Adding ARIA state or property attributes <strong>in addition</strong> to their native HTML counterparts is a waste of time:
 </p>
-<p><code>&lt;input type="text" required <s>aria-required="true"</s>&gt;</code></p>
-<p><code>&lt;div hidden <s>aria-hidden="true"</s>&gt;</code></p>
+<pre><code class="block">&lt;input type="text" required <s>aria-required="true"</s>&gt;
+
+&lt;div hidden <s>aria-hidden="true"</s>&gt;</code></pre>
 Adding ARIA roles and states or properties to long-implemented structural elements is a waste of time:
-<p><code>&lt;h1 <s>role="heading" aria-level="1"</s>&gt;heading text&lt;/h1&gt;</code></p>
+<pre><code class="block">&lt;h1 <s>role="heading" aria-level="1"</s>&gt;heading text&lt;/h1&gt;</code></pre>
 </section>
 </section>
     <section>
