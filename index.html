@@ -20,6 +20,10 @@
 <script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
 <script type="text/javascript" class='remove'>
   var respecConfig = {
+	   includePermalinks: true,
+  permalinkEdge: true,
+  permalinkHide: false,
+  permalinkSymbol: "🔗",
       specStatus: "ED",
       shortName:  "aria-in-html",
       edDraftURI: "https://w3c.github.io/aria-in-html/",
@@ -64,6 +68,8 @@
                       href: 'http://lists.w3.org/Archives/Public/public-html/'
               }]
           }],
+		  
+		 
 
       after: function () {
         var nodesToRemove = [
@@ -175,7 +181,7 @@ caption {text-align:left}
     <ul>
       <li><a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a></li>
       <li><a href="http://rawgit.com/w3c/aria/master/practices/aria-practices.html" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.1 Authoring Practices</a></li>
-      <li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html">Accessible Rich Internet Applications (<aBBR title="Accessible Rich Internet Applications">WAI-ARIA</ABBR>) 1.1</a></li>
+      <li><a href="http://www.w3.org/TR/wai-aria-1.1/">Accessible Rich Internet Applications (<aBBR title="Accessible Rich Internet Applications">WAI-ARIA</ABBR>) 1.1</a></li>
       <li><a href="http://www.w3.org/TR/html51/">HTML 5.1</a></li>
       <li><a href="http://www.html5accessibility.com">HTML5 Accessibility</a></li>
       </ul>
@@ -413,7 +419,7 @@ or
 
     <section>
       <h4>Hiding content has no effect on accessible name or description calculation</h4>
-     <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-labelledby">aria-labelledby</a> and <a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
+     <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-labelledby">aria-labelledby</a> and <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
      </p>
      <blockquote>By default, <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-assistive-technologies">assistive technologies</a> do not relay hidden information, but an author can explicitly override that and include hidden text as part of the <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-name">accessible name</a> or <a class="termref internalDFN" href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#dfn-accessible-description">accessible description</a> by using <code>aria-labelledby</code> or <code>aria-describedby</code>.
       <footer><cite>- <a href="http://rawgit.com/w3c/aria/master/accname-aam/accname-aam.html#details-id-0">Accessible Name and Description: Computation and <abbr title="Application Programming Interfaces">API</abbr> Mappings 1.1</a></cite></footer></blockquote>
@@ -547,7 +553,7 @@ If you want to associate context sensitive text, such as an error message you ca
 </table></section>
    <section>
     <h3>ARIA  adds nothing to default semantics of most HTML elements</h3>
-<p class="note">In some cases the semantics of a HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://rawgit.com/w3c/aria/master/aria/aria.html#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
+<p class="note">In some cases the semantics of a HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://www.w3.org/TR/wai-aria-1.1/#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
 None of the elements defined in HTML4 need ARIA roles added to expose their default semantics. Adding an ARIA role is extra work for no gain and could lead to pain for you or somebody else. The new features defined in HTML5 , where implemented, now have their default semantics exposed by most browsers.
 
 The <a href="http://www.w3.org/TR/html5/dom.html#aria-usage-note">HTML Specification</a> includes this note:
@@ -572,61 +578,64 @@ Below are listed the ARIA roles and properties. not considered to be available n
 <section>
 <h4>ARIA Roles</h4>
 <ol>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#alert"><code>alert</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#alertdialog"><code>alertdialog</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#gridcell"><code>gridcell</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#log"><code>log</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#marquee"><code>marquee</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#menuitemcheckbox"><code>menuitemcheckbox</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#menuitemradio"><code>menuitemradio</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#scrollbar"><code>scrollbar</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#status"><code>status</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#tab"><code>tab</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#tabpanel"><code>tabpanel</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#timer"><code>timer</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#tooltip"><code>tooltip</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#treeitem"><code>treeitem</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#grid"><code>grid</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#menu"><code>menu</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#menubar"><code>menubar</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#tablist"><code>tablist</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#toolbar"><code>toolbar</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#tree"><code>tree</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#treegrid"><code>treegrid</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#directory"><code>directory</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#document"><code>document</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#group"><code>group</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#note"><code>note</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#presentation"><code>presentation</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#region"><code>region</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#application"><code>application</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#search"><code>search</code></a></li>
-</ol></section>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#alert"><code>alert</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#alertdialog"><code>alertdialog</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#gridcell"><code>gridcell</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#log"><code>log</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#marquee"><code>marquee</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox"><code>menuitemcheckbox</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#menuitemradio"><code>menuitemradio</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#scrollbar"><code>scrollbar</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#status"><code>status</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#tab"><code>tab</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#tabpanel"><code>tabpanel</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#timer"><code>timer</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#tooltip"><code>tooltip</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#treeitem"><code>treeitem</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#grid"><code>grid</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#menu"><code>menu</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#menubar"><code>menubar</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#tablist"><code>tablist</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#toolbar"><code>toolbar</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#tree"><code>tree</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#treegrid"><code>treegrid</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#directory"><code>directory</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#document"><code>document</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#group"><code>group</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#note"><code>note</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#presentation"><code>presentation</code></a></li>
+	<li><a href="https://www.w3.org/TR/wai-aria-1.1/#none"><code>none</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#application"><code>application</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#search"><code>search</code></a></li>
+	<li><a href="https://www.w3.org/TR/wai-aria-1.1/#feed"><code>feed</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#switch"><code>switch</code></a></li>
+</ol>
+</section>
 <section>
 <h4>ARIA States and Properties (aria-* attributes)</h4>
 <ol>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-activedescendant"><code>aria-activedescendant</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-atomic"><code>aria-atomic</code></a></li>
-	<li><a class="state-reference" href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-busy"><code>aria-busy</code> (state) </a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-controls"><code>aria-controls</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-describedby"><code>aria-describedby</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-dropeffect"><code>aria-dropeffect</code></a></li>
-	<li><a class="state-reference" href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-expanded"><code>aria-expanded</code> (state) </a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-flowto"><code>aria-flowto</code></a></li>
-	<li><a class="state-reference" href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-grabbed"><code>aria-grabbed</code> (state)</a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-haspopup"><code>aria-haspopup</code></a></li>
-	<li><a class="state-reference" href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-hidden"><code>aria-hidden</code> (state)</a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-label"><code>aria-label</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-labelledby"><code>aria-labelledby</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-level"><code>aria-level</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-live"><code>aria-live</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-orientation"><code>aria-orientation</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-owns"><code>aria-owns</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-posinset"><code>aria-posinset</code></a></li>
-	<li><a class="state-reference" href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-pressed"><code>aria-pressed</code> (state)</a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-relevant"><code>aria-relevant</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-setsize"><code>aria-setsize</code></a></li>
-	<li><a href="http://rawgit.com/w3c/aria/master/aria/aria.html#aria-sort"><code>aria-sort</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-activedescendant"><code>aria-activedescendant</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-atomic"><code>aria-atomic</code></a></li>
+	<li><a class="state-reference" href="http://www.w3.org/TR/wai-aria-1.1/#aria-busy"><code>aria-busy</code> (state) </a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-controls"><code>aria-controls</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-describedby"><code>aria-describedby</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-dropeffect"><code>aria-dropeffect</code></a></li>
+	<li><a class="state-reference" href="http://www.w3.org/TR/wai-aria-1.1/#aria-expanded"><code>aria-expanded</code> (state) </a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-flowto"><code>aria-flowto</code></a></li>
+	<li><a class="state-reference" href="http://www.w3.org/TR/wai-aria-1.1/#aria-grabbed"><code>aria-grabbed</code> (state)</a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-haspopup"><code>aria-haspopup</code></a></li>
+	<li><a class="state-reference" href="http://www.w3.org/TR/wai-aria-1.1/#aria-hidden"><code>aria-hidden</code> (state)</a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-label"><code>aria-label</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-labelledby"><code>aria-labelledby</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-level"><code>aria-level</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-live"><code>aria-live</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-orientation"><code>aria-orientation</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-owns"><code>aria-owns</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-posinset"><code>aria-posinset</code></a></li>
+	<li><a class="state-reference" href="http://www.w3.org/TR/wai-aria-1.1/#aria-pressed"><code>aria-pressed</code> (state)</a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-relevant"><code>aria-relevant</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-setsize"><code>aria-setsize</code></a></li>
+	<li><a href="http://www.w3.org/TR/wai-aria-1.1/#aria-sort"><code>aria-sort</code></a></li>
 </ol>
 </section>
 </section>
