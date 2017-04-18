@@ -144,6 +144,18 @@ caption {text-align:left}
 div.note {padding-top:inherit !important;padding-bottom:inherit !important}
 div.note-title+p {margin-top:0px !important;}
 div.note-title {font-weight:bold !important;}
+kbd {
+			background-color: #F1F1F1;
+			border: 1px solid #666;
+			border-radius: 5px;
+			color: #333;
+			padding: 0px 2px;
+			margin: 1px;
+			font-weight: bold;
+			font-family: Arial,Helvetica,sans-serif;
+			min-width: 17px;
+			display: inline-block;
+			 }
 </style>
 </head>
 
@@ -206,13 +218,13 @@ div.note-title {font-weight:bold !important;}
     <pre class="nohighlight"><code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>   </pre>
     <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
     <pre class="nohighlight"><code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>   </pre>
-    <p><strong>Note:</strong> if a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
-    <p><strong>Note:</strong> it is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://www.w3.org/TR/html51/semantics.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
+    <p class="note">If a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
+    <p class="note">It is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://www.w3.org/TR/html51/semantics.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section id="3rdrule"> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
    <p>All interactive ARIA controls must be usable with the keyboard. </p>
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
-   <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
+   <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <kbd>space</kbd> key.</p>
    <p>Refer to the <a href="https://www.w3.org/TR/wai-aria-practices/#aria_ex">Design Patterns and Widgets</a> and <a href="https://www.w3.org/TR/wai-aria-practices/#keyboard">Developing a Keyboard Interface</a> sections of [[wai-aria-practices-1.1]]</p>
 
  </section>
@@ -224,11 +236,11 @@ div.note-title {font-weight:bold !important;}
    <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
    <p>Do <strong>not</strong> do this:</p>
   <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
-  <p><strong>Note: </strong>If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
+  <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
 <pre class="nohighlight">
  <code class="block"><mark>button {visibility:hidden}</mark>
 
- &lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code></pre>
+&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code></pre>
 
   <p class="note">If an interactive element is hidden using <code>display:none</code>, it 
   will also be removed from the <a href="http://w3c.github.io/aria/html-aam/html-aam.html#dfn-accessibility-tree">accessibility tree</a>, which makes the
@@ -314,7 +326,7 @@ or
   <section id="ariavalidate"><h3 tabindex="-1" id="validation">ARIA validation</h3>
     <p>The easiest method is to use the <a href="http://www.w3.org/TR/html51/syntax.html#the-doctype">HTML5 DOCTYPE</a> with ARIA markup and validate using the <a href="http://validator.w3.org/nu/">W3C Nu Markup Checker</a>. ARIA works equally well with any other <code>DOCTYPE</code>, but validation tools    will produce errors when they encounter ARIA markup as the associated DTDs have not been updated to recognise ARIA markup and it is unlikely they ever will be. </p>
     <p>These validation errors in versions of HTML prior of HTML5 are in no way indicative of ARIA creating any real world accessibility problems nor do they mean there will be a negative user experience. They are merely the result of old automated validation tests that do not accommodate ARIA accessibility annotations.</p>
-    <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!)to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML specification, please <a href="https://github.com/validator/validator/issues">raise an issue</a>.</p></section>
+    <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!) to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML specification, please <a href="https://github.com/validator/validator/issues">raise an issue</a>.</p></section>
   <section id="presentation">
   <h3 tabindex="-1" id="presentation">Use of role=presentation or role=none</h3>
   <p><a href="http://www.w3.org/TR/wai-aria-1.1/#presentation"><code>role=presentation</code></a>, or its synonym <code><a href="https://www.w3.org/TR/wai-aria-1.1/#none">role=none</a></code>, removes the semantics from the element it is on.</p>
@@ -468,8 +480,8 @@ If you want to associate context sensitive text, such as an error message you ca
     <ul>
       <li><code>tree view</code></li>
       <li><code>slider</code></li>
-      <li><code>table</code> that has focusable items and is being navigated via the arrow   keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids, etc.</li>
-      <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right arrow keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
+      <li><code>table</code> that has focusable items and is being navigated via the <kbd>arrow</kbd> keys, for example, a list of e-mail messages where you provide specific   information. Other examples are interactive grids, tree grids, etc.</li>
+      <li>A list of tabs (<code>tab, tablist</code>) where the user selects tabs via the left and right <kbd>arrow</kbd> keys. Remember that <strong>you</strong> have to implement the keyboard navigation model for this!</li>
       <li><code>dialog</code> and <code>alertdialog</code>. These causes some screen readers to go into a sort  of application mode (implicitly) once focus moves to a control inside  them. Note that for these to work best, set the <code>aria-describedby</code> attribute of the element whose role is <code>dialog</code> to the <code>id</code> of the text  that explains the dialog's purpose, and set focus to the first  interactive control when you open it:<br>
 <pre class="nohighlight"><code class="block">&lt;div <mark>role=&quot;dialog&quot;</mark> aria-label=&quot;login&quot; <mark>aria-describedby=&quot;log1&quot;</mark>&gt;
 &lt;div <mark>id=&quot;log1&quot;</mark> tabindex=&quot;-1&quot;&gt;Provide user name and password to login.&lt;/div&gt;
@@ -479,12 +491,12 @@ If you want to associate context sensitive text, such as an error message you ca
       <li><code>toolbar</code> and <code>toolbar buttons</code>, <code>menus</code> and <code>menu items</code>, and similar.</li>
      </ul>
     <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, or even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
-    <p>It is not necessary to use role=application to have control-specific keyboard shortcuts while the user is in forms (focus) mode on their screen reader. For instance, a custom control with ARIA <code>role=listbox</code> can easily capture all keys pressed including arrow keys, while the user is interacting with it.    </p>
+    <p>It is not necessary to use <code>role=application</code> to have control-specific keyboard shortcuts while the user is in forms (focus) mode on their screen reader. For instance, a custom control with ARIA <code>role=listbox</code> can easily capture all keys pressed including <kbd>arrow</kbd> keys, while the user is interacting with it. </p>
     <p><strong>In short: </strong>The times when you actually <strong>will</strong> use <code>role=application</code> will probably  be  <strong>very rare</strong>!</p>
     <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
     <p>Put it on the closest containing element of your widget, for example,   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
     <p><strong>Only</strong> put it on the body element if your page   consists solely of a widget or set of widgets that all need the focus   mode to be turned on. If you have a majority of these widgets, but also   have something you want the user to browse, use <code>role=document </code>on the outer-most element of this document-ish part of the   page. It is the counterpart to <code>role=application</code> and will allow you to tell   the screen reader to use browse mode for this part. Also make this   element tabbable by setting a <code>tabindex=0</code>  on it so the user   has a chance to reach it. </p>
-    <p>As a rule of thumb: If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.    </p>
+    <p><strong>As a rule of thumb:</strong> If your page consists of   over 90 or even 95 percent of widgets, <code>role=application</code> <strong>may be</strong> appropriate. Even then, find someone knowledgeable who can actually   test two versions of this: One with and one without <code>role=application</code> set to see which model works best.    </p>
     <p><strong>NEVER</strong> put <code>role=application</code> on a widely containing element such as   <code>body</code> if your page consists mostly of traditional widgets or page   elements such as links that the user does <strong>not</strong> have to   interact with in focus mode. This will cause huge headaches for any   assistive technology user trying to use your site/application.</p>
     <p>For further information on the use of <code>role=application</code> refer to <a href="http://www.marcozehe.de/2012/02/06/if-you-use-the-wai-aria-role-application-please-do-so-wisely/">If you use the WAI-ARIA role "application", please do so wisely!</a></p></section>
     <section id="checklist">
