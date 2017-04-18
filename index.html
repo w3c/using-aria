@@ -211,13 +211,11 @@ kbd {
     </ul></section>
    <section id="secondrule"> <h3 id="second" tabindex="-1">Second rule of ARIA use</h3>
     <p>Do not change native  semantics, unless you really have to.</p>
-    <p>For example: Developer wants to build a heading that's a button.</p>
+    <p>For example: Developer wants to build a heading that's a tab.</p>
   <p>Do <strong>not</strong> do this:</p>
-  <pre class="nohighlight"><code class="block">&lt;<mark>h1</mark> <mark>role=button</mark>&gt;heading button&lt;/<mark>h1</mark>&gt;</code>     </pre>
+  <pre class="nohighlight"><code class="block">&lt;<mark>h2</mark> <mark>role=tab</mark>&gt;heading tab&lt;/<mark>h2</mark>&gt;</code>     </pre>
   <p><strong>Do</strong> this:</p>
-    <pre class="nohighlight"><code class="block">&lt;h1&gt;<mark>&lt;button&gt;</mark>heading button<mark>&lt;/button&gt;</mark>&lt;/h1&gt;</code>   </pre>
-    <p>Or if you can't possibly use the correct element, <strong>do</strong> this:</p>
-    <pre class="nohighlight"><code class="block">&lt;h1&gt;<mark>&lt;</mark><mark>span</mark> <mark>role=button</mark>&gt;heading button<mark>&lt;/span&gt;</mark>&lt;/h1&gt;</code>   </pre>
+    <pre class="nohighlight"><code class="block">&lt;div <mark>role=tab</mark>&gt;<mark></mark>&lt;<mark>h2</mark>&gt;heading tab&lt;/<mark>h2</mark>&gt;<mark></mark>&lt;/div&gt;</code></pre>
     <p class="note">If a non interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behaviour using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="http://blog.paciellogroup.com/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.
     <p class="note">It is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="http://www.w3.org/TR/html51/semantics.html#the-ul-element">list elements</a> for the skeleton of an ARIA enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
  <section id="3rdrule"> <h3 tabindex="-1" id="third">Third rule of ARIA use</h3>
