@@ -176,7 +176,7 @@ caption {text-align:left}
       related technologies.</p>
     <p>This document provides advice for use of ARIA attributes in [[HTML51]].    </p>
     <p>For general best-practice information about using ARIA, see the
-      [[WAI-ARIA-PRACTICES]] document.</p>
+      [[wai-aria-practices-1.1]] document.</p>
     <p>The following is a longer list of resources that provide relevant information:</p>
     <ul>
       <li><a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a></li>
@@ -214,7 +214,7 @@ caption {text-align:left}
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard key strokes or key stroke combinations where applicable.</p>
    <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <code>space</code> key.</p>
-   <p>Refer to the <a href="http://www.w3.org/TR/wai-aria-practices/#keyboard">keyboard and structural navigation</a> and <a href="http://www.w3.org/TR/wai-aria-practices/#aria_ex">design patterns</a> sections of the <a href="http://www.w3.org/TR/wai-aria-practices/" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.0 Authoring Practices</a></p>
+   <p>Refer to the <a href="https://www.w3.org/TR/wai-aria-practices/#aria_ex">Design Patterns and Widgets</a> and <a href="https://www.w3.org/TR/wai-aria-practices/#keyboard">Developing a Keyboard Interface</a> sections of [[wai-aria-practices-1.1]]</p>
 
  </section>
  <section>
@@ -455,7 +455,7 @@ If you want to associate context sensitive text, such as an error message you ca
     <h4>So when should I use it, and when not?    </h4>
     <p>In determining when to use <code>role=application</code>, one should consider, among other things, the advantages of screen reader keyboard shortcuts weighed against the loss of those features. It generally should not be used, and if it is,  usability testing with screen reader users should be conducted.</p>
     <p>You <strong>do not</strong> use <code>role="application"</code> if a set of controls only contains   these widgets, that are all part of standard HTML. This also applies if   you mark them up and create an interaction model using WAI-ARIA roles   instead of standard HTML widgets:</p>
-<p>NOTE: It's not recommended that authors develop custom text input widgets. It's almost always best to use the native inputs for these.</p>
+<p><strong>NOTE:</strong> It's not recommended that authors develop custom text input widgets. It's almost always best to use the native inputs for these.</p>
     <ul>
       <li><code>text box</code>. This also applies to password, search, tel and other newer input <em>type</em> derivatives</li>
       <li><code>textarea</code></li>
@@ -481,7 +481,7 @@ If you want to associate context sensitive text, such as an error message you ca
      </ul>
     <p>You <strong>only</strong> want to use <code>role=application</code> if the   content you&rsquo;re providing consists of <code>only</code> focusable, interactive controls, and of   those, mostly advanced widgets that emulate a real desktop application.   Note that, despite many things now being called a web application, most   of the content these web applications work with are still   document-based information, be it Facebook posts and comments, blogs,   Twitter feeds, or even accordions that show and hide certain types of   information dynamically. We primarily still deal with documents on the   web, even though they may have a desktop-ish feel to them on the   surface.</p>
     <p>It is not necessary to use role=application to have control-specific keyboard shortcuts while the user is in forms (focus) mode on their screen reader. For instance, a custom control with ARIA <code>role=listbox</code> can easily capture all keys pressed including arrow keys, while the user is interacting with it.    </p>
-    <p>In short: The times when you actually <strong>will</strong> use <code>role=application</code> will probably  be  <strong>very rare</strong>!</p>
+    <p><strong>In short: </strong>The times when you actually <strong>will</strong> use <code>role=application</code> will probably  be  <strong>very rare</strong>!</p>
     <h4 id="where">So where do I put <code>role=application</code> in the rare cases it is useful?</h4>
     <p>Put it on the closest containing element of your widget, for example,   the parent <code>div</code> of your element that is your outer most widget element.   If that outer <code>div</code> wraps only widgets that need the application   interaction model, this will make sure focus mode is switched off once   the user tabs out of this widget.</p>
     <p><strong>Only</strong> put it on the body element if your page   consists solely of a widget or set of widgets that all need the focus   mode to be turned on. If you have a majority of these widgets, but also   have something you want the user to browse, use <code>role=document </code>on the outer-most element of this document-ish part of the   page. It is the counterpart to <code>role=application</code> and will allow you to tell   the screen reader to use browse mode for this part. Also make this   element tabbable by setting a <code>tabindex=0</code>  on it so the user   has a chance to reach it. </p>
@@ -556,11 +556,11 @@ If you want to associate context sensitive text, such as an error message you ca
 <p class="note">In some cases the semantics of a HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://www.w3.org/TR/wai-aria-1.1/#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
 None of the elements defined in HTML4 need ARIA roles added to expose their default semantics. Adding an ARIA role is extra work for no gain and could lead to pain for you or somebody else. The new features defined in HTML5 , where implemented, now have their default semantics exposed by most browsers.
 
-The <a href="http://www.w3.org/TR/html5/dom.html#aria-usage-note">HTML Specification</a> includes this note:
-<blockquote>In the majority of cases setting an ARIA <code data-anolis-xref="attr-aria-role"><a href="http://www.w3.org/TR/html5/infrastructure.html#attr-aria-role">role</a></code> and/or <code data-anolis-xref="attr-aria-*">aria-*</code> attribute that matches the <a href="http://www.w3.org/TR/html5/infrastructure.html#default-implicit-aria-semantics">default implicit ARIA semantics</a> is unnecessary and not recommended as these properties are already set by the browser.</blockquote>
+The <a href="http://www.w3.org/TR/html51/dom.html#aria-usage-note">HTML Specification</a> includes this note:
+<blockquote>In the majority of cases setting an ARIA <code data-anolis-xref="attr-aria-role"><a href="http://www.w3.org/TR/html5/infrastructure.html#attr-aria-role">role</a></code> and/or <code data-anolis-xref="attr-aria-*">aria-*</code> attribute that matches the <a href="http://www.w3.org/TR/html51/infrastructure.html#default-implicit-aria-semantics">default implicit ARIA semantics</a> is unnecessary and not recommended as these properties are already set by the browser.</blockquote>
 <section>
 <h4>Some examples of  redundant ARIA</h4>
-<p>Adding default implicit roles to <a href="http://www.w3.org/TR/html5/dom.html#interactive-content">interactive elements</a> listed in the HTML5 Recommendation is a waste of time:
+<p>Adding default implicit roles to <a href="http://www.w3.org/TR/html51/dom.html#interactive-content">interactive elements</a> listed in the HTML5 Recommendation is a waste of time:
   </p>
 <pre class="nohighlight"><code class="block">&lt;button <s>role="button"</s>&gt;press me&lt;/button&gt;</code>   </pre>
 <p>Adding ARIA state or property attributes <strong>in addition</strong> to their native HTML counterparts is a waste of time:
