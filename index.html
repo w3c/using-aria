@@ -260,7 +260,7 @@ it is supposed to label --&gt;
     </code></pre>
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property is empty:</p>
     <p><img src="noname.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has no value, the accRole property is 'editable text'."></p>
-    <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a> and the <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element><code>label</code></a> element is used correctly to  associate the label text with the input.</p>
+    <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a> and the <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element is used correctly to  associate the label text with the input.</p>
 <pre class="nohighlight"><code class="block">
 &lt;!-- <strong>Note:</strong> use of for/id or wrapping label around text
 and control methods will result in an accessible name -->
@@ -275,7 +275,7 @@ or
 
     <p>The control's <a href="http://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
     <p><img src="name.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'editable text'."></p>
-    <p>The <a href="http://www.w3.org/TR/html51/semantics.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="http://www.w3.org/TR/html51/semantics.html#category-label">labelable element</a>.</p>
+    <p>The <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="http://www.w3.org/TR/html51/semantics.html#category-label">labelable element</a>.</p>
     <pre class="nohighlight"><code class="block">
      &lt;!-- <strong>HTML input element with combox role</strong> -->
 
