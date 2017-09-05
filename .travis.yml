@@ -3,6 +3,9 @@ sudo: false
 branches:
   only:
   - gh-pages
+global:
+  - URL="https://w3c.github.io/using-aria/ECHIDNA"
+  - DECISION="https://lists.w3.org/Archives/Public/public-webapps/2014JulSep/0627.html"
 script:
 - echo "ok"
 after_success:
