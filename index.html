@@ -440,6 +440,43 @@ If you want to associate context sensitive text, such as an error message you ca
 	<li>Add the id reference in the DOM to the <code>aria-labelledby/aria-describedby</code> attribute, when the error state occurs.</li>
 </ul>
    </section>
+   <section>
+      <h4>The effect of accessible name on background images</h4>
+     <h5>Avoid presenting informational  images in CSS backgrounds</h5>
+    <p>If your image contains important information for the end user, then it should be provided in an HTML <code>&lt;img&gt;</code> tag with proper <code>alt</code> text. The CSS Spec says this:
+    <blockquote>
+      For accessibility reasons, authors should not use background images as the sole method of conveying important information. See <a href="http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/F3">Web Content Accessibility Guideline F3</a> <a href="https://www.w3.org/TR/css3-background/#ref-WCAG20" rel="biblioentry">[WCAG20]  <i class="fa fa-external-link"></i></a>. Images are not accessible in non-graphical presentations, and background images specifically might be turned off in high-contrast display modes. <a href="https://www.w3.org/TR/css3-background/#the-background-image"><em>Source</em> <i class="fa fa-external-link"></i></a>.
+		</blockquote>
+    </p>
+    <h5>Can't avoid using CSS images or want to  alt text for &quot;non-important&quot; ambient photos etc?    </h5>
+    <p>The CSS spec makes this a &quot;SHOULD&quot;   not a &quot;MUST&quot; because there are times when  visual design or  existing code  makes it difficult to change it to an HTML image without redesigning  the front-end.   Other times  the author may want to provide  alternate text for an ambient image that is <em><strong>not</strong></em> "important" to the understanding of the content but as a courtesy to screen reader users who prefer knowing what is in the image. Here is a detailed article on <a href="http://davidmacd.com/blog/what-is-pure-decoration-alt-text-in-wcag.html">ambient images vs pure decoration vs informational images.</a>    </p>
+    <h2>When providing alternate text for the CSS image, there are number of considerations </h2>
+		<p>If the  <code>&lt;div&gt;</code> tag  has any content inside it, then   a <code>role=&quot;img&quot;</code> and <code>aria-label</code>could  obscure the inside content because of the <a href="https://www.w3.org/TR/html-aam-1.0/#img-element">accessible name calculation <i class="fa fa-external-link"></i></a>, or the assistive technology might just ignore the<code>aria-label</code>. <br>
+		</p>
+    <p>So do not  put the CSS background image inside a <code>&lt;div&gt;</code> that contains  any content. It's best to use an empty <code>&lt;span&gt;</code>  and an <code>aria-label</code> with  <code>role="img"</code></p>
+    <p><strong>Do this:</strong><br>
+       <code>
+       &lt;div&gt;<br>
+      &lt;span class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;<br>
+      [all the rest of my content]<br>
+      &lt;/div&gt;</code>
+    <p><strong>Don't do this:</strong><br>
+     
+     <code>
+      &lt;div class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;blah blah blah&quot;&gt;<br>
+      [all the rest of my content]<br>
+      &lt;/div&gt;
+      </code>
+    <h5>What if the author has to have a CSS image on a div that contains content</h5>
+    <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.<br>
+       <code>
+      &lt;div class=&quot;background-image&quot; &gt;<br>
+      &lt;span role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;<br>
+      [all the rest of my content]<br>
+      &lt;/div&gt;
+        </code></p>
+    <p>This is a hack because semantically the alternate text is not on the element that actually has the image. However, from a screen reader perspective the <code>&lt;div&gt; </code> with the background image is ignored  and so placing the <code>&lt;span&gt; </code> directly following it will provide that information in a way that will seem as if the alternate text was in the same place as the background image.</p>
+   </section>
     </section>
     <section id="using-application">
      <h3 tabindex="-1">Using ARIA role=application</h3>
