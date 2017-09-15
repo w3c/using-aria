@@ -466,14 +466,14 @@ If you want to associate context sensitive text, such as an error message you ca
       [all the rest of my content]<br>
       &lt;/div&gt;
       </code>
-    <h5>What if the author has to have a CSS image on a <code><div></code> that contains content</h5>
-    <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.<br>
+    <h5>What if the author has to have a CSS image on a <code>&lt;div&gt;</code> that contains content</h5>
+    <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.</p>
        <code class="block">
       &lt;div class=&quot;background-image&quot; &gt;<br>
       &lt;span role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;<br>
       [all the rest of my content]<br>
       &lt;/div&gt;
-        </code></p>
+        </code>
     <p>This is a hack because semantically the alternate text is not on the element that actually has the image. However, from a screen reader perspective the <code>&lt;div&gt; </code> with the background image is ignored  and so placing the <code>&lt;span&gt; </code> directly following it will provide that information in a way that will seem as if the alternate text was in the same place as the background image.</p>
    </section>
     </section>
