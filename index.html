@@ -453,13 +453,13 @@ If you want to associate context sensitive text, such as an error message you ca
 		<p>If the  <code>&lt;div&gt;</code> tag  has any content inside it, then   a <code>role=&quot;img&quot;</code> and <code>aria-label</code> could  obscure the inside content because of the <a href="https://www.w3.org/TR/html-aam-1.0/#img-element">accessible name calculation</a>, or the assistive technology might just ignore the <code>aria-label</code>. 
 		</p>
     <p>So do not  put the CSS background image inside a <code>&lt;div&gt;</code> that contains  any content. It's best to use an empty <code>&lt;span&gt;</code>  and an <code>aria-label</code> with  <code>role="img"</code></p>
-    <p><strong>Do this:</strong><br>
+    <p><strong>Do this:</strong></p>
        <code class="block">
        &lt;div&gt;<br>
       &lt;span class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;&quot;<br>
       [all the rest of my content]<br>
       &lt;/div&gt;</code>
-    <p><strong>Don't do this:</strong><br>
+    <p><strong>Don't do this:</strong></p>
      
      <code class="block">
       &lt;div class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;blah blah blah&quot;&gt;<br>
