@@ -444,7 +444,7 @@ If you want to associate context sensitive text, such as an error message you ca
       <h4>The effect of accessible name on background images</h4>
      <p>Try to avoid presenting informational  images in CSS backgrounds. If your image contains important information for the end user, then it should be provided in an HTML <code>&lt;img&gt;</code> tag with proper <code>alt</code> text. The CSS Spec says this: </p>
     <blockquote>
-      For accessibility reasons, authors should not use background images as the sole method of conveying important information. See <a href="http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/F3">WCAG failure #F3</a> <a href="https://www.w3.org/TR/css3-background/#ref-WCAG20" rel="biblioentry">[WCAG20]  </a>. Images are not accessible in non-graphical presentations, and background images specifically might be turned off in high-contrast display modes. <a href="https://www.w3.org/TR/css3-background/#the-background-image"><em>Source</em>  </a>.
+      For accessibility reasons, authors should not use background images as the sole method of conveying important information. See <a href="http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/F3">WCAG failure #F3</a> <a href="https://www.w3.org/TR/css3-background/#ref-WCAG20">[WCAG20]  </a>. Images are not accessible in non-graphical presentations, and background images specifically might be turned off in high-contrast display modes. <a href="https://www.w3.org/TR/css3-background/#the-background-image"><em>Source</em>  </a>.
 		</blockquote>
  
     <h5>Can't avoid using CSS images or want alternate text for &quot;non-important&quot; ambient photos, etc.?    </h5>
@@ -456,7 +456,7 @@ If you want to associate context sensitive text, such as an error message you ca
     <p><strong>Do this:</strong></p>
        <code class="block">
        &lt;div&gt;<br>
-      &lt;span class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;&quot;<br>
+      &lt;span class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;[place alt text here]&quot; &lt;/span&gt;<br>
       [all the rest of my content]<br>
       &lt;/div&gt;</code>
     <p><strong>Don't do this:</strong></p>
@@ -466,7 +466,7 @@ If you want to associate context sensitive text, such as an error message you ca
       [all the rest of my content]<br>
       &lt;/div&gt;
       </code>
-    <h5>What if the author has to have a CSS image on a div that contains content</h5>
+    <h5>What if the author has to have a CSS image on a <code><div></code> that contains content</h5>
     <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.<br>
        <code class="block">
       &lt;div class=&quot;background-image&quot; &gt;<br>
