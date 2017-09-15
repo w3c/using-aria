@@ -454,21 +454,21 @@ If you want to associate context sensitive text, such as an error message you ca
 		</p>
     <p>So do not  put the CSS background image inside a <code>&lt;div&gt;</code> that contains  any content. It's best to use an empty <code>&lt;span&gt;</code>  and an <code>aria-label</code> with  <code>role="img"</code></p>
     <p><strong>Do this:</strong><br>
-       <code>
+       <code class="block">
        &lt;div&gt;<br>
       &lt;span class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;&quot;<br>
       [all the rest of my content]<br>
       &lt;/div&gt;</code>
     <p><strong>Don't do this:</strong><br>
      
-     <code>
+     <code class="block">
       &lt;div class=&quot;background-image&quot; role=&quot;img&quot; aria-label=&quot;blah blah blah&quot;&gt;<br>
       [all the rest of my content]<br>
       &lt;/div&gt;
       </code>
     <h5>What if the author has to have a CSS image on a div that contains content</h5>
     <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.<br>
-       <code>
+       <code class="block">
       &lt;div class=&quot;background-image&quot; &gt;<br>
       &lt;span role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;<br>
       [all the rest of my content]<br>
