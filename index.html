@@ -447,8 +447,8 @@ If you want to associate context sensitive text, such as an error message you ca
       For accessibility reasons, authors should not use background images as the sole method of conveying important information. See <a href="http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/F3">WCAG failure #F3</a> <a href="https://www.w3.org/TR/css3-background/#ref-WCAG20">[WCAG20]  </a>. Images are not accessible in non-graphical presentations, and background images specifically might be turned off in high-contrast display modes. <a href="https://www.w3.org/TR/css3-background/#the-background-image"><em>Source</em>  </a>.
 		</blockquote>
  
-    <h5>Can't avoid using CSS images or want alternate text for &quot;non-important&quot; ambient photos, etc.?    </h5>
-    <p>The CSS spec makes this a &quot;SHOULD&quot;   not a &quot;MUST&quot; because there are times when  visual design or  existing code  makes it difficult to change it to an HTML image without redesigning  the front-end.   Other times  the author may want to provide  alternate text for an ambient image that is <em><strong>not</strong></em> "important" to the understanding of the content but as a courtesy to screen reader users who prefer knowing what is in the image. Here is a detailed article on <a href="http://davidmacd.com/blog/what-is-pure-decoration-alt-text-in-wcag.html">ambient images vs pure decoration vs informational images.</a>    </p>
+    <h5>What if you can't avoid using CSS images or if you want alternate text for &quot;non-important&quot; ambient photos, etc.?    </h5>
+    <p>The CSS spec makes its discouragement of CSS informational backgrond images a &quot;SHOULD&quot;   not a &quot;MUST&quot; because there are times when  visual design or  existing code  makes it difficult to change it to an HTML image without redesigning  the front-end.   Other times  the author may want to provide  alternate text for an ambient image that is <em><strong>not</strong></em> "important" to the understanding of the content but as a courtesy to screen reader users who prefer knowing what is in the image. Here is a detailed article on <a href="http://davidmacd.com/blog/what-is-pure-decoration-alt-text-in-wcag.html">ambient images vs pure decoration vs informational images.</a>    </p>
     <h5>When providing alternate text for the CSS image, there are number of considerations </h5>
 		<p>If the  <code>&lt;div&gt;</code> tag  has any content inside it, then   a <code>role=&quot;img&quot;</code> and <code>aria-label</code> could  obscure the inside content because of the <a href="https://www.w3.org/TR/html-aam-1.0/#img-element">accessible name calculation</a>, or the assistive technology might just ignore the <code>aria-label</code>. 
 		</p>
@@ -467,7 +467,7 @@ If you want to associate context sensitive text, such as an error message you ca
       &lt;/div&gt;
       </code>
     <h5>What if the author has to have a CSS image on a <code>&lt;div&gt;</code> that contains content</h5>
-    <p>Sometimes there are dependencies in  the CSS stack and messing with it can cause  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then a hacky fallback is to do this.</p>
+    <p>Sometimes there are dependencies in the CSS stack and messing with it can  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then here is a fallback.</p>
        <code class="block">
       &lt;div class=&quot;background-image&quot; &gt;<br>
       &lt;span role=&quot;img&quot; aria-label=&quot;[place alt text here]&gt; &lt;/span&gt;<br>
