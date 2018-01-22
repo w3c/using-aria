@@ -212,26 +212,26 @@ kbd {
  </section>
  <section id="4thrule">
    <h3 tabindex="-1" id="fourth">Fourth Rule of ARIA Use</h3>
-   <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a <em>visible</em> <strong>focusable</strong> element .</p>
-   <p>Using either of these on a <em>visible</em> <strong>focusable</strong> element will result in some users focusing on 'nothing'.</p>
+   <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a <strong>focusable</strong> element .</p>
+   <p>Using either of these on a <strong>focusable</strong> element will result in some users focusing on 'nothing'.</p>
    <p>Do <strong>not</strong> do this:</p>
    <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
    <p>Do <strong>not</strong> do this:</p>
   <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
-<p class="note">Applying <code>aria-hidden</code> to a parent of a visible interactive element will also result in a child interactive element being hidden, so <strong>don't do this either</strong>:</p>
+<p class="note">Applying <code>aria-hidden</code> to a parent/ancestor of a visible interactive element will also result in the interactive element being hidden, so <strong>don't do this either</strong>:</p>
 <pre class="nohighlight"><code class="block">
 &lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt; 
 &lt;button&gt;press me&lt;/button&gt;
 <mark>&lt;/div></mark></code></pre>
-  <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
+  <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, as long as it's not focusable. For example:</p>
  <pre class="nohighlight">
  <code class="block"><mark>button {opacity:0}</mark>
 
 &lt;<mark>button</mark> <mark>tabindex="-1" aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code></pre>
 
-  <p class="note">If an interactive element is hidden using <code>display:none</code> or <code>visibility:hidden</code>, it 
-  will also be removed from the <a href="https://www.w3.org/TR/accname-aam-1.1/#dfn-accessibility-tree">accessibility tree</a>, which makes the
-  addition of <code>aria-hidden="true"</code> unnecessary.</p>
+  <p class="note">If an interactive element is hidden using <code>display:none</code> or <code>visibility:hidden</code> (either on the element itself, or any of the element's ancestors),
+  it won't be focusable, and it will also be removed from the <a href="https://www.w3.org/TR/accname-aam-1.1/#dfn-accessibility-tree">accessibility tree</a>. This makes the
+  addition of <code>aria-hidden="true"</code> or explicitly setting <code>tabindex="-1"</code> unnecessary.</p>
  </section>
  <section id="fifthrule"><h3 tabindex="-1" id="fifth">Fifth Rule of ARIA Use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/accname-aam-1.1/#dfn-accessible-name">accessible name</a>. </p>
