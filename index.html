@@ -218,6 +218,10 @@ kbd {
    <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>role=presentation</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
    <p>Do <strong>not</strong> do this:</p>
   <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
+	 <p class="note">Applying <code>aria-hidden</code> to a parent of a visible interactive element will also result in a child interactive element being hidden, so <strong>don't do this either</strong>:</p>
+	 <pre class="nohighlight"><code class="block">&lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt;
+	 &lt;<mark>button</mark>&gt;press me&lt;/<mark>button</mark>&gt;
+	   &lt;/div></code></pre>
   <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, for example:</p>
 <pre class="nohighlight">
  <code class="block"><mark>button {opacity:0}</mark>
