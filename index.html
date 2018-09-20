@@ -382,9 +382,28 @@ or
     <p >Use in fixing an incorrect table structure</p>
     <pre><code class="block">&lt;div aria-readonly=&quot;true&quot; role=&quot;grid&quot;&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Dog Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cat Names&lt;/th&gt;<br>				&lt;th role=&quot;columnheader&quot;&gt;Cow names&lt;/th&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>		&lt;table <mark>role=&quot;presentation&quot;</mark>&gt;<br>			&lt;tbody&gt;&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Fido&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Whiskers&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Clarabella&lt;/td&gt;<br>			&lt;/tr&gt;<br>			&lt;tr role=&quot;row&quot;&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Woofie&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Claws&lt;/td&gt;<br>				&lt;td role=&quot;gridcell&quot;&gt;Glenn&lt;/td&gt;<br>			&lt;/tr&gt;<br>		&lt;/tbody&gt;&lt;/table&gt;<br>	&lt;/div&gt;</code></pre>
   </section>
-  <section>
-    <h3 tabindex="-1">aria-labelledby and aria-describedby</h3>
-    <p>Currently <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to a subset of<a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements. As of this writing they <strong>do not</strong> work correctly on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> , support on <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#embedded-content-0">embedded content</a> is unknown, but can be safely used on form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</p>
+ <section>
+    <h3 tabindex="-1">aria-label, aria-labelledby and aria-describedby</h3>
+	  <p>Here is summary  as of this writing.</p>
+	 <ul> <li>  <code>aria-labelledby</code> and <code>aria-describedby</code> are more robustly supported for associating text content to <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements such as <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> and form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</li>
+
+<li>Its fine to use <code>aria-label</code> or <code>aria-labelledby</code> on a the <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code> and <code>&lt;main&gt;</code> elements.
+		 </li>
+ <li>Its fine to use <code>aria-label</code> or <code>aria-labelledby</code> on <code>div</code> elements with landmark roles, <code>role=banner</code>, <code>role=navigation</code>,<code>role=search</code>, <code>role=main</code>, <code>role=complementary</code>, <code>role=contentinfo</code>.
+		 </li>
+		 
+<li>Don't use <code>aria-label</code> or <code>aria-labelledby</code>   on any heading elements because it overrides them on NVDA, VoiceOver and Talkback. JAWS ignores them. </li>
+<li>Don't use <code>aria-label</code>,  or <code>aria-labelledby</code>  on any other non-interactive content such as <code> p</code>, <code>legend</code>, <code>li</code>, or <code>ul</code>) because it is ignored. </li>
+<li>Don't use <code>aria-label</code> or <code>aria-labelledby</code> on a <code>span</code> or <code>div</code> unless its given a <code>role </code>. When they are on interactive roles (such as a <code>link </code>, <code>button </code>), or an <code>img</code> role, then they   override the contents of the div or span. They work well on landmark roles. Other roles are ignored.</li>
+<li><code>aria-describedby</code> on a <code>span</code> or <code>div</code> will be ignored by NVDA and VoiceOver unless  given an interactive, image or landmark <code>role </code>. JAWS and Talkback are OK</li>
+<li><code>aria-describedby</code> will be ignored by NVDA and VoiceOver on any other static content.</li>
+	they can be safely used on HTML5 form controls including the many <a href="https://www.w3.org/TR/html51/sec-forms.html#the-input-element"><code>input</code></a> types and the <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code> and <code>&lt;main&gt;</code> elements.</p>
+	
+</ul>
+	  <span><a href="http://davidmacd.com/blog/does-aria-label-override-static-text.html">Reference and test content</a></span><br>
+	<p>All of the above also work the same in iframes. Both <code>aria-label</code>  and <code>aria-labelledby</code> have  the same behaviour with screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. 
+  
+	  <h4>Internet explorer notes on aria-labelledby, aria-label, and aria-describedby</h4>
     <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
     <p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code> with a <code>tabindex=-1</code> added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
     <code class="block">&lt;label
@@ -407,7 +426,6 @@ or
       &lt;div id=&quot;test&quot;
       <mark>role=&quot;tooltip&quot;</mark>
       &gt;tooltip text&lt;/div&gt; </code></section>
-  <section>
     <h3 tabindex="-1">Using ARIA role=application</h3>
     <h4 id="not">How does role=&quot;application&quot; affect a screen reader?</h4>
     <p>On many popular screen readers today, most keystrokes are captured by the screen reader and not the web page when the user is in browse mode. This is necessary for efficient navigation of a page. As of this writing, when application mode is set, many screen reader  stop intercepting keystrokes, and pass all keystrokes directly to the browser. Then the user won't be able to navigate the page as easily. For instance they won't be able to skip around the page by headings or read a paragraph of static text line-by-line. However, several screen readers do not behave differently when there is an application role set.</p>
