@@ -401,7 +401,7 @@ or
  <section id="label-support">
    <section>
     <h3 tabindex="-1">Practical Support: aria-label, aria-labelledby and aria-describedby</h3>
-	  <p>Here is a summary  as of this writing.</p>
+	  <p>Here is a summary  as of this writing:</p>
  <ul> <li>  <code>aria-labelledby</code> and <code>aria-describedby</code> are  robustly supported for  <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements such as <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> and form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</li>
 
 <li>For most assistive technology it's fine to use <code>aria-label</code> or <code>aria-labelledby</code> on the <code>&lt;nav&gt;</code>,  and <code>&lt;main&gt;</code> elements but not on  <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, or <code>&lt;header&gt;</code>. </li>
@@ -414,7 +414,7 @@ or
 <li><code>aria-describedby</code> on a <code>span</code> or <code>div</code> will be ignored by NVDA and VoiceOver unless  given an interactive <code>role</code>, an image <code>role</code> or landmark <code>role</code>. JAWS and Talkback are OK. </li>
 <li><code>aria-describedby</code> will be ignored by NVDA and VoiceOver on any other static content. JAWS and Talkback are OK.</li>
 	 <li><a href="http://davidmacd.com/blog/does-aria-label-override-static-text.html"><i>References and tests</i></a></li></ul>
-	 <p>All of the above also work the same in iframes. Both <code>aria-label</code>  and <code>aria-labelledby</code> have  the same behaviour with screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. 
+	 <p>All of the above also work the same in iframes. Both <code>aria-label</code>  and <code>aria-labelledby</code> have  the same behaviour with screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. </p>
   
 	  <h4>Internet explorer notes on aria-labelledby, aria-label, and aria-describedby</h4>
     <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
