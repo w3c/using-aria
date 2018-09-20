@@ -471,7 +471,7 @@ If you want to associate context sensitive text, such as an error message, you c
 </ul>
    </section>
    <section>
-      <h4>The Effect of Accessible Name on Background Images</h4>
+      <h3>The Effect of Accessible Name on Background Images</h3>
      <p>Try to avoid presenting informational  images in CSS backgrounds. If your image contains important information for the end user, then it should be provided in an HTML <code>&lt;img&gt;</code> tag with proper <code>alt</code> text. The CSS Spec says this: </p>
     <blockquote>
       For accessibility reasons, authors should not use background images as the sole method of conveying important information. See <a href="http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/F3">WCAG failure #F3</a> <a href="https://www.w3.org/TR/css3-background/#ref-WCAG20">[WCAG20]  </a>. Images are not accessible in non-graphical presentations, and background images specifically might be turned off in high-contrast display modes. <a href="https://www.w3.org/TR/css3-background/#the-background-image"><em>Source</em>  </a>.
@@ -496,7 +496,7 @@ If you want to associate context sensitive text, such as an error message, you c
       [all the rest of my content]<br>
       &lt;/div&gt;
       </code>
-    <h5>What If the Author Has to Have a CSS Image on a <code>&lt;div&gt;</code> that Contains Content?</h5>
+    <h4>What If the Author Has to Have a CSS Image on a <code>&lt;div&gt;</code> that Contains Content?</h4>
     <p>Sometimes there are dependencies in the CSS stack and messing with it can  upset  the design and layout of the site, or a request to change the code could get hung up  in approval from various stakeholders. In  cases where the author has to have the background image in the &lt;div&gt; that wraps up other content, then here is a fallback.</p>
        <code class="block">
       &lt;div class=&quot;background-image&quot; &gt;<br>
