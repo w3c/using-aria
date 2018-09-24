@@ -399,7 +399,7 @@ or
     &lt;/div&gt;</code></pre>
     </section>
  <section id="label-support">
-   <section>
+   
     <h4 tabindex="-1" id="practical-support-aria-label-aria-labelledby-and-aria-describedby">Practical Support: aria-label, aria-labelledby and aria-describedby</h4>
 	  <p>Here is a summary  as of this writing:</p>
  <ul> <li>  <code>aria-labelledby</code> and <code>aria-describedby</code> are  robustly supported for  <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements such as <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> and form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types.</li>
@@ -438,9 +438,9 @@ or
       <br>
       &lt;div id=&quot;test&quot;
       <mark>role=&quot;tooltip&quot;</mark>
-      &gt;tooltip text&lt;/div&gt; </code></section>
+      &gt;tooltip text&lt;/div&gt; </code>
 	 
-    <section>
+   
       <h4>Hiding Content Has No Effect on Accessible Name or Description Calculation</h4>
      <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-labelledby">aria-labelledby</a> and <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
      </p>
@@ -469,7 +469,7 @@ If you want to associate context sensitive text, such as an error message, you c
 	<li>Add the error text as child of the referenced element in the DOM when the error state occurs.</li>
 	<li>Add the id reference in the DOM to the <code>aria-labelledby/aria-describedby</code> attribute, when the error state occurs.</li>
 </ul>
-   </section>
+
    <section>
       <h3>The Effect of Accessible Name on Background Images</h3>
      <p>Try to avoid presenting informational  images in CSS backgrounds. If your image contains important information for the end user, then it should be provided in an HTML <code>&lt;img&gt;</code> tag with proper <code>alt</code> text. The CSS Spec says this: </p>
