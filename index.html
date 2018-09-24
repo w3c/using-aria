@@ -242,11 +242,9 @@ kbd {
 
     or
 
-&lt;!-- label element used, but not associated with the control
-it is supposed to label --&gt;
-
-    <mark>&lt;label&gt;</mark>user name<mark>&lt;/label&gt;</mark> &lt;input type=&quot;text&quot;&gt;
+    <mark>&lt;span&gt;</mark>user name<mark>&lt;/span&gt;</mark> &lt;input type=&quot;text&quot;&gt;
     </code></pre>
+
     <p>The control's <a href="https://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property is empty:</p>
     <p><img src="noname.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has no value, the accRole property is 'editable text'."></p>
     <p>In comparison, the <code>input type=text</code> in the code example below has a visible label 'user name' and an accessible name. This example has an accessible name because the  <code>input</code> element is a <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a> and the <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element is used correctly to  associate the label text with the input.</p>
@@ -254,16 +252,19 @@ it is supposed to label --&gt;
 &lt;!-- <strong>Note:</strong> use of for/id or wrapping label around text
 and control methods will result in an accessible name --&gt;
 
-<mark>&lt;label&gt;</mark>user name &lt;input type=&quot;text&quot;&gt;<mark>&lt;/label&gt;</mark>
+<mark>&lt;input type=&quot;text&quot; aria-label=&quot;User Name&quot;&gt;</mark>
 
 or
 
-<mark>&lt;label for=&quot;uname&quot;&gt;user name&lt;/label&gt;</mark> &lt;input type=&quot;text&quot; <mark>id=&quot;uname&quot;</mark>&gt;
+<mark><span id=&quot;p1&quot;>user name&lt;/span&gt; &lt;input type=&quot;text&quot; aria-labelledby=&quot;p1&quot;&gt;
 
 </code></pre>
-
+	<p>Note: The example above is for ARIA widgets. For regular HTML inputs, follow the First Rule of ARIA, and use the <a href="https://www.w3.org/TR/html52/sec-forms.html#the-label-element"><code>label</code></a> element with a <code>for</code> attribute to associate labels with <code>input</code> elements.</p>
+	 
     <p>The control's <a href="https://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
     <p><img src="name.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'editable text'."></p>
+    
+    <h4>A note about the HTML <code>label</code> element and labelable elements</h4>
     <p>The <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a>.</p>
     <pre class="nohighlight"><code class="block">
      &lt;!-- <strong>HTML input element with combox role</strong> --&gt;
