@@ -411,7 +411,7 @@ or
 		      <li>They are OK on <code>div</code> elements <strong>IF</strong>  they have <code>role=navigation</code>, <code>search</code>, <code>main</code>, <code>img.</code></li>
 		      <li>They are OK on a <code>table</code> element (<em><strong>except</strong></em> ignored by VoiceOver on iOS).</li>
 		      </ul>
-<h3 id="p10">Other static elements with <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code></h3>
+<h4 id="p10">Other static elements with <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code></h4>
 <p>NOTE: There are no appreciable differences in these tests across popular browsers,  platforms or in iframes. </p>
 			    
 <table aria-describedby="p10" >
@@ -451,7 +451,7 @@ or
 </tr>
 </table>
 <p> <code>aria-label</code>  and <code>aria-labelledby</code> have  similar behaviour in screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. </p>
- <h3>What happens when roles are added?</h3>
+ <h4>What happens when roles are added?</h4>
 <ul>
  <li>If the role is an interactive <code>role </code> (that can be clicked on such as button or link) or an image role the <code>aria-label</code> or <code>aria-labelledby</code> overrides the text</li>
 						  <li>If its a heading <code>role </code>, <code>aria-label</code> or <code>aria-labelledby</code> overrides it on NVDA, VoiceOver and Talkback. JAWS ignores the <code>aria-label</code> or <code>aria-labelledby</code>.</li>
