@@ -423,31 +423,32 @@ or
 <th width="12%" scope="col">Talkback</th>
 </tr>
 </thead>
-<tr>
-<th scope="row"><code>aria-labelledby </code><br>
-<br>and<br>
-<br><code> aria-label</code><br></th>
-<td ><p>Ok on <code>td</code>, <code>th</code></p>
-<p>Ignored on all  other static content <em><strong>except</strong></em> those listed above</p>
-</td>
-<td ><p><code>h1</code>, <code>h2</code> etc. are overridden. </p>
-<p> <code>landmark</code> roles OK. </p>
-<p>Ignored on all other static content <em><strong>except</strong></em> those listed above</p></td>
-<td><p><code>h1</code>, <code>h2</code> etc. are overridden. User  can interact with heading to hear it, but its not easily discoverable. </p>
-<p> <code>landmark</code> roles OK. </p>
-<p>Other elements read aria-label with virtual cursor and then let user enter and read the contents.</p></td>
-<td><p>All the static content is overridden except <code>ul</code> and <code>li</code>  which are ignored </p></td>
-</tr>
-<tr>
-<th scope="row"><code>aria-describedby</code></th>
-<td><p><strong><em>Well supported</em></strong> on static content</p></td>
-<td ><p>Except for those listed above, it is ignored on all static content unless given an interactive role and <code>tabindex=0</code>, and then only if the users tabs to it (not arrows to it).</p></td>
-<td><p>VO on MacOS is different from iOS<br>
-</p>
-<p>MacOS   is OK on most static content.</p>
-<p> iOS only reads it if on <code>landmark</code> roles. </p></td>
-<td><strong><em>Well supported</em></strong> on static content</td>
-</tr>
+	<tbody><tr>
+							<th scope="row"><code>aria-labelledby </code>
+							  <br>and<br>
+						    <code> aria-label</code></th>
+							<td ><p>Ok on <code>td</code>, <code>th</code></p>
+							  <p>Ignored on all  other static content <em><strong>except</strong></em> those listed above</p>
+					     </td>
+							<td ><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>.  </p>
+						    <p> <code>landmark</code> roles OK. </p>
+						    <p>Ignored on all other static content <em><strong>except</strong></em> those listed above</p></td>
+							<td><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>. User  can interact with heading to hear it, but its not easily discoverable. </p>
+                              <p> <code>landmark</code> roles OK. </p>
+                            <p>Other elements read aria-label with virtual cursor and then let user enter and read the contents.</p></td>
+							<td><p>All the static content is overridden except <code>ul</code> and <code>li</code>  which are ignored </p></td>
+						</tr>
+						<tr>
+							<th scope="row"><code>aria-describedby</code></th>
+							<td><p><strong><em>Well supported</em></strong> on static content</p></td>
+							<td ><p><code>h1, h2, h3, h4, h5, h6</code> are OK as are elements with <code>role=heading</code>. </p>
+						    <p>Ignored on  static content not listed above unless given an interactive role and <code>tabindex=0</code>, and then only if the users tabs to it (not arrows to it).</p></td>
+							<td><p>VO on MacOS is different from iOS<br>
+							</p>
+						    <p>VO on MacOS   is OK on most static content.</p>
+						    <p> VO on iOS only reads it if on <code>landmark</code> roles. </p></td>
+							<td><strong><em>Well supported</em></strong> on static content</td>
+						</tr></tbody>
 </table>
 <p> <code>aria-label</code>  and <code>aria-labelledby</code> have  similar behaviour in screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. </p>
  <h5>What happens when roles are added?</h5>
