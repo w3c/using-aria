@@ -404,14 +404,13 @@ or
  <section id="label-support">
     <h4 tabindex="-1" id="practical-support-aria-label-aria-labelledby-and-aria-describedby">Practical Support: aria-label, aria-labelledby and aria-describedby</h4>
  	  <h5>Well supported elements</h5>
-<ul> <li>  <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code> are  robustly supported for  <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#interactive-content-0"> interactive content</a> elements such as <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-a-element">links</a> and form controls including the many <a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#the-input-element"><code>input</code></a> types. They also work well on <code>div</code> and <code>span</code> elements with interactive roles such as <code>role=link</code>, <code>button</code>. By design, <code>aria-label</code> or <code>aria-labelledby</code>  replace any other label text inside the element.</li>
-
-<li>All three are OK on  <code>nav</code>  and <code>main</code> elements.</li>
-		      <li>They are OK on <code>div</code> elements <strong>IF</strong>  they have <code>role=navigation</code>, <code>search</code>, <code>main</code>, <code>img.</code></li>
-		      <li>They are OK on a <code>table</code> element (<em><strong>except</strong></em> ignored by VoiceOver on iOS).</li>
-		      </ul>
+<ul> <li><code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code> are robustly supported for  <a href="https://www.w3.org/TR/html52/dom.html#interactive-content-2"> interactive content</a> elements such as <a href="https://www.w3.org/TR/html52/textlevel-semantics.html#elementdef-a">links</a> and form controls including the many <a href="https://www.w3.org/TR/html52/sec-forms.html#the-input-element"><code>input</code></a> types. They also work well on <code>div</code> and <code>span</code> elements with interactive roles such as <code>role=link</code>, <code>button</code>. By design, <code>aria-label</code> or <code>aria-labelledby</code> replace any other label text inside the element.</li>
+<li>All three are OK on  <code>nav</code> and <code>main</code> elements.</li>
+<li>They are OK on <code>div</code> elements <strong>IF</strong> they have <code>role=navigation</code>, <code>search</code>, <code>main</code>, <code>img.</code></li>
+<li>They are OK on a <code>table</code> element (<em><strong>except</strong></em> ignored by VoiceOver on iOS).</li>
+</ul>
 <h5 id="p10">Other static elements with <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code></h5>
-<p>NOTE: There are no appreciable differences in these tests across popular browsers,  platforms or in iframes. </p>
+<p>NOTE: There are no appreciable differences in these tests across popular browsers, platforms or in <code>iframe</code>s.</p>
 			    
 <table aria-describedby="p10" >
 <thead >
@@ -423,38 +422,32 @@ or
 <th width="12%" scope="col">Talkback</th>
 </tr>
 </thead>
-	<tbody><tr>
-							<th scope="row"><code>aria-labelledby </code>
-							  <br>and<br>
-						    <code> aria-label</code></th>
-							<td ><p>Ok on <code>td</code>, <code>th</code></p>
-							  <p>Ignored on all  other static content <em><strong>except</strong></em> those listed above</p>
-					     </td>
-							<td ><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>.  </p>
-						    <p> <code>landmark</code> roles OK. </p>
-						    <p>Ignored on all other static content <em><strong>except</strong></em> those listed above</p></td>
-							<td><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>. User  can interact with heading to hear it, but its not easily discoverable. </p>
-                              <p> <code>landmark</code> roles OK. </p>
-                            <p>Other elements read aria-label with virtual cursor and then let user enter and read the contents.</p></td>
-							<td><p>All the static content is overridden except <code>ul</code> and <code>li</code>  which are ignored </p></td>
-						</tr>
-						<tr>
-							<th scope="row"><code>aria-describedby</code></th>
-							<td><p><strong><em>Well supported</em></strong> on static content</p></td>
-							<td ><p><code>h1, h2, h3, h4, h5, h6</code> are OK as are elements with <code>role=heading</code>. </p>
-						    <p>Ignored on  static content not listed above unless given an interactive role and <code>tabindex=0</code>, and then only if the users tabs to it (not arrows to it).</p></td>
-							<td><p>VO on MacOS is different from iOS<br>
-							</p>
-						    <p>VO on MacOS   is OK on most static content.</p>
-						    <p> VO on iOS only reads it if on <code>landmark</code> roles. </p></td>
-							<td><strong><em>Well supported</em></strong> on static content</td>
-						</tr></tbody>
+<tbody><tr>
+<th scope="row"><code>aria-labelledby</code> and <code>aria-label</code></th>
+<td><p>Ok on <code>td</code>, <code>th</code></p>
+<p>Ignored on all  other static content <em><strong>except</strong></em> those listed above</p></td>
+<td ><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>.</p>
+<p><code>landmark</code> roles OK.</p>
+<p>Ignored on all other static content <em><strong>except</strong></em> those listed above</p></td>
+<td><p><code>h1, h2, h3, h4, h5, h6</code> are overridden. So are elements with <code>role=heading</code>. User can interact with heading to hear it, but its not easily discoverable.</p>
+<p><code>landmark</code> roles OK.</p>
+<p>Other elements read aria-label with virtual cursor and then let user enter and read the contents.</p></td>
+<td><p>All the static content is overridden except <code>ul</code> and <code>li</code> which areignored </p></td>
+</tr>
+<tr>
+<th scope="row"><code>aria-describedby</code></th>
+<td><p><strong><em>Well supported</em></strong> on static content</p></td>
+<td><p><code>h1, h2, h3, h4, h5, h6</code> are OK as are elements with <code>role=heading</code>. </p>
+<p>Ignored on  static content not listed above unless given an interactive role and <code>tabindex=0</code>, and then only if the users tabs to it (not arrows to it).</p></td>
+<td><p>VO on MacOS is different from iOS</p>
+<p>VO on MacOS is OK on most static content.</p>
+<p>VO on iOS only reads it if on <code>landmark</code> roles. </p></td>
+<td><strong><em>Well supported</em></strong> on static content</td></tr></tbody>
 </table>
-<p> <code>aria-label</code>  and <code>aria-labelledby</code> have  similar behaviour in screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. <a href="http://davidmacd.com/blog/does-aria-label-override-static-text.html">Test sources</a></p>
-  
-	  <h4>Internet explorer notes on aria-labelledby, aria-label, and aria-describedby</h4>
-    <p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
-    <p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code> with a <code>tabindex=-1</code> added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
+<p><code>aria-label</code> and <code>aria-labelledby</code> have similar behaviour in screen readers and the Accessibility API, but <code>aria-label</code> should be reserved for when there is no visible text on the page to reference or when keeping track of <code>id</code> values would be too difficult. <a href="http://davidmacd.com/blog/does-aria-label-override-static-text.html">Test sources</a></p>
+ <h4>Internet explorer notes on aria-labelledby, aria-label, and aria-describedby</h4>
+ p>In Internet Explorer, if you use <code>aria-labelledby</code> with multiple <code>id</code> references or <code>aria-describedby</code> with single or multiple <code>id</code> references, the referenced elements <strong>must be</strong> what Microsoft terms as <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Accessible_HTML_Elements">accessible HTML elements</a>.</p>
+<p>The following example of <code>aria-labelledby</code> with multiple references uses  a <code>span</code> with a <code>tabindex=-1</code> added. Refer to <a href="http://msdn.microsoft.com/en-us/library/ie/gg701963%28v=vs.85%29.aspx#Making_Nonaccessible_Elements_Accessible">Making Non accessible Elements Accessible</a>.</p>
     <code class="block">&lt;label
       <mark>id=&quot;l1&quot;</mark>
       for="f3"&gt;label text&lt;/label&gt;<br>
@@ -476,7 +469,6 @@ or
       <mark>role=&quot;tooltip&quot;</mark>
       &gt;tooltip text&lt;/div&gt; </code>
 	 
-   
       <h4>Hiding Content Has No Effect on Accessible Name or Description Calculation</h4>
      <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-labelledby">aria-labelledby</a> and <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
      </p>
