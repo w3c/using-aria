@@ -2,64 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-
 <title>Using ARIA</title>
-<script class='remove'>
-  function addEllipsis(id) {
-    document.getElementById(id).childNodes.item(2).textContent = "\n    â€¦\n";
-  }
-  function removeNodes(nodesToRemove) {
-    var i, j;
-    for (i = 0; i < nodesToRemove.length; ++i) {
-      for (j = 0; j < nodesToRemove[i].length; ++j) {
-        nodesToRemove[i][j].parentNode.removeChild(nodesToRemove[i][j]);
-      }
-    }
-  }
-</script>
-<script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+<script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 <script type="text/javascript" class='remove'>
   var respecConfig = {
-	   includePermalinks: false,
-  permalinkEdge: true,
-  permalinkHide: false,
-  permalinkSymbol: "🔗",
-      specStatus: "ED",
-      shortName:  "using-aria",
-      edDraftURI: "https://w3c.github.io/using-aria/",
-      noRecTrack: "true",
-      editors: [
-            {   name:       "Steve Faulkner",
-                company:    "The Paciello Group",
-                mailto:     "sfaulkner@paciellogroup.com",
-                w3cid: "35007"
-            },
-			{   name:       "David MacDonald",
-                company:    "CanAdapt Solutions Inc.",
-                mailto:     "david100@sympatico.ca",
-                w3cid: "35466"
-            },
-      ],
-      extraCSS: [ "https://dev.w3.org/2009/dap/ReSpec.js/css/respec.css" ],
-      wg:           "Web Platform Working Group",
-      wgURI:        "https://www.w3.org/WebPlatform/WG/",
-      license: "w3c-software-doc",
-      wgPublicList: "public-html",
-      wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/83482/status",
-
-      github: "https://github.com/w3c/using-aria/",
-
-
-
-      after: function () {
-        var nodesToRemove = [
-          document.querySelectorAll("table.parameters"),
-          document.querySelectorAll("li.tocline > a[href^='#attributes']"),
-          document.querySelectorAll("li.tocline > a[href^='#methods']"),
-        ];
-        addEllipsis('idl-def-HTMLElement');
-        removeNodes(nodesToRemove);
-      }
+    specStatus: "ED",
+    shortName: "using-aria",
+    noRecTrack: "true",
+    editors: [
+      {
+        name: "Steve Faulkner",
+        company: "The Paciello Group",
+        mailto: "sfaulkner@paciellogroup.com",
+        w3cid: "35007",
+      },
+      {
+        name: "David MacDonald",
+        company: "CanAdapt Solutions Inc.",
+        mailto: "david100@sympatico.ca",
+        w3cid: "35466",
+      },
+    ],
+    wg: "Web Platform Working Group",
+    wgURI: "https://www.w3.org/WebPlatform/WG/",
+    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/83482/status",
+    github: "w3c/using-aria",
   };
 </script>
 <style>
@@ -150,7 +117,7 @@ kbd {
       accessibility information to HTML elements using the
       Accessible Rich Internet Applications specification [[WAI-ARIA-1.1]], which
       defines a way to make Web content and Web applications more accessible to
-      people with disabilities. This document demonstrates how to use WAI-ARIA in [[HTML51]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
+      people with disabilities. This document demonstrates how to use WAI-ARIA in [[HTML]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
   </section>
   <section id="sotd">
     <p class="note">This document is informative only. Resources are for information purposes only, no endorsement implied.</p>
@@ -169,7 +136,7 @@ kbd {
       people with disabilities. This document demonstrates how to use WAI-ARIA in HTML5, it especially helps with dynamic content and
       advanced user interface controls developed with Ajax, HTML, JavaScript, and
       related technologies.</p>
-    <p>This document provides advice for use of ARIA attributes in [[HTML51]].    </p>
+    <p>This document provides advice for use of ARIA attributes in [[HTML]].    </p>
     <p>For general best-practice information about using ARIA, see the
       [[wai-aria-practices-1.1]] document.</p>
     <p>The following is a longer list of resources that provide relevant information:</p>
@@ -186,10 +153,10 @@ kbd {
 
   <section id="firstrule">
     <h3 tabindex="-1" id="rule1">First Rule of ARIA Use</h3>
-    <p>If you <em>can</em> use a native HTML element [[HTML51]] or attribute with the semantics and behavior you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
+    <p>If you <em>can</em> use a native HTML element [[HTML]] or attribute with the semantics and behavior you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
     <p><strong>Under what circumstances may this not be possible?</strong></p>
     <ul>
-      <li>If the feature is available in HTML [[HTML51]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
+      <li>If the feature is available in HTML [[HTML]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
       <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
       <li>If the feature is <a href="https://www.paciellogroup.com/blog/2014/10/aria-in-html-there-goes-the-neighborhood/#html5na">not currently available in HTML</a>.</li>
     </ul></section>
@@ -220,7 +187,7 @@ kbd {
   <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
 <p class="note">Applying <code>aria-hidden</code> to a parent/ancestor of a visible interactive element will also result in the interactive element being hidden, so <strong>don't do this either</strong>:</p>
 <pre class="nohighlight"><code class="block">
-&lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt; 
+&lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt;
 &lt;button&gt;press me&lt;/button&gt;
 <mark>&lt;/div></mark></code></pre>
   <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, as long as it's not focusable. For example:</p>
@@ -259,12 +226,12 @@ or
 <mark>&lt;span id=&quot;p1&quot;>user name&lt;/span&gt; &lt;input type=&quot;text&quot; aria-labelledby=&quot;p1&quot;&gt;
 
 </code></pre>
-	
-	 
+
+
     <p>The control's <a href="https://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
     <p><img src="name.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'editable text'."></p>
     <div class="note"><p>Note: The example above is for ARIA widgets. For regular HTML inputs, follow the First Rule of ARIA, and use the <a href="https://www.w3.org/TR/html52/sec-forms.html#the-label-element"><code>label</code></a> element with a <code>for</code> attribute to associate labels with <code>input</code> elements.</p></div>
-    
+
     <h4>HTML <code>label</code> element and labelable elements</h4>
     <p>The following is about using the <code>label</code> in HTML. If you are building ARIA widgets, refer to the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/">ARIA Authoring Practices Document</a>
     <p>The <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a>.</p>
@@ -411,7 +378,7 @@ or
 </ul>
 <h5 id="p10">Other static elements with <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code></h5>
 <p>NOTE: There are no appreciable differences in these tests across popular browsers, platforms or in <code>iframe</code>s.</p>
-			    
+
 <table aria-describedby="p10" >
 <thead >
 <tr>
