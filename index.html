@@ -2,145 +2,156 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-
 <title>Using ARIA</title>
-<script class='remove'>
-  function addEllipsis(id) {
-    document.getElementById(id).childNodes.item(2).textContent = "\n    â€¦\n";
-  }
-  function removeNodes(nodesToRemove) {
-    var i, j;
-    for (i = 0; i < nodesToRemove.length; ++i) {
-      for (j = 0; j < nodesToRemove[i].length; ++j) {
-        nodesToRemove[i][j].parentNode.removeChild(nodesToRemove[i][j]);
-      }
-    }
-  }
-</script>
-<script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+<script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
 <script type="text/javascript" class='remove'>
   var respecConfig = {
-	   includePermalinks: false,
-  permalinkEdge: true,
-  permalinkHide: false,
-  permalinkSymbol: "🔗",
-      specStatus: "ED",
-      shortName:  "using-aria",
-      edDraftURI: "https://w3c.github.io/using-aria/",
-      noRecTrack: "true",
-      editors: [
-            {   name:       "Steve Faulkner",
-                company:    "The Paciello Group",
-                mailto:     "sfaulkner@paciellogroup.com",
-                w3cid: "35007"
-            },
-			{   name:       "David MacDonald",
-                company:    "CanAdapt Solutions Inc.",
-                mailto:     "david100@sympatico.ca",
-                w3cid: "35466"
-            },
-      ],
-      extraCSS: [ "https://dev.w3.org/2009/dap/ReSpec.js/css/respec.css" ],
-      wg:           "Web Platform Working Group",
-      wgURI:        "https://www.w3.org/WebPlatform/WG/",
-      license: "w3c-software-doc",
-      wgPublicList: "public-html",
-      wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/83482/status",
-
-      github: "https://github.com/w3c/using-aria/",
-		  
-		 
-
-      after: function () {
-        var nodesToRemove = [
-          document.querySelectorAll("table.parameters"),
-          document.querySelectorAll("li.tocline > a[href^='#attributes']"),
-          document.querySelectorAll("li.tocline > a[href^='#methods']"),
-        ];
-        addEllipsis('idl-def-HTMLElement');
-        removeNodes(nodesToRemove);
-      }
+    specStatus: "ED",
+    shortName: "using-aria",
+    noRecTrack: "true",
+    editors: [
+      {
+        name: "Steve Faulkner",
+        company: "The Paciello Group",
+        mailto: "sfaulkner@paciellogroup.com",
+        w3cid: "35007",
+      },
+      {
+        name: "David MacDonald",
+        company: "CanAdapt Solutions Inc.",
+        mailto: "david100@sympatico.ca",
+        w3cid: "35466",
+      },
+    ],
+    wg: "Web Platform Working Group",
+    wgURI: "https://www.w3.org/WebPlatform/WG/",
+    wgPatentURI: "https://www.w3.org/2004/01/pp-impl/83482/status",
+    github: "w3c/using-aria",
   };
 </script>
 <style>
-table
-
-{
-
-	border-collapse: collapse;
-
-	border: 1px solid #630;
-
-font: normal 95% arial, Verdana, helvetica, sans-serif;
+table {
+  border-collapse: collapse;
+  border: 1px solid #630;
+  font: normal 95% arial, Verdana, helvetica, sans-serif;
 }
 
-caption {font-weight: bold}
-
-th, td
-
-{
-
-	text-align: left;
-
-	vertical-align: top;
-
-	padding: 0.3em;
-
-	border: 1px solid #630;
-
+caption {
+  font-weight: bold;
 }
 
-td h1 {font-size:85%;margin:0 0 0 0;}
-td p {margin:5px 2px 5px 2px;}
-thead th
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.3em;
+  border: 1px solid #630;
+}
 
-{
+td h1 {
+  font-size: 85%;
+  margin: 0 0 0 0;
+}
+td p {
+  margin: 5px 2px 5px 2px;
+}
+thead th {
+  font-weight: bold;
 
-	font-weight: bold;
-
-	text-align: center;
-
+  text-align: center;
 }
 
 /*td span {border: 2px solid #9acd32;display:inline-block;padding:2px;}
 span:focus {background:#f5f5f5;border: 2px solid #a0522d;}
 td:focus {background:#f5f5f5;border: 2px solid #a0522d;}*/
-caption {text-align:left}
+caption {
+  text-align: left;
+}
 
+.support {
+  color: #090;
+  font-size: 1.2em;
+}
+.partial {
+  color: #939393;
+  font-size: 1.2em;
+}
+.nosupport {
+  color: #f00;
+  font-size: 1.2em;
+}
 
-.support {color:#090;font-size:1.2em }
-	.partial {color:#939393;font-size:1.2em }
-	.nosupport{color:#F00;font-size:1.2em }
+div.example {
+  border: 1px dashed #b8860b;
+  padding: 5px;
+  margin-top: 5px;
+  background: #ffffff;
+}
 
+sup {
+  font-size: 80%;
+}
+td ul {
+  padding-left: 4px;
+  list-style-type: none;
+}
+img {
+  border: none;
+}
+code.block {
+  color: #bf3400;
+  padding: 10px;
+  display: block;
+  background: #ebebeb;
+  min-width: 20em;
+  max-width: 48em;
+}
+code.blockat {
+  color: #bf3400;
+  padding: 10px;
+  display: block;
+  background: #ffffd0;
+  min-width: 20em;
+  max-width: 48em;
+}
+mark {
+  background-color: #ff9;
+}
+div,
+section,
+hr {
+  margin-top: 10px;
+}
+code {
+  color: #bf3400 !important;
+}
 
-	div.example{border: 1px dashed #b8860b;padding: 5px;margin-top:5px;background:#FFFFFF}
+.example {
+  margin-left: 30px;
+}
 
-	sup {font-size: 80%}
-	td ul {padding-left:4px;list-style-type:none}
-	img {border:none}
-	code.block {color:#BF3400;padding: 10px;display:block;background:#EBEBEB;min-width:20em;max-width:48em;}
-        code.blockat {color:#BF3400;padding: 10px;display:block;background:#FFFFD0;min-width:20em;max-width:48em;}
-	mark {background-color:#FF9}
-	div, section, hr {margin-top:10px}
-        code {color:#BF3400 !important;}
-
-.example {margin-left:30px;}
-
-div.note {padding-top:inherit !important;padding-bottom:inherit !important}
-div.note-title+p {margin-top:0px !important;}
-div.note-title {font-weight:bold !important;}
+div.note {
+  padding-top: inherit !important;
+  padding-bottom: inherit !important;
+}
+div.note-title + p {
+  margin-top: 0px !important;
+}
+div.note-title {
+  font-weight: bold !important;
+}
 kbd {
-			background-color: #F1F1F1;
-			border: 1px solid #666;
-			border-radius: 5px;
-			color: #333;
-			padding: 0px 2px;
-			margin: 1px;
-			font-weight: bold;
-			font-family: Arial,Helvetica,sans-serif;
-			min-width: 17px;
-			display: inline-block;
-			 }
+  background-color: #f1f1f1;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #333;
+  padding: 0px 2px;
+  margin: 1px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  min-width: 17px;
+  display: inline-block;
+}
 </style>
 </head>
 
@@ -148,36 +159,35 @@ kbd {
   <section id="abstract">
   <p role="contentinfo">This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
-      Accessible Rich Internet Applications specification [[WAI-ARIA-1.1]], which
+      [[[WAI-ARIA-1.2]]] specification , which
       defines a way to make Web content and Web applications more accessible to
-      people with disabilities. This document demonstrates how to use WAI-ARIA in [[HTML51]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
+      people with disabilities. This document demonstrates how to use WAI-ARIA in [[HTML]], which especially helps with dynamic content and advanced user interface controls developed with Ajax, HTML, JavaScript, and related technologies.</p>
   </section>
   <section id="sotd">
     <p class="note">This document is informative only. Resources are for information purposes only, no endorsement implied.</p>
     <p>It  is published by the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>.</p>
 
    <p> It is a draft document and its contents is subject to change without notice.</p>
-   <p class="note">If you find an issue or have suggestions please <a href="https://github.com/w3c/using-aria/issues">file a bug</a>.</p>
 
   </section>
   <section tabindex="-1" id="intro">
     <h2>Introduction</h2>
     <p>This document is a practical guide for developers on how to add
       accessibility information to HTML elements using the
-      Accessible Rich Internet Applications specification [[WAI-ARIA-1.1]], which
+      [[[WAI-ARIA-1.2]]] specification, which
       defines a way to make Web content and Web applications more accessible to
       people with disabilities. This document demonstrates how to use WAI-ARIA in HTML5, it especially helps with dynamic content and
       advanced user interface controls developed with Ajax, HTML, JavaScript, and
       related technologies.</p>
-    <p>This document provides advice for use of ARIA attributes in [[HTML51]].    </p>
+    <p>This document provides advice for use of ARIA attributes in [[HTML]].    </p>
     <p>For general best-practice information about using ARIA, see the
-      [[wai-aria-practices-1.1]] document.</p>
+      [[WAI-ARIA-PRACTICES-1.2]] document.</p>
     <p>The following is a longer list of resources that provide relevant information:</p>
     <ul>
-      <li><a href="http://www.w3.org/TR/html-aria/">ARIA in HTML</a></li>
-      <li><a href="http://rawgit.com/w3c/aria/master/practices/aria-practices.html" ><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 1.1 Authoring Practices</a></li>
-      <li><a href="http://www.w3.org/TR/wai-aria-1.1/">Accessible Rich Internet Applications (<abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr>) 1.1</a></li>
-      <li><a href="http://www.w3.org/TR/html51/">HTML 5.1</a></li>
+      <li>[[[HTML-ARIA]]]</li>
+      <li>[[[WAI-ARIA-PRACTICES-1.2]]]</li>
+      <li>[[[WAI-ARIA-1.2]]]</li>
+      <li>[[[HTML]]]</li>
       <li><a href="http://www.html5accessibility.com">HTML5 Accessibility</a></li>
       </ul>
   </section>
@@ -186,10 +196,10 @@ kbd {
 
   <section id="firstrule">
     <h3 tabindex="-1" id="rule1">First Rule of ARIA Use</h3>
-    <p>If you <em>can</em> use a native HTML element [[HTML51]] or attribute with the semantics and behavior you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
+    <p>If you <em>can</em> use a native HTML element [[HTML]] or attribute with the semantics and behavior you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
     <p><strong>Under what circumstances may this not be possible?</strong></p>
     <ul>
-      <li>If the feature is available in HTML [[HTML51]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
+      <li>If the feature is available in HTML [[HTML]] but it is not implemented or it is implemented, but <a href="http://www.html5accessibility.com">accessibility support</a> is not.</li>
       <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
       <li>If the feature is <a href="https://www.paciellogroup.com/blog/2014/10/aria-in-html-there-goes-the-neighborhood/#html5na">not currently available in HTML</a>.</li>
     </ul></section>
@@ -207,7 +217,7 @@ kbd {
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard keystrokes or keystroke combinations where applicable.</p>
    <p>For example, if using <code>role=button</code> the element must be able to receive focus and a user must be able to activate the action associated with the element using <strong>both</strong> the <kbd>enter</kbd> (on WIN OS) or <kbd>return</kbd> (MAC OS) and the <kbd>space</kbd> key.</p>
-   <p>Refer to the <a href="https://www.w3.org/TR/wai-aria-practices/#aria_ex">Design Patterns and Widgets</a> and <a href="https://www.w3.org/TR/wai-aria-practices/#keyboard">Developing a Keyboard Interface</a> sections of [[wai-aria-practices-1.1]]</p>
+   <p>Refer to the <a href="https://www.w3.org/TR/wai-aria-practices/#aria_ex">Design Patterns and Widgets</a> and <a href="https://www.w3.org/TR/wai-aria-practices/#keyboard">Developing a Keyboard Interface</a> sections of [[WAI-ARIA-PRACTICES-1.2]]</p>
 
  </section>
  <section id="4thrule">
@@ -220,7 +230,7 @@ kbd {
   <pre class="nohighlight"><code class="block">&lt;<mark>button</mark> <mark>aria-hidden="true"</mark>&gt;press me&lt;/<mark>button</mark>&gt;</code>   </pre>
 <p class="note">Applying <code>aria-hidden</code> to a parent/ancestor of a visible interactive element will also result in the interactive element being hidden, so <strong>don't do this either</strong>:</p>
 <pre class="nohighlight"><code class="block">
-&lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt; 
+&lt;<mark>div</mark> <mark>aria-hidden="true"</mark>&gt;
 &lt;button&gt;press me&lt;/button&gt;
 <mark>&lt;/div></mark></code></pre>
   <p class="note">If an interactive element <strong>cannot be seen or interacted with</strong>, then you can apply <code>aria-hidden</code>, as long as it's not focusable. For example:</p>
@@ -259,14 +269,14 @@ or
 <mark>&lt;span id=&quot;p1&quot;>user name&lt;/span&gt; &lt;input type=&quot;text&quot; aria-labelledby=&quot;p1&quot;&gt;
 
 </code></pre>
-	
-	 
+
+
     <p>The control's <a href="https://en.wikipedia.org/wiki/Microsoft_Active_Accessibility">MSAA</a> <code>accName</code> property has a value of &quot;user name&quot;:</p>
     <p><img src="name.png" width="277" height="143" alt="example control with MSAA name and role information displayed. The accName property has a value of 'user name', the accRole property is 'editable text'."></p>
     <div class="note"><p>Note: The example above is for ARIA widgets. For regular HTML inputs, follow the First Rule of ARIA, and use the <a href="https://www.w3.org/TR/html52/sec-forms.html#the-label-element"><code>label</code></a> element with a <code>for</code> attribute to associate labels with <code>input</code> elements.</p></div>
-    
+
     <h4>HTML <code>label</code> element and labelable elements</h4>
-    <p>The following is about using the <code>label</code> in HTML. If you are building ARIA widgets, refer to the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/">ARIA Authoring Practices Document</a>
+    <p>The following is about using the <code>label</code> in HTML. If you are building ARIA widgets, refer to the <a href="https://www.w3.org/TR/WAI-ARIA-PRACTICES-1.2/">ARIA Authoring Practices Document</a>
     <p>The <a href="https://www.w3.org/TR/html51/sec-forms.html#the-label-element"><code>label</code></a> element cannot be used to provide an accessible name for custom controls, unless the <code>label</code> is referencing a native HTML <a href="https://www.w3.org/TR/html51/sec-forms.html#labelable-element">labelable element</a>.</p>
     <pre class="nohighlight"><code class="block">
      &lt;!-- <strong>HTML input element with combox role</strong> --&gt;
@@ -319,7 +329,7 @@ or
     <p><strong>Note:</strong> The <a href="http://validator.w3.org/nu/">W3C Nu Markup  Checker</a> support for ARIA checking is a work in progress, so cannot be wholly relied upon (though it is pretty <em>darn</em> good!) to provide the correct results. It is recommended that if you encounter a result that conflicts with the ARIA conformance requirements in the ARIA specification or the HTML specification, please <a href="https://github.com/validator/validator/issues">raise an issue</a>.</p></section>
   <section id="ariapresentation">
   <h3 tabindex="-1" id="presentation">Use of Role=presentation or Role=none</h3>
-  <p><a href="http://www.w3.org/TR/wai-aria-1.1/#presentation"><code>role=presentation</code></a>, or its synonym <code><a href="https://www.w3.org/TR/wai-aria-1.1/#none">role=none</a></code>, removes the semantics from the element it is on.</p>
+  <p><a href="http://www.w3.org/TR/wai-aria-1.2/#presentation"><code>role=presentation</code></a>, or its synonym <code><a href="https://www.w3.org/TR/wai-aria-1.2/#none">role=none</a></code>, removes the semantics from the element it is on.</p>
     <p>For example, this code in the HTML tree:</p>
   <pre class="nohighlight"><code class="block">&lt;h1 <mark>role=&quot;presentation"</mark>&gt;text&lt;/h1&gt;</code></pre>
   <p>Becomes this in the accessibility tree:</p>
@@ -411,15 +421,15 @@ or
 </ul>
 <h5 id="p10">Other static elements with <code>aria-label</code>, <code>aria-labelledby</code> and <code>aria-describedby</code></h5>
 <p>NOTE: There are no appreciable differences in these tests across popular browsers, platforms or in <code>iframe</code>s.</p>
-			    
+
 <table aria-describedby="p10" >
 <thead >
 <tr>
-<th width="10%" scope="col">&nbsp;</th>
-<th width="15%" scope="col">JAWS</th>
-<th width="20%" scope="col">NVDA</th>
-<th width="30%" scope="col">VoiceOver</th>
-<th width="12%" scope="col">Talkback</th>
+<th style="width:10%" scope="col">&nbsp;</th>
+<th style="width:15%" scope="col">JAWS</th>
+<th style="width:20%" scope="col">NVDA</th>
+<th style="width:30%" scope="col">VoiceOver</th>
+<th style="width:12%" scope="col">Talkback</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -470,7 +480,7 @@ or
       &gt;tooltip text&lt;/div&gt; </code>
 	 
       <h4>Hiding Content Has No Effect on Accessible Name or Description Calculation</h4>
-     <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-labelledby">aria-labelledby</a> and <a href="http://www.w3.org/TR/wai-aria-1.1/#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
+     <p>By design, hiding the content (using CSS <code>display:none</code> or <code>visibility:hidden</code> or the HTML <a href="http://www.w3.org/TR/html51/editing.html#the-hidden-attribute">hidden attribute</a>) of the element(s) referenced by <a href="http://www.w3.org/TR/wai-aria-1.2/#aria-labelledby">aria-labelledby</a> and <a href="http://www.w3.org/TR/wai-aria-1.2/#aria-describedby">aria-describedby</a> does not stop the content from being used to provide the name/description.<!--more-->
      </p>
      <blockquote>By default, <a class="termref internalDFN" href="https://www.w3.org/TR/accname-aam-1.1/#dfn-assistive-technologies">assistive technologies</a> do not relay hidden information, but an author can explicitly override that and include hidden text as part of the <a class="termref internalDFN" href="https://www.w3.org/TR/accname-aam-1.1/#dfn-accessible-name">accessible name</a> or <a class="termref internalDFN" href="https://www.w3.org/TR/accname-aam-1.1/#dfn-accessible-description">accessible description</a> by using <code>aria-labelledby</code> or <code>aria-describedby</code>.
       <footer><cite>- <a href="https://www.w3.org/TR/accname-aam-1.1/#mapping_additional_nd">Accessible Name and Description: Computation and <abbr title="Application Programming Interfaces">API</abbr> Mappings 1.1</a></cite></footer></blockquote>
@@ -641,7 +651,7 @@ If you want to associate context sensitive text, such as an error message, you c
 </table></section>
    <section id="aria-does-nothing">
     <h3>ARIA  Adds Nothing to Default Semantics of Most HTML Elements</h3>
-<p class="note">In some cases the semantics of an HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://www.w3.org/TR/wai-aria-1.1/#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
+<p class="note">In some cases the semantics of an HTML element can be expressed by an ARIA role, state or property. This is<em> </em>known as the element's '<a href="http://www.w3.org/TR/wai-aria-1.2/#implicit_semantics">Default Implicit ARIA semantics</a>'</p>
 None of the elements defined in HTML4 need ARIA roles added to expose their default semantics. Adding an ARIA role is extra work for no gain and could lead to pain for you or somebody else. The new features defined in HTML5 , where implemented, now have their default semantics exposed by most browsers.
 
 The <a href="http://www.w3.org/TR/html51/dom.html#aria-usage-note">HTML Specification</a> includes this note:
@@ -666,64 +676,64 @@ Below are listed the ARIA roles and properties not considered to be available na
 <section>
 <h4>ARIA Roles</h4>
 <ol>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#alert"><code>alert</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#alertdialog"><code>alertdialog</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#application"><code>application</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#directory"><code>directory</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#document"><code>document</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#feed"><code>feed</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#grid"><code>grid</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#gridcell"><code>gridcell</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#group"><code>group</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#log"><code>log</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#marquee"><code>marquee</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#menu"><code>menu</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#menubar"><code>menubar</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#menuitemcheckbox"><code>menuitemcheckbox</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#menuitemradio"><code>menuitemradio</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#none"><code>none</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#note"><code>note</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#presentation"><code>presentation</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#scrollbar"><code>scrollbar</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#search"><code>search</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#status"><code>status</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#switch"><code>switch</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#tab"><code>tab</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#tablist"><code>tablist</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#tabpanel"><code>tabpanel</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#timer"><code>timer</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#toolbar"><code>toolbar</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#tooltip"><code>tooltip</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#tree"><code>tree</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#treegrid"><code>treegrid</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#treeitem"><code>treeitem</code></a></li>
+	<li><a data-cite="wai-aria-1.2#alert">`alert`</a></li>
+	<li><a data-cite="wai-aria-1.2#alertdialog">`alertdialog`</a></li>
+	<li><a data-cite="wai-aria-1.2#application">`application`</a></li>
+	<li><a data-cite="wai-aria-1.2#directory">`directory`</a></li>
+	<li><a data-cite="wai-aria-1.2#document">`document`</a></li>
+	<li><a data-cite="wai-aria-1.2#feed">`feed`</a></li>
+	<li><a data-cite="wai-aria-1.2#grid">`grid`</a></li>
+	<li><a data-cite="wai-aria-1.2#gridcell">`gridcell`</a></li>
+	<li><a data-cite="wai-aria-1.2#group">`group`</a></li>
+	<li><a data-cite="wai-aria-1.2#log">`log`</a></li>
+	<li><a data-cite="wai-aria-1.2#marquee">`marquee`</a></li>
+	<li><a data-cite="wai-aria-1.2#menu">`menu`</a></li>
+	<li><a data-cite="wai-aria-1.2#menubar">`menubar`</a></li>
+	<li><a data-cite="wai-aria-1.2#menuitemcheckbox">`menuitemcheckbox`</a></li>
+	<li><a data-cite="wai-aria-1.2#menuitemradio">`menuitemradio`</a></li>
+	<li><a data-cite="wai-aria-1.2#none">`none`</a></li>
+	<li><a data-cite="wai-aria-1.2#note">`note`</a></li>
+	<li><a data-cite="wai-aria-1.2#presentation">`presentation`</a></li>
+	<li><a data-cite="wai-aria-1.2#scrollbar">`scrollbar`</a></li>
+	<li><a data-cite="wai-aria-1.2#search">`search`</a></li>
+	<li><a data-cite="wai-aria-1.2#status">`status`</a></li>
+	<li><a data-cite="wai-aria-1.2#switch">`switch`</a></li>
+	<li><a data-cite="wai-aria-1.2#tab">`tab`</a></li>
+	<li><a data-cite="wai-aria-1.2#tablist">`tablist`</a></li>
+	<li><a data-cite="wai-aria-1.2#tabpanel">`tabpanel`</a></li>
+	<li><a data-cite="wai-aria-1.2#timer">`timer`</a></li>
+	<li><a data-cite="wai-aria-1.2#toolbar">`toolbar`</a></li>
+	<li><a data-cite="wai-aria-1.2#tooltip">`tooltip`</a></li>
+	<li><a data-cite="wai-aria-1.2#tree">`tree`</a></li>
+	<li><a data-cite="wai-aria-1.2#treegrid">`treegrid`</a></li>
+	<li><a data-cite="wai-aria-1.2#treeitem">`treeitem`</a></li>
 </ol>
 </section>
 <section>
 <h4>ARIA States and Properties (aria-* Attributes)</h4>
 <ol>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-activedescendant"><code>aria-activedescendant</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-atomic"><code>aria-atomic</code></a></li>
-	<li><a class="state-reference" href="https://www.w3.org/TR/wai-aria-1.2/#aria-busy"><code>aria-busy</code> (state) </a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-controls"><code>aria-controls</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-describedby"><code>aria-describedby</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-dropeffect"><code>aria-dropeffect</code></a></li>
-	<li><a class="state-reference" href="https://www.w3.org/TR/wai-aria-1.2/#aria-expanded"><code>aria-expanded</code> (state) </a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-flowto"><code>aria-flowto</code></a></li>
-	<li><a class="state-reference" href="https://www.w3.org/TR/wai-aria-1.2/#aria-grabbed"><code>aria-grabbed</code> (state)</a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-haspopup"><code>aria-haspopup</code></a></li>
-	<li><a class="state-reference" href="https://www.w3.org/TR/wai-aria-1.2/#aria-hidden"><code>aria-hidden</code> (state)</a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-label"><code>aria-label</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby"><code>aria-labelledby</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-level"><code>aria-level</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-live"><code>aria-live</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-orientation"><code>aria-orientation</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-owns"><code>aria-owns</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-posinset"><code>aria-posinset</code></a></li>
-	<li><a class="state-reference" href="https://www.w3.org/TR/wai-aria-1.2/#aria-pressed"><code>aria-pressed</code> (state)</a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-relevant"><code>aria-relevant</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-setsize"><code>aria-setsize</code></a></li>
-	<li><a href="https://www.w3.org/TR/wai-aria-1.2/#aria-sort"><code>aria-sort</code></a></li>
+	<li><a data-cite="wai-aria-1.2#aria-activedescendant">`aria-activedescendant`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-atomic">`aria-atomic`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-busy" class="state-reference">`aria-busy` (state)</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-controls">`aria-controls`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-describedby">`aria-describedby`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-dropeffect">`aria-dropeffect`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-expanded" class="state-reference">`aria-expanded` (state)</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-flowto">`aria-flowto`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-grabbed" class="state-reference">`aria-grabbed` (state)</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-haspopup">`aria-haspopup`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-hidden" class="state-reference">`aria-hidden` (state)</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-label">`aria-label`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-labelledby">`aria-labelledby`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-level">`aria-level`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-live">`aria-live`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-orientation">`aria-orientation`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-owns">`aria-owns`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-posinset">`aria-posinset`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-pressed" class="state-reference">`aria-pressed` (state)</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-relevant">`aria-relevant`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-setsize">`aria-setsize`</a></li>
+	<li><a data-cite="wai-aria-1.2#aria-sort">`aria-sort`</a></li>
 </ol>
 </section>
 </section>
