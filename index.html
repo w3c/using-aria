@@ -191,8 +191,8 @@ kbd {
   <section role="main" id="NOTES">
   <h2 tabindex="-1" id="notes2">Notes on ARIA Use in HTML</h2>
 
-  <section id="firstrule">
-    <h3 tabindex="-1" id="rule1">First Rule of ARIA Use</h3>
+  <section id="rule1">
+    <h3 tabindex="-1" id="firstrule">First Rule of ARIA Use</h3>
     <p>If you <em>can</em> use a native HTML element [[HTML]] or attribute with the semantics and behavior you require <strong>already built in</strong>, instead of re-purposing an element and adding  an ARIA role, state or property to make it accessible<strong>, then do so</strong>.</p>
     <p><strong>Under what circumstances may this not be possible?</strong></p>
     <ul>
@@ -200,7 +200,7 @@ kbd {
       <li>If the visual design constraints rule out the use of a particular native element, because the element cannot be styled as required.</li>
       <li>If the feature is <a href="https://www.paciellogroup.com/blog/2014/10/aria-in-html-there-goes-the-neighborhood/#html5na">not currently available in HTML</a>.</li>
     </ul></section>
-   <section id="secondrule"> <h3 id="second" tabindex="-1">Second Rule of ARIA Use</h3>
+   <section id="rule2"><a name="secondrule"></a> <h3 id="second" tabindex="-1">Second Rule of ARIA Use</h3>
     <p>Do not change native  semantics, unless you really have to.</p>
     <p>For example: Developer wants to build a heading that's a tab.</p>
   <p>Do <strong>not</strong> do this:</p>
@@ -209,7 +209,7 @@ kbd {
     <pre class="nohighlight"><code class="block">&lt;div <mark>role=tab</mark>&gt;<mark></mark>&lt;<mark>h2</mark>&gt;heading tab&lt;/<mark>h2</mark>&gt;<mark></mark>&lt;/div&gt;</code></pre>
     <p class="note">If a non-interactive element is used as the basis for an interactive element, developers have to add the semantics using ARIA and the appropriate interaction behavior using scripting. In the case of a button, for example, it is <strong>much better</strong> and easier to <a href="https://developer.paciellogroup.com/blog/2011/04/html5-accessibility-chops-just-use-a-button/">Just use a (native HTML) button</a>.</p>
     <p class="note">It is OK to use native HTML elements, that have similar semantics to ARIA roles used, for fallback. For example, using HTML <a href="https://www.w3.org/TR/html51/grouping-content.html#elementdef-ul">list elements</a> for the skeleton of an ARIA-enabled, scripted <a href="http://hanshillen.github.io/jqtest/#goto_tree">tree widget</a>.</p></section>
- <section id="3rdrule"> <h3 tabindex="-1" id="third">Third Rule of ARIA Use</h3>
+<section id="rule3"><a name="3rdrule"></a> <h3 tabindex="-1" id="third">Third Rule of ARIA Use</h3>
    <p>All interactive ARIA controls must be usable with the keyboard. </p>
    <p>If you create a widget that a user can click or tap or drag or drop or slide or scroll, a user must also be able to navigate to the widget and perform an equivalent action using the keyboard.</p>
    <p>All interactive widgets must be scripted to respond to standard keystrokes or keystroke combinations where applicable.</p>
@@ -217,7 +217,8 @@ kbd {
    <p>Refer to the <a href="https://www.w3.org/TR/wai-aria-practices/#aria_ex">Design Patterns and Widgets</a> and <a href="https://www.w3.org/TR/wai-aria-practices/#keyboard">Developing a Keyboard Interface</a> sections of [[WAI-ARIA-PRACTICES-1.2]]</p>
 
  </section>
- <section id="4thrule">
+ <section id="rule4">
+   <a name="4thrule"></a>
    <h3 tabindex="-1" id="fourth">Fourth Rule of ARIA Use</h3>
    <p>Do not use <code>role=&quot;presentation&quot;</code> or <code>aria-hidden=&quot;true&quot;</code> on a <strong>focusable</strong> element .</p>
    <p>Using either of these on a <strong>focusable</strong> element will result in some users focusing on 'nothing'.</p>
@@ -240,7 +241,7 @@ kbd {
   it won't be focusable, and it will also be removed from the <a href="https://www.w3.org/TR/accname-aam-1.1/#dfn-accessibility-tree">accessibility tree</a>. This makes the
   addition of <code>aria-hidden="true"</code> or explicitly setting <code>tabindex="-1"</code> unnecessary.</p>
  </section>
- <section id="fifthrule"><h3 tabindex="-1" id="fifth">Fifth Rule of ARIA Use</h3>
+<section id="rule5"><a name="fifthrule"></a><h3 tabindex="-1" id="fifth">Fifth Rule of ARIA Use</h3>
 <p>All interactive elements must have an <a href="http://www.w3.org/TR/accname-aam-1.1/#dfn-accessible-name">accessible name</a>. </p>
 <p>An interactive element only has an accessible name when its Accessibility API <em>accessible name</em> (or equivalent) property has a value.</p>
 <p>For example, the <code>input type=text</code> in the code example below has a visible label 'user name' , but no accessible name:</p>
