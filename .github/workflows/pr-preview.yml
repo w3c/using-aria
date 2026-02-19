@@ -1,0 +1,26 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
+
+jobs:
+  pr-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      
+      - name: Build with ReSpec
+        if: github.event.action != 'closed'
+        run: |
+          npm install -g respec
+          respec -s index.html -o index.html --localhost
+      
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./
+          preview-branch: gh-pages
