@@ -18,7 +18,7 @@ jobs:
         if: github.event.action != 'closed'
         run: |
           npm install -g respec
-          respec -s index.html -o index.html --localhost
+          respec -s index.html -o index.html --localhost --disable-sandbox    
       
       - uses: rossjrw/pr-preview-action@v1
         with:
